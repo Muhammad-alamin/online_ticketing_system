@@ -91,13 +91,34 @@ Route::middleware('auth')->group(function () {
         Route::get('/admin/edit/section/{id}',[App\Http\Controllers\Admin\SectionController::class,'editSection'])->name('admin.edit.section');
         Route::put('/admin/update/section/{id}',[App\Http\Controllers\Admin\SectionController::class,'update'])->name('admin.update.section');
 
-                        //block
-                        Route::match(['get','post'], '/admin/add/block/{id}',[App\Http\Controllers\Admin\BlockController::class,'addBlock'])->name('admin.add.block');
-                        Route::get('/admin/delete/block/{id}',[App\Http\Controllers\Admin\BlockController::class,'deleteBlock'])->name('admin.delete.block');
-                        Route::get('/admin/edit/block/{id}',[App\Http\Controllers\Admin\BlockController::class,'editBlock'])->name('admin.edit.block');
-                        Route::put('/admin/update/block/{id}',[App\Http\Controllers\Admin\BlockController::class,'update'])->name('admin.update.block');
+        //block
+        Route::match(['get','post'], '/admin/add/block/{id}',[App\Http\Controllers\Admin\BlockController::class,'addBlock'])->name('admin.add.block');
+        Route::get('/admin/delete/block/{id}',[App\Http\Controllers\Admin\BlockController::class,'deleteBlock'])->name('admin.delete.block');
+        Route::get('/admin/edit/block/{id}',[App\Http\Controllers\Admin\BlockController::class,'editBlock'])->name('admin.edit.block');
+        Route::put('/admin/update/block/{id}',[App\Http\Controllers\Admin\BlockController::class,'update'])->name('admin.update.block');
+
+
+
+});
+
+
+//seller route
+
+Route::middleware('auth')->group(function () {
+    Route::get('sell/ticket',[App\Http\Controllers\Seller\TicketController::class,'index'])->name('sellTicket');
+    Route::get("/sell/search",[App\Http\Controllers\Seller\TicketController::class,'search']);
+    Route::get("/add/ticket/{id}",[App\Http\Controllers\Seller\TicketController::class,'addTicket'])->name('addTicket');
+
+    Route::post("ticket/store",[App\Http\Controllers\Seller\TicketController::class,'store'])->name('ticket.store');
+
+    //ajax child category data fetch
+    Route::get('/seller/get/child_sub_cat-list/{id}',[App\Http\Controllers\Seller\TicketController::class,'getChildSubCat']);
 
 });
 
 //front route
 Route::get('/',[App\Http\Controllers\Front\HomeController::class,'index'])->name('Home');
+
+//search ticket & ticketlist
+Route::get("/ticket/search",[App\Http\Controllers\Front\TicketController::class,'search']);
+Route::get("/list/ticket/{id}",[App\Http\Controllers\Front\TicketController::class,'ticketList'])->name('listTicket');

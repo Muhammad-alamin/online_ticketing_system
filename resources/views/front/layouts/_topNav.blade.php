@@ -1,4 +1,4 @@
-<header id="masthead" class="site-header fix-header header-1">
+<header id="masthead" class="site-header">
     <div class="top-header top-header-bg">
         <div class="container">
             <div class="row">
@@ -20,23 +20,34 @@
                 </div>
                 <div class="top-right">
                     <ul>
+                        @if (Route::has('login'))
+                        @auth()
+                        <li>
+                            <a class="" href="{{ route('logout') }}" onclick="event.preventDefault(); document.getElementById('logout-form').submit();">Sign out</a>
+
+                        <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
+                            @csrf
+                        </form>
+                        </li>
+                        @else
                         <li>
                             <a href="{{ route('login') }}">Sign In</a>
                         </li>
                         <li>
                             <a href="{{ route('register') }}">Sign Up</a>
                         </li>
+                        @endauth
+                        @endif
                     </ul>
                 </div>
             </div>
         </div>
     </div>
-    <div class="main-header">
+    <div class="main-header main-header-bg">
         <div class="container">
             <div class="row">
                 <div class="site-branding col-md-3">
-                    <h1 class="site-title"><a href="homepage-1.html" title="myticket" rel="home"><img
-                                src="images/logo.png" alt="logo"></a></h1>
+                    <h1 class="site-title"><a href="#" title="myticket" rel="home"><img src="images/logo.png" alt="logo"></a></h1>
                 </div>
 
                 <div class="col-md-9">
@@ -64,8 +75,12 @@
                                 <li><a href="order-ticket-without-seat.html">Parties</a></li>
                                 <li><a href="event-by-category.html">Theater</a></li>
                                 <li><a href="gallery.html">Gallery</a></li>
-                                <li><a href="select-seat-2.html">Ticekts</a></li>
-                                <li class="cart"><a href="#">0</a></li>
+                                @if (Route::has('login'))
+                                @auth()
+                                <li><a href="{{ route('sellTicket') }}">Sell Ticekts</a></li>
+                                @endauth
+                                @endif
+                                <li class="cart"><a href="#">2</a></li>
                             </ul>
                         </div>
                     </nav>
@@ -73,4 +88,5 @@
             </div>
         </div>
     </div>
-</header>
+</header><!-- #masthead -->
+

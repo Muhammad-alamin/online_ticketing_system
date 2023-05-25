@@ -11,3 +11,27 @@
 <script src="{{ asset('front/assets/js/featherlight.gallery.min.js') }}"></script>
 <script src="{{ asset('front/assets/js/bootstrap.offcanvas.min.js') }}"></script>
 <script src="{{ asset('front/assets/js/main.js') }}"></script>
+
+
+<script>
+    $(document).ready(function(){
+        $('#search').on('keyup',function(){
+            var query= $(this).val();
+            $.ajax({
+                url:"/ticket/search",
+                type:"GET",
+                data:{'search':query},
+                success:function(data){
+                    $('#search_list').html(data);
+                }
+            });
+             //end of ajax call
+        });
+    });
+
+    $('tr[data-id]').click(function(){
+        alert($(this).data("id"));
+    })
+
+   
+</script>

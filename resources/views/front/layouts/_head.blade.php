@@ -21,9 +21,13 @@
     <link rel="stylesheet" href="{{ asset('front/assets/css/core.css') }}">
 
 
+
     <!-- Custom styles for this template -->
     <link rel="stylesheet" href="{{ asset('front/assets/css/style.css') }}">
     <link rel="stylesheet" href="{{ asset('front/assets/css/responsive.css') }}">
+
+    <script src="https://cdn.jsdelivr.net/npm/jquery@3.6.0/dist/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.0/jquery.min.js" integrity="sha512-3gJwYpMe3QewGELv8k/BX9vcqhryRdzRMxVfq6ngyWXwo03GFEzjsUm8Q7RZcHPHksttq7/GFoxjCVUjkjvPdw==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
 
     <!--[if lt IE 9]>
         <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
