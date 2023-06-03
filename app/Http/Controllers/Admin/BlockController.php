@@ -6,13 +6,14 @@ use App\Http\Controllers\Controller;
 use App\Models\Block;
 use App\Models\Event;
 use App\Models\Section;
+use App\Models\Venue;
 use Illuminate\Http\Request;
 
 class BlockController extends Controller
 {
     public function addBlock(Request $request, $id=null){
 
-        $eventDetails['event'] = Event::with('section','block')->where(['id' => $id])->first();
+        $venueDetails['venue'] = Venue::with('block')->where(['id' => $id])->first();
         if ($request->isMethod('post')){
             // echo '<pre>'; print_r($data); die;
             $request->validate([
@@ -22,7 +23,7 @@ class BlockController extends Controller
             $block = new Block();
 
             $block->block_number = $request->block_number;
-            $block->event_id = $id;
+            $block->venue_id = $id;
             $block->section_id = $request->section_id;
 
             if ($request->hasFile('block_image')){
@@ -44,12 +45,12 @@ class BlockController extends Controller
             return redirect('/admin/add/block/'.$id);
 
         }
-        return view('admin.block.create',$eventDetails);
+        return view('admin.block.create',$venueDetails);
 
     }
 
     public function editBlock($id){
-        $data['sections']= Section::where('event_id',$id)->get();
+        $data['sections']= Section::all();
         $data['block']= Block::find($id);
         return view('admin.block.edit',$data);
     }

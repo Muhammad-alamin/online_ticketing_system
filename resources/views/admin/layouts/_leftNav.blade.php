@@ -75,6 +75,28 @@
                         </ul><!-- .nk-menu-sub -->
                     </li><!-- .nk-menu-item -->
 
+
+                    <li class="nk-menu-item has-sub">
+                        <a href="javascript:void(0)" class="nk-menu-link nk-menu-toggle">
+                            <span class="nk-menu-icon"><em class="ni ni-menu-squared"></em></span>
+                            <span class="nk-menu-text">Venue</span>
+                        </a>
+                        <ul class="nk-menu-sub">
+                            <li class="nk-menu-item">
+                                <a href="{{ route('admin.venue.create') }}"
+                                    class="nk-menu-link @if (request()->routeIs('admin.venue.create')) active @endif">
+                                    <span class="nk-menu-text">Venue Create</span>
+                                </a>
+                            </li>
+                            <li class="nk-menu-item">
+                                <a href="{{ route('admin.venue.index') }}"
+                                    class="nk-menu-link @if (request()->routeIs('admin.venue.index')) active @endif">
+                                    <span class="nk-menu-text">Venue List</span>
+                                </a>
+                            </li>
+                        </ul><!-- .nk-menu-sub -->
+                    </li><!-- .nk-menu-item -->
+
                     <li class="nk-menu-item has-sub">
                         <a href="javascript:void(0)" class="nk-menu-link nk-menu-toggle">
                             <span class="nk-menu-icon"><em class="icon ni ni-alarm-alt"></em></span>

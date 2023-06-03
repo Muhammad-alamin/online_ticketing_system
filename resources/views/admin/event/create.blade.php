@@ -90,6 +90,27 @@
                                                 </div>
                                                 <div class="col-lg-6">
                                                     <div class="form-group">
+                                                        <label class="form-label">Venue Name</label>
+                                                        <div class="form-control-wrap ">
+                                                            <div class="form-control-select">
+                                                                <select class="form-control" id="default-06" name="venue_id"
+                                                                    id="venue_id">
+                                                                    <option selected="" disabled="">Select Venue
+                                                                    </option>
+                                                                    @foreach ($venues as $key => $venue)
+                                                                        <option value="{{ $venue->id }}">
+                                                                            {{ $venue->venue_name }}</option>
+                                                                    @endforeach
+                                                                </select>
+                                                                @error('venue_id')
+                                                                    <i class="text-danger">{{ $message }}</i>
+                                                                @enderror
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="col-lg-6">
+                                                    <div class="form-group">
                                                         <label class="form-label">Match Date & Time</label>
                                                         <div class="form-control-wrap">
                                                             <div class="form-icon form-icon-left">
@@ -97,19 +118,6 @@
                                                             </div>
                                                             <input type="text" class="form-control" name="match_date_time"
                                                                 id="match_time">
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                                <div class="col-lg-6">
-                                                    <div class="form-group">
-                                                        <div class="form-control-wrap">
-                                                            <label for="location" class="form-label">Location/Address</label>
-                                                            <input type="text" class="form-control" name="location"
-                                                                id="location" value=""
-                                                                placeholder="Enter Match location/address">
-                                                            @error('location')
-                                                                <i class="text-danger">{{ $message }}</i>
-                                                            @enderror
                                                         </div>
                                                     </div>
                                                 </div>
@@ -123,23 +131,6 @@
                                                                 <label class="custom-file-label" for="customFile">Choose
                                                                     file</label>
                                                                 @error('image')
-                                                                    <i class="text-danger">{{ $message }}</i>
-                                                                @enderror
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                </div>
-
-                                                <div class="col-lg-6">
-                                                    <div class="form-group">
-                                                        <label class="form-label" for="default-06">Stadium Image</label>
-                                                        <div class="form-control-wrap">
-                                                            <div class="custom-file">
-                                                                <input type="file" name="stadium_image" id="stadium_image"
-                                                                    multiple class="custom-file-input">
-                                                                <label class="custom-file-label" for="customFile">Choose
-                                                                    file</label>
-                                                                @error('stadium_image')
                                                                     <i class="text-danger">{{ $message }}</i>
                                                                 @enderror
                                                             </div>

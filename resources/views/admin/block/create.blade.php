@@ -11,11 +11,11 @@
                     <div class="nk-block-head nk-block-head-sm">
                         <div class="nk-block-between g-3">
                             <div class="nk-block-head-content">
-                                <h3 class="nk-block-title page-title">Block / <strong class="text-primary small">{{$event->match_name}}</strong></h3>
+                                <h3 class="nk-block-title page-title">Block / <strong class="text-primary small">{{$venue->venue_name}}</strong></h3>
                             </div>
                             <div class="nk-block-head-content">
-                                <a href="{{route('admin.event.index')}}" class="btn btn-outline-light bg-white d-none d-sm-inline-flex"><em class="icon ni ni-arrow-left"></em><span>Back</span></a>
-                                <a href="{{route('admin.event.index')}}" class="btn btn-icon btn-outline-light bg-white d-inline-flex d-sm-none"><em class="icon ni ni-arrow-left"></em></a>
+                                <a href="{{route('admin.venue.index')}}" class="btn btn-outline-light bg-white d-none d-sm-inline-flex"><em class="icon ni ni-arrow-left"></em><span>Back</span></a>
+                                <a href="{{route('admin.venue.index')}}" class="btn btn-icon btn-outline-light bg-white d-inline-flex d-sm-none"><em class="icon ni ni-arrow-left"></em></a>
                             </div>
                         </div>
                         <br>
@@ -39,7 +39,7 @@
                                     <div class="col-lg-12">
                                         <div class="card">
                                             <div class="card-inner">
-                                                <form action="{{route('admin.add.block', $event->id)}}" method="post" class="gy-3" enctype="multipart/form-data">
+                                                <form action="{{route('admin.add.block', $venue->id)}}" method="post" class="gy-3" enctype="multipart/form-data">
                                                     @csrf
                                                     <div class="row g-3 align-center">
                                                         <div class="col-lg-10">
@@ -48,7 +48,7 @@
                                                                 <div class="form-control-wrap">
                                                                     <select class="form-select form-control form-control-lg" name="section_id" id="section_id" data-search="on">
                                                                         <option selected="" disabled="" >Select Section</option>
-                                                                        @foreach($event['section'] as $key=>$section )
+                                                                        @foreach($venue['section'] as $key=>$section )
                                                                             <option  value="{{$section->id}}">{{$section->section_name}}</option>
                                                                         @endforeach
                                                                     </select>
@@ -100,7 +100,7 @@
                             <div class="col-sm-6 col-lg-6 col-xxl-3">
                                 <div class="gallery card">
                                     <a class="gallery-image popup-image" href="./images/stock/a.jpg">
-                                        <img class="w-100 rounded-top" src="{{asset($event->stadium_image)}}" alt="" style="height: 400px; width: 500px;">
+                                        <img class="w-100 rounded-top" src="{{asset($venue->venue_image)}}" alt="" style="height: 400px; width: 500px;">
                                     </a>
                                 </div>
                             </div>
@@ -124,7 +124,7 @@
                         </tr>
                         </thead>
                         <tbody>
-                        @foreach($event['block'] as $key=>$block )
+                        @foreach($venue['block'] as $key=>$block )
                             <tr class="nk-tb-item">
                                 <td class="nk-tb-col">
                                     <div class="user-card">

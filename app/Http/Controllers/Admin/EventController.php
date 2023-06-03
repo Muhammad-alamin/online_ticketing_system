@@ -10,6 +10,7 @@ use App\Models\ChildSubCategory;
 use App\Models\Event;
 use App\Models\ParentSubCategory;
 use App\Models\User;
+use App\Models\Venue;
 use Brian2694\Toastr\Facades\Toastr;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
@@ -30,7 +31,8 @@ class EventController extends Controller
             ->join('parent_sub_categories','events.sub_cat_id', 'parent_sub_categories.id')
             ->join('child_sub_categories','events.child_sub_cat_id', 'child_sub_categories.id')
             ->join('categories','events.category_id', 'categories.id')
-            ->select('categories.category_name','parent_sub_categories.sub_cat_name','child_sub_categories.child_sub_cat_name','events.*')
+            ->join('venues','events.venue_id', 'venues.id')
+            ->select('categories.category_name','parent_sub_categories.sub_cat_name','child_sub_categories.child_sub_cat_name','venues.venue_name','events.*')
             ->orderBy('events.id','DESC')
             ->get();
         return view('admin.event.index',$data);
@@ -55,8 +57,8 @@ class EventController extends Controller
 
     public function create()
     {
-
         $data['categories'] = Category::all();
+        $data['venues'] = Venue::all();
         $data ['users'] = User::all();
         return view('admin.event.create',$data);
     }
@@ -84,18 +86,18 @@ class EventController extends Controller
                 'parent_sub_cat' => 'required',
                 'child_sub_cat' => 'required',
                 'match_name' => 'required',
+                'venue_id' => 'required',
                 'image' => 'mimes:jpeg,png,webp',
-                'stadium_image' => 'mimes:jpeg,png,webp',
             ]);
 
             $data = array();
 
             $data['category_id'] = $request->category_id;
             $data['sub_cat_id'] = $request->parent_sub_cat;
+            $data['venue_id'] = $request->venue_id;
             $data['child_sub_cat_id'] = $request->child_sub_cat;
             $data['match_name'] = $request->match_name;
             $data['match_date_time'] = $request->match_date_time;
-            $data['location'] = $request->location;
             $data['description'] = $request->description;
 
 
@@ -109,16 +111,6 @@ class EventController extends Controller
 
 
                 $data['image'] = $path .'/'. $file_name;
-
-            }if ($request->hasFile('stadium_image')){
-
-                $path = 'images/stadium/';
-                $img = $request->file('stadium_image');
-                $file_name = rand(0000,9999).'-'.$img->getFilename().'.'.$img->getClientOriginalExtension();
-                $img->move($path,$file_name);
-
-
-                $data['stadium_image'] = $path .'/'. $file_name;
 
             }
             DB::table('events')->insert($data);
@@ -148,6 +140,7 @@ class EventController extends Controller
     {
         $d_id = decrypt($id);
         $data['categories'] = Category::all();
+        $data['venues'] = Venue::all();
         $data['parent_sub_cat'] = ParentSubCategory::all();
         $data['child_sub_cat']= ChildSubCategory::all();
         $data['event']= Event::find($d_id);
@@ -173,10 +166,10 @@ class EventController extends Controller
             $request->validate([
                 'category_id' => 'required',
                 'sub_cat_id' => 'required',
+                'venue_id' => 'required',
                 'child_sub_cat_id' => 'required',
                 'match_name' => 'required',
                 'image' => 'mimes:jpeg,png,webp',
-                'stadium_image' => 'mimes:jpeg,png,webp',
             ]);
 
             $d_id = decrypt($id);
@@ -186,9 +179,9 @@ class EventController extends Controller
             $event->category_id = $request->category_id;
             $event->sub_cat_id = $request->sub_cat_id;
             $event->child_sub_cat_id = $request->child_sub_cat_id;
+            $event->venue_id = $request->venue_id;
             $event->match_name = $request->match_name;
             $event->match_date_time = $request->match_date_time;
-            $event->location = $request->location;
             $event->description = $request->description;
 
             if ($request->hasFile('image')){
@@ -198,29 +191,13 @@ class EventController extends Controller
                 $file_name = rand(0000,9999).'-'.$img->getFilename().'.'.$img->getClientOriginalExtension();
                 $img->move($path,$file_name);
 
-                if ($event->image != null && file_exists($event->image)){
-                    unlink($event->image);
-                }
+                // if ($event->image != null && file_exists($event->image)){
+                //     unlink($event->image);
+                // }
 
                 $event->image = $path .'/'. $file_name;
 
             }
-
-            if ($request->hasFile('stadium_image')){
-
-                $path = 'images/stadium/';
-                $img = $request->file('stadium_image');
-                $file_name = rand(0000,9999).'-'.$img->getFilename().'.'.$img->getClientOriginalExtension();
-                $img->move($path,$file_name);
-
-                if ($event->stadium_image != null && file_exists($event->stadium_image)){
-                    unlink($event->stadium_image);
-                }
-
-                $event->stadium_image = $path .'/'. $file_name;
-
-            }
-
             $event->save();
             session()->flash('success', 'Event Updated Successfully');
             return redirect()->route('admin.event.index');

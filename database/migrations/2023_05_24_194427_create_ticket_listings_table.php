@@ -13,12 +13,14 @@ return new class extends Migration
     {
         Schema::create('ticket_listings', function (Blueprint $table) {
             $table->id();
-            $table->unsignedBigInteger('category_id')->nullable();;
+            $table->unsignedBigInteger('category_id')->nullable();
             $table->foreign('category_id')->references('id')->on('categories')->onDelete('cascade');
-            $table->unsignedBigInteger('sub_cat_id')->nullable();;
+            $table->unsignedBigInteger('sub_cat_id')->nullable();
             $table->foreign('sub_cat_id')->references('id')->on('parent_sub_categories')->onDelete('cascade');
-            $table->unsignedBigInteger('child_sub_cat_id')->nullable();;
+            $table->unsignedBigInteger('child_sub_cat_id')->nullable();
             $table->foreign('child_sub_cat_id')->references('id')->on('child_sub_categories')->onDelete('cascade');
+            $table->unsignedBigInteger('venue_id')->nullable();
+            $table->foreign('venue_id')->references('id')->on('venues')->onDelete('cascade');
             $table->unsignedBigInteger('event_id');
             $table->foreign('event_id')->references('id')->on('events')->onDelete('cascade');
             $table->unsignedBigInteger('seller_id');
@@ -37,7 +39,8 @@ return new class extends Migration
             $table->float('price',9,2)->nullable();
             $table->enum('status',['Active','Inactive'])->default('Active');
             $table->enum('approval',['Approved','Unapproved'])->default('Approved');
-            $table->timestamps();
+            $table->timestamp('created_at')->default(\DB::raw('CURRENT_TIMESTAMP'));
+            $table->timestamp('updated_at')->default(\DB::raw('CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP'));
         });
     }
 

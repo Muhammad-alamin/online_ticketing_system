@@ -19,6 +19,8 @@ return new class extends Migration
             $table->foreign('sub_cat_id')->references('id')->on('parent_sub_categories')->nullable()->onDelete('cascade');
             $table->unsignedBigInteger('child_sub_cat_id')->nullable();
             $table->foreign('child_sub_cat_id')->references('id')->on('child_sub_categories')->nullable()->onDelete('cascade');
+            $table->unsignedBigInteger('venue_id')->nullable();
+            $table->foreign('venue_id')->references('id')->on('venues')->nullable()->onDelete('cascade');
             $table->string('match_name',255);
             $table->string('match_date_time')->nullable();
             $table->longText('description')->nullable();

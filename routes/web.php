@@ -75,6 +75,17 @@ Route::middleware('auth')->group(function () {
             Route::get('/get/child_sub_cat-list/{id}',[App\Http\Controllers\Admin\ChildSubcategoryController::class,'getChildSubCat']);
 
 
+
+        //Venue
+
+        Route::get('admin/venue/create',[App\Http\Controllers\Admin\VenueController::class,'create'])->name('admin.venue.create');
+        Route::get('admin/venue/index',[App\Http\Controllers\Admin\VenueController::class,'index'])->name('admin.venue.index');
+        Route::post('admin/venue/store',[App\Http\Controllers\Admin\VenueController::class,'store'])->name('admin.venue.store');
+        Route::get('admin/venue/edit/{id}',[App\Http\Controllers\Admin\VenueController::class,'edit'])->name('admin.venue.edit');
+        Route::post('admin/venue/update/{id}',[App\Http\Controllers\Admin\VenueController::class,'update'])->name('admin.venue.update');
+        Route::get('admin/venue/delete/{id}',[App\Http\Controllers\Admin\VenueController::class,'delete'])->name('admin.venue.delete');
+
+
         //events
 
         Route::get('admin/event/create',[App\Http\Controllers\Admin\EventController::class,'create'])->name('admin.event.create');
@@ -122,3 +133,18 @@ Route::get('/',[App\Http\Controllers\Front\HomeController::class,'index'])->name
 //search ticket & ticketlist
 Route::get("/ticket/search",[App\Http\Controllers\Front\TicketController::class,'search']);
 Route::get("/list/ticket/{id}",[App\Http\Controllers\Front\TicketController::class,'ticketList'])->name('listTicket');
+
+// //mouse hover event
+Route::get('/api/images/{imageId}',[App\Http\Controllers\Front\TicketController::class,'hover']);
+Route::get('/event/images/{imageId}',[App\Http\Controllers\Front\TicketController::class,'section_hover']);
+
+//order-details
+Route::get("/order/details/{id}",[App\Http\Controllers\Front\OrderController::class,'orderDetails'])->name('order_details');
+
+//order-review
+Route::get("/order/review/{id}",[App\Http\Controllers\Front\OrderController::class,'orderReview'])->name('order_review');
+
+//checkout
+Route::post("checkout",[App\Http\Controllers\Front\OrderController::class,'checkout'])->name('checkout');
+
+

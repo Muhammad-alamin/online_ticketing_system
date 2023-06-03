@@ -15,4 +15,7 @@ class Event extends Model
     public function block(){
         return $this->hasMany(Block::class,'event_id');
     }
+    public function venue(){
+        return $this->belongsTo(Section::class,'venue_id');
+    }
 }

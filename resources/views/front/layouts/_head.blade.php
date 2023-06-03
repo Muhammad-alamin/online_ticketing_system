@@ -19,6 +19,8 @@
     <link rel="stylesheet" href="{{ asset('front/assets/css/font-awesome.min.css') }}">
     <link rel="stylesheet" href="{{ asset('front/assets/css/bootstrap.offcanvas.min.css') }}">
     <link rel="stylesheet" href="{{ asset('front/assets/css/core.css') }}">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/intl-tel-input@18.1.1/build/css/intlTelInput.css">
+
 
 
 

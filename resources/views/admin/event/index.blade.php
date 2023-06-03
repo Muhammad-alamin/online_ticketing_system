@@ -48,7 +48,7 @@
                                             <th class="nk-tb-col tb-col-md"><span class="sub-text">League name</span></th>
                                             <th class="nk-tb-col tb-col-lg"><span class="sub-text">Match Time</span></th>
                                             <th class="nk-tb-col tb-col-lg"><span class="sub-text">Image</span></th>
-                                            <th class="nk-tb-col tb-col-md"><span class="sub-text">Location</span></th>
+                                            <th class="nk-tb-col tb-col-mb"><span class="sub-text">Created Date</span></th>
                                             <th class="nk-tb-col nk-tb-col-tools text-right">
                                             </th>
                                         </tr>
@@ -78,8 +78,8 @@
                                             <td class="nk-tb-col tb-col-lg">
                                                     <img src="{{asset($event->image)}}" class="img-fluid" alt="" style="height: 40px; width: 40px;">
                                             </td>
-                                            <td class="nk-tb-col tb-col-md">
-                                                <span class="tb-status">{{$event->location}}</span>
+                                            <td class="nk-tb-col tb-col-mb">
+                                                <span class="tb-status">{{date('d-F-Y H:i', strtotime($event->created_at))}}</span>
                                             </td>
                                                 <td class="nk-tb-col nk-tb-col-tools">
                                                     <ul class="nk-tb-actions gx-1">
@@ -88,8 +88,6 @@
                                                                 <a href="#" class="dropdown-toggle btn btn-icon btn-trigger" data-toggle="dropdown"><em class="icon ni ni-more-h"></em></a>
                                                                 <div class="dropdown-menu dropdown-menu-right">
                                                                     <ul class="link-list-opt no-bdr">
-                                                                        <li><a href="{{route('admin.add.section',$event->id)}}"><em class="icon ni ni-eye"></em><span>Add Section</span></a></li>
-                                                                        <li><a href="{{route('admin.add.block',$event->id)}}"><em class="icon ni ni-eye"></em><span>Add Block</span></a></li>
                                                                         <li><a href="{{route('admin.event.edit',encrypt($event->id))}}"><em class="icon ni ni-edit"></em><span>Edit Event</span></a></li>
                                                                         <li><a href="{{route('admin.replicate.event',$event->id)}}"><em class="icon ni ni-eye"></em><span>Duplicate Event</span></a></li>
                                                                         <li><a href="{{route('admin.event.delete', encrypt($event->id))}}"  onclick="return confirm('Are You Confirm to Delete?')"><em class="icon ni ni-trash"></em><span>Delete Event</span></a></li>

@@ -13,8 +13,8 @@ return new class extends Migration
     {
         Schema::create('sections', function (Blueprint $table) {
             $table->id();
-            $table->unsignedBigInteger('event_id');
-            $table->foreign('event_id')->references('id')->on('events')->onDelete('cascade');
+            $table->unsignedBigInteger('venue_id');
+            $table->foreign('venue_id')->references('id')->on('venues')->onDelete('cascade');
             $table->string('section_name')->nullable();
             $table->text('section_image')->nullable();
             $table->timestamps();

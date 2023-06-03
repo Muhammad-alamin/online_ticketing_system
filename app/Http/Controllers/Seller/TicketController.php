@@ -11,6 +11,7 @@ use App\Models\User;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Validator;
 
 class TicketController extends Controller
 {
@@ -22,7 +23,10 @@ class TicketController extends Controller
 
         if($request->ajax()){
             $right_time = Carbon::now()->format('Y/m/d H:i:s');
-            $data=Event::where('match_name','like','%'.$request->search.'%')
+            $data = DB::table('events')
+            ->join('venues','events.venue_id', 'venues.id')
+            ->select('venues.*','events.*')
+            ->where('match_name','like','%'.$request->search.'%')
             // ->where('location','like','%'.$request->search.'%')
             ->where('match_date_time','>=',$right_time)
             ->get();
@@ -49,7 +53,7 @@ class TicketController extends Controller
                                             <br>
                                             <div class="clearfix"></div>
                                             <span class="event-date-info">'.date('d-F-Y H:i', strtotime($row->match_date_time)).'</span>
-                                            <span class="event-venue-info">'.$row->location.'</span>
+                                            <span class="event-venue-info">'.$row->venue_name.'</span>
                                         </div>
                                     </div>
                                 </a>
@@ -72,38 +76,47 @@ class TicketController extends Controller
 
         $d_id = decrypt($id);
         $event = DB::table('events')->where('id',$d_id)->first();
-        $event_date = $event->match_date_time;
 
-        //current time
-        $currentDate = Carbon::now();
-        //current time format
-        $currentDateformat = $currentDate->format('Y-m-d H:i');
-        //database time
-        $eventDatedb = Carbon::parse($event_date);
-        //database time before 2 days
-        $twoDaysBefore = $eventDatedb->copy()->subDays(2);
-        //database time before 2 days format
-        $formattedDate = $twoDaysBefore->format('Y-m-d H:i');
+        $fetchVenue_id = DB::table('events')
+        ->join('venues','events.venue_id', 'venues.id')
+        ->select('venues.*','events.*')
+        ->where('events.id',$d_id)
+        ->first();
 
-        if ($currentDateformat >= $formattedDate) {
+        // $event_date = $event->match_date_time;
+
+        // //current time
+        // $currentDate = Carbon::now();
+        // //current time format
+        // $currentDateformat = $currentDate->format('Y-m-d H:i');
+        // //database time
+        // $eventDatedb = Carbon::parse($event_date);
+        // //database time before 2 days
+        // $twoDaysBefore = $eventDatedb->copy()->subDays(2);
+        // //database time before 2 days format
+        // $formattedDate = $twoDaysBefore->format('Y-m-d H:i');
+
+        // if ($currentDateformat >= $formattedDate && !empty($event->image)) {
+
+        //     $data['event'] = DB::table('events')
+        //     ->join('child_sub_categories','events.child_sub_cat_id', 'child_sub_categories.id')
+        //     ->join('venues','events.venue_id', 'venues.id')
+        //     ->select('child_sub_categories.child_sub_cat_name','venues.*','events.*')
+        //     ->where('events.id',$d_id)
+        //     ->first();
+        //     return view('Seller.notEligibleListingTicket',$data);
+        // } else {
 
             $data['event'] = DB::table('events')
             ->join('child_sub_categories','events.child_sub_cat_id', 'child_sub_categories.id')
-            ->select('child_sub_categories.child_sub_cat_name','events.*')
-            ->where('events.id',$d_id)
-            ->first();
-            return view('Seller.notEligibleListingTicket',$data);
-        } else {
-
-            $data['event'] = DB::table('events')
-            ->join('child_sub_categories','events.child_sub_cat_id', 'child_sub_categories.id')
-            ->select('child_sub_categories.child_sub_cat_name','events.*')
+            ->join('venues','events.venue_id', 'venues.id')
+            ->select('child_sub_categories.child_sub_cat_name','venues.*','events.*')
             ->where('events.id',$d_id)
             ->first();
 
-            $data['section'] = Section::where('event_id',$data['event']->id)->get();
+            $data['section'] = Section::where('venue_id',$fetchVenue_id->venue_id)->get();
             return view('Seller.addTicket',$data);
-        }
+        // }
 
     }
 
@@ -127,6 +140,7 @@ class TicketController extends Controller
         $data['sub_cat_id'] = $request->sub_cat_id;
         $data['child_sub_cat_id'] = $request->child_sub_cat_id;
         $data['event_id'] = $request->event_id;
+        $data['venue_id'] = $request->venue_id;
         $data['seller_id'] = auth()->user()->id;
         $data['section_id'] = $request->section;
         $data['block_id'] = $request->block;
@@ -138,27 +152,90 @@ class TicketController extends Controller
         $data['row'] = $request->row;
         $data['price'] = $request->price;
 
-        $getProduct=[];
-        if($request->hasFile('image'))
-        {
+        $fetchVenue_id = DB::table('events')
+        ->join('venues','events.venue_id', 'venues.id')
+        ->select('venues.*','events.*')
+        ->where('events.id',$request->event_id)
+        ->first();
 
-            $products = $request->file('image');
+        $event_date = $fetchVenue_id->match_date_time;
 
-            foreach ( $products as $eachProduct) {
-                $path = 'images/selling/tickets/';
-                $file_name = rand(0000,9999).'-'.$eachProduct->getClientOriginalName();
-                $eachProduct->move($path,$file_name);
-                //Image::make($eachProduct)->resize(500,370)->save($path.$file_name);
+        //current time
+        $currentDate = Carbon::now();
+        //current time format
+        $currentDateformat = $currentDate->format('Y-m-d H:i');
+        //database time
+        $eventDatedb = Carbon::parse($event_date);
+        //database time before 2 days
+        $twoDaysBefore = $eventDatedb->copy()->subDays(2);
+        //database time before 2 days format
+        $formattedDate = $twoDaysBefore->format('Y-m-d H:i');
 
-                $getProduct[] = $file_name;
+        $daysDifference = $currentDate->diffInDays($formattedDate);
+        // dd($daysDifference,$formattedDate);
 
+        if ($daysDifference <= 2) {
+            $getProduct = [];
+            if ($request->hasFile('image')) {
+                $uploadedImages = $request->file('image');
+                $imageCount = count($uploadedImages);
+
+                if ($request->ticket_count == $imageCount) {
+                    $validatedImages = $request->validate([
+                        'image.*' => 'required|mimes:jpg,jpeg,png,webp|max:4096'
+                    ]);
+
+                    foreach ($validatedImages['image'] as $eachProduct) {
+                        $path = 'images/selling/tickets/';
+                        $file_name = rand(0000, 9999) . '-' . $eachProduct->getClientOriginalName();
+                        $eachProduct->move($path, $file_name);
+                        $getProduct[] = $file_name;
+                    }
+
+                    $singleProduct = json_encode($getProduct);
+
+                    $data['image'] = $singleProduct;
+
+                    // Further logic or actions can be added here for successful image upload
+                } else {
+                    return "Number of uploaded images does not match the ticket count.";
+                }
+            } else {
+                return "No image files uploaded.";
+            }
+        }
+        elseif($daysDifference >= 2){
+
+            if ($request->hasFile('image')) {
+                $uploadedImages = $request->file('image');
+                $imageCount = count($uploadedImages);
+
+                if ($request->ticket_count == $imageCount) {
+                    $validatedImages = $request->validate([
+                        'image.*' => 'required|mimes:jpg,jpeg,png,webp|max:4096'
+                    ]);
+
+                    foreach ($validatedImages['image'] as $eachProduct) {
+                        $path = 'images/selling/tickets/';
+                        $file_name = rand(0000, 9999) . '-' . $eachProduct->getClientOriginalName();
+                        $eachProduct->move($path, $file_name);
+                        $getProduct[] = $file_name;
+                    }
+
+                    $singleProduct = json_encode($getProduct);
+
+                    $data['image'] = $singleProduct;
+
+                    // Further logic or actions can be added here for successful image upload
+                } else {
+                    return "Number of uploaded images does not match the ticket count.";
+                }
             }
 
-            $singleProduct = json_encode($getProduct);
-
-            $data['image'] = $singleProduct;
-
+        } else {
+            return "Please upload image. The event is within 2 days.";
         }
+
         DB::table('ticket_listings')->insert($data);
         session()->flash('success', 'Your Ticket Listed Successfully');
         return redirect()->back();

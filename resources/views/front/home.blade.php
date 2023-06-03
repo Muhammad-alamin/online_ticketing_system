@@ -4,17 +4,13 @@
         <div class="container">
             <div class="row">
                 <div class="hero-content">
-                    <h1 class="hero-title">Make Your Dream Come True</h1>
-                    <p class="hero-caption">Meet your favorite artists, sport teams and parties</p>
+                    <h1 class="hero-title">BUY & SELL TICKETS</h1>
+                    <p class="hero-caption">Buy and sell sports tickets and cultural events</p>
                     <div class="hero-search">
-                        <input type="text" placeholder="Seach Artist, Team, or Venue" name="search" id="search" onfocus="this.value=''">
+                        <input type="text" placeholder="Seach Event, or Venue" name="search" id="search" onfocus="this.value=''">
                     </div>
                     <div style="background-color: white;
                     border-radius: 20px 20px; overflow-x:auto;" id="search_list">
-                    </div>
-                    <div class="hero-location">
-                        <p><i class="fa fa-map-marker" aria-hidden="true"></i> San Francisco <a href="#">Change
-                                Location</a></p>
                     </div>
                 </div>
             </div>

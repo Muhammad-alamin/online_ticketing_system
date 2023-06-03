@@ -76,21 +76,26 @@
                                                     </div>
                                                     <div class="col-lg-6">
                                                         <div class="form-group">
+                                                            <label class="form-label">Venue Name</label>
+                                                            <div class="form-control-wrap">
+                                                                <select class="form-select form-control form-control-lg" name="venue_id" id="category" data-search="on">
+                                                                    <option selected="" disabled="" >Select Venue</option>
+                                                                    @foreach($venues as $key=>$venue)
+                                                                        <option  @if(old('venue_id',isset($event)?$event->venue_id:null)  == $venue->id) selected @endif value="{{$venue->id}}">{{$venue->venue_name}}</option>
+                                                                    @endforeach
+                                                                </select>
+                                                                @error('venue_id')<i class="text-danger">{{$message}}</i>@enderror
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-lg-6">
+                                                        <div class="form-group">
                                                             <label class="form-label">Match Date & Time</label>
                                                             <div class="form-control-wrap">
                                                                 <div class="form-icon form-icon-left">
                                                                     <em class="icon ni ni-calendar"></em>
                                                                 </div>
                                                                 <input type="text" class="form-control" name="match_date_time" id="match_time" value="{{old('match_date_time', isset($event)?$event->match_date_time:null)}}">
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                    <div class="col-lg-6">
-                                                        <div class="form-group">
-                                                            <div class="form-control-wrap">
-                                                                <label for="location" class="form-label">Location/Address</label>
-                                                                <input type="text" class="form-control" name="location" id="location" value="{{old('location', isset($event)?$event->location:null)}}" placeholder="Enter Match location/address">
-                                                                @error('location')<i class="text-danger">{{$message}}</i>@enderror
                                                             </div>
                                                         </div>
                                                     </div>
@@ -108,22 +113,6 @@
 
                                                         @if (isset($event))
                                                         <img src="{{asset($event->image)}}" width="100px;">
-                                                        @endif
-                                                    </div>
-
-                                                    <div class="col-lg-6">
-                                                        <div class="form-group">
-                                                            <label class="form-label" for="default-06">Stadium Image</label>
-                                                            <div class="form-control-wrap">
-                                                                <div class="custom-file">
-                                                                    <input type="file" name="stadium_image" id="stadium_image" multiple class="custom-file-input" >
-                                                                    <label class="custom-file-label" for="customFile">Choose file</label>
-                                                                    @error('stadium_image')<i class="text-danger">{{$message}}</i>@enderror
-                                                                </div>
-                                                            </div>
-                                                        </div>
-                                                        @if (isset($event))
-                                                        <img src="{{asset($event->stadium_image)}}" width="100px;">
                                                         @endif
                                                     </div>
                                                     <div class="col-lg-12">

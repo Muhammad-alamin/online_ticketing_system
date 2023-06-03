@@ -29,6 +29,7 @@
         });
     });
 
+
 var inputs = document.querySelectorAll('.file-input')
 
 for (var i = 0, len = inputs.length; i < len; i++) {
@@ -48,6 +49,7 @@ function customInput (el) {
     label.innerText = value
   }
 }
+
 
 //ticket count condition
 $('#selectTicket').on('change', function() {
@@ -77,6 +79,8 @@ $('#selectTicket').on('change', function() {
   $(".append").append('<br><div style="color: red">Upload Your '+value+' Tickets</div>');
 });
 
+
+
 $(document).ready(function () {
         $('select[name="section"]').on('change',function () {
             var section_id = $(this).val();
@@ -98,5 +102,21 @@ $(document).ready(function () {
             }
         });
     });
+
+
+    //pairs value comes when select value appear
+    
+    $('#selectTicket').on('change', function() {
+  var value = parseInt($(this).val());
+  var $selectPicker = $('#selectTicketVarient');
+  if (value % 2 === 0) {
+    $selectPicker.find('option[value="Pairs"]').removeAttr('style');
+    $selectPicker.selectpicker('refresh');
+  } else {
+    $selectPicker.find('option[value="Pairs"]').css('display', 'none');
+    $selectPicker.selectpicker('refresh');
+  }
+});
+
 
 </script>

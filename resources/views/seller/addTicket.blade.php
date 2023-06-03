@@ -3,7 +3,7 @@
 <section class="section-select-seat-featured-header">
     <div class="container">
         <div class="section-content">
-            <p>{{ $event->child_sub_cat_name }}<strong>{{ $event->match_name }}</strong> <span>{{ date('d-F-Y H:i', strtotime($event->match_date_time)) }}</span></p>
+            <p>{{ $event->child_sub_cat_name }}<strong>{{ $event->match_name }}</strong><span>{{ $event->venue_name }}</span> <span>{{ date('d-F-Y H:i', strtotime($event->match_date_time)) }}</span></p>
         </div>
     </div>
 </section>
@@ -37,6 +37,7 @@
                 <form action="{{ route('ticket.store') }}" method="post" enctype="multipart/form-data">
                     @csrf
                     <div class="ticket-price">
+                        <input type="hidden" value="{{ $event->venue_id }}" name="venue_id" id="venue_id">
                         <input type="hidden" value="{{ $event->id }}" name="event_id" id="event_id">
                         <input type="hidden" value="{{ $event->child_sub_cat_id }}" name="child_sub_cat_id" id="child_sub_cat_id">
                         <input type="hidden" value="{{ $event->sub_cat_id }}" name="sub_cat_id" id="sub_cat_id">
@@ -80,12 +81,11 @@
                         </div>
                         <div class="tickets" style="display: none" id="ticket_varient">
                             <label  style="font-size: 15px; font-weight:bold;">How do you want to sell your tickets ?</label>
-                            <select class="selectpicker dropdown" name="ticket_varient" required="required">
+                            <select class="selectpicker dropdown" name="ticket_varient" id="selectTicketVarient" required="required">
                                 <option selected disabled>Please Select</option>
                                 <option value="Any" >ANY</option>
-                                <option value="Pairs" >PAIRS</option>
+                                <option value="Pairs">PAIRS</option>
                                 <option value="Full" >FULL</option>
-                                <option value="Avoid leaving single" >AVOID LEAVING SINGLE</option>
                             </select>
                             @error('ticket_varient')<i class="text-danger">{{$message}}</i>@enderror
                         </div>
@@ -186,7 +186,7 @@
                 </form>
             </div>
             <div id="primary" class="col-md-6 sticky" style="margin-top: 50px;">
-                    <img src="{{ asset($event->stadium_image)}}">
+                    <img src="{{ asset($event->venue_image)}}">
             </div>
         </div>
 

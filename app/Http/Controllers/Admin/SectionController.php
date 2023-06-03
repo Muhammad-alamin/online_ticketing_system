@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use App\Models\Event;
 use App\Models\Section;
+use App\Models\Venue;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 
@@ -21,7 +22,7 @@ class SectionController extends Controller
 
 public function addSection(Request $request, $id=null){
 
-    $eventDetails['event'] = Event::with('section')->where(['id' => $id])->first();
+    $venueDetails['venue'] = Venue::with('section')->where(['id' => $id])->first();
     if ($request->isMethod('post')){
         // echo '<pre>'; print_r($data); die;
         $request->validate([
@@ -31,7 +32,7 @@ public function addSection(Request $request, $id=null){
         $section = new Section();
 
         $section->section_name = $request->section_name;
-        $section->event_id = $id;
+        $section->venue_id = $id;
 
         if ($request->hasFile('section_image')){
 
@@ -52,7 +53,7 @@ public function addSection(Request $request, $id=null){
         return redirect('/admin/add/section/'.$id);
 
     }
-    return view('admin.section.create',$eventDetails);
+    return view('admin.section.create',$venueDetails);
 
 }
 
@@ -73,7 +74,7 @@ public function update(Request $request, $id){
     $section = Section::find($id);
 
     $section->section_name = $request->section_name;
-    $section->event_id = $section->event_id;
+    $section->venue_id = $section->venue_id;
 
         if ($request->hasFile('section_image')){
 
@@ -91,7 +92,7 @@ public function update(Request $request, $id){
         }
         $section->save();
         session()->flash('success','Section Updated Successfully');
-    return redirect()->route('admin.add.section',$section->event_id);
+    return redirect()->route('admin.add.section',$section->venue_id);
 }
 
 public function deleteSection($id){
