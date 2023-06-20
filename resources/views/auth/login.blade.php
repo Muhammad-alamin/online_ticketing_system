@@ -1,4 +1,4 @@
-<x-guest-layout>
+{{-- <x-guest-layout>
     <!-- Session Status -->
     <x-auth-session-status class="mb-4" :status="session('status')" />
 
@@ -44,4 +44,31 @@
             </x-primary-button>
         </div>
     </form>
-</x-guest-layout>
+</x-guest-layout> --}}
+
+
+@extends('auth.layouts.master')
+@section('content')
+<div class="login-container">
+    <input type="checkbox" id="check">
+    <div class="login form">
+      <header>Sign In</header>
+      <form method="POST" action="{{ route('login') }}">
+        @csrf
+        <input type="text" name="email" placeholder="Enter your email" required>
+        @error('email')<i class="text-danger">{{$message}}</i>@enderror
+        <input type="password" name="password" placeholder="Enter your password" required>
+        @error('password')<i class="text-danger">{{$message}}</i>@enderror
+        @if (Route::has('password.request'))
+        <a href="{{ route('password.request') }}">Forgot password?</a>
+        @endif
+        <button type="submit" class="button" value="Login">Sign In</button>
+      </form>
+      <div class="signup">
+        <span class="signup">Don't have an account?
+         <a href="{{ route('register') }}" for="check">Signup</a>
+        </span>
+      </div>
+    </div>
+  </div>
+@endsection

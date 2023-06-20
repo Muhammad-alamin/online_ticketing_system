@@ -8,6 +8,7 @@ use App\Models\ChildSubCategory;
 use App\Models\Event;
 use App\Models\Section;
 use App\Models\User;
+use Brian2694\Toastr\Facades\Toastr;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
@@ -166,13 +167,14 @@ class TicketController extends Controller
         $currentDateformat = $currentDate->format('Y-m-d H:i');
         //database time
         $eventDatedb = Carbon::parse($event_date);
+        $formattedEventDate = $eventDatedb ->format('Y-m-d H:i');
         //database time before 2 days
-        $twoDaysBefore = $eventDatedb->copy()->subDays(2);
+        // $twoDaysBefore = $eventDatedb->copy()->subDays(2);
         //database time before 2 days format
-        $formattedDate = $twoDaysBefore->format('Y-m-d H:i');
+        // $formattedDate = $twoDaysBefore->format('Y-m-d H:i');
 
-        $daysDifference = $currentDate->diffInDays($formattedDate);
-        // dd($daysDifference,$formattedDate);
+        $daysDifference = $currentDate->diffInDays($formattedEventDate);
+        // dd($daysDifference,$formattedEventDate,$currentDate);
 
         if ($daysDifference <= 2) {
             $getProduct = [];
@@ -198,10 +200,14 @@ class TicketController extends Controller
 
                     // Further logic or actions can be added here for successful image upload
                 } else {
-                    return "Number of uploaded images does not match the ticket count.";
+                    session()->flash('error', 'Number of uploaded images does not match the ticket count.');
+                    // Toastr::error('Number of uploaded images does not match the ticket count.', 'Error', ["positionClass" => "toast-top-right"]);
+                    return redirect()->back();
                 }
             } else {
-                return "No image files uploaded.";
+                session()->flash('error', 'No image files uploaded.');
+                // Toastr::error('No image files uploaded.', 'Error', ["positionClass" => "toast-top-right"]);
+                return redirect()->back();
             }
         }
         elseif($daysDifference >= 2){
@@ -228,12 +234,16 @@ class TicketController extends Controller
 
                     // Further logic or actions can be added here for successful image upload
                 } else {
-                    return "Number of uploaded images does not match the ticket count.";
+                    session()->flash('error', 'Number of uploaded images does not match the ticket count.');
+                    // Toastr::error('Number of uploaded images does not match the ticket count.', 'Error', ["positionClass" => "toast-top-right"]);
+                    return redirect()->back();
                 }
             }
 
         } else {
-            return "Please upload image. The event is within 2 days.";
+            session()->flash('error', 'Please upload image. The event is within 2 days.');
+            // Toastr::error('Please upload image. The event is within 2 days.', 'Error', ["positionClass" => "toast-top-right"]);
+            return redirect()->back();
         }
 
         DB::table('ticket_listings')->insert($data);

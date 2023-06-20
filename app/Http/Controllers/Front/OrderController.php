@@ -3,9 +3,12 @@
 namespace App\Http\Controllers\Front;
 
 use App\Http\Controllers\Controller;
+use App\Models\Order;
 use App\Models\TicketListing;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
+use Stripe\Stripe;
 
 class OrderController extends Controller
 {
@@ -26,40 +29,38 @@ class OrderController extends Controller
 
     public function orderReview(Request $request, $id){
 
-        $d_id = decrypt($id);
-        if ($request->has('quantity')) {
-            $data['quantity'] = decrypt($request->quantity);
-            }
-        $data['ticket_details'] = DB::table('ticket_listings')
-        ->join('child_sub_categories','ticket_listings.child_sub_cat_id', 'child_sub_categories.id')
-        ->join('sections','ticket_listings.section_id', 'sections.id')
-        ->leftJoin('blocks','ticket_listings.block_id', 'blocks.id')
-        ->join('events','ticket_listings.event_id', 'events.id')
-        ->join('venues','ticket_listings.venue_id', 'venues.id')
-        ->select('child_sub_categories.*','blocks.*','sections.*','venues.*','events.*','ticket_listings.*')
-        ->where('ticket_listings.id',$d_id)
-        ->first();
-        return view('front.orderReview',$data);
+        if(Auth::check()){
+            $d_id = decrypt($id);
+            if ($request->has('quantity')) {
+                $data['quantity'] = decrypt($request->quantity);
+                }
+            $data['ticket_details'] = DB::table('ticket_listings')
+            ->join('child_sub_categories','ticket_listings.child_sub_cat_id', 'child_sub_categories.id')
+            ->join('sections','ticket_listings.section_id', 'sections.id')
+            ->leftJoin('blocks','ticket_listings.block_id', 'blocks.id')
+            ->join('events','ticket_listings.event_id', 'events.id')
+            ->join('venues','ticket_listings.venue_id', 'venues.id')
+            ->select('child_sub_categories.*','blocks.*','sections.*','venues.*','events.*','ticket_listings.*')
+            ->where('ticket_listings.id',$d_id)
+            ->first();
+            return view('front.orderReview',$data);
+        }
+        else{
+            return redirect()->route('login');
+        }
+
     }
 
     public function checkout(Request $request){
 
-        //        $request->validate([
-        //            'billing_name' => 'required',
-        //            'billing_email' => 'required',
-        //            'billing_mobile' => 'required',
-        //            'billing_address' => 'required',
-        //            'billing_city' => 'required',
-        //            'billing_state' => 'required',
-        //            'billing_zip' => 'required',
-        //
-        //            'shipping_name' => 'required',
-        //            'shipping_mobile' => 'required',
-        //            'shipping_address' => 'required',
-        //            'shipping_city' => 'required',
-        //            'shipping_state' => 'required',
-        //            'shipping_zip' => 'required',
-        //        ]);
+               $request->validate([
+                   'first_name' => 'required',
+                   'last_name' => 'required',
+                   'email' => 'required',
+                   'address' => 'required',
+                   'city' => 'required',
+                   'phone' => 'required',
+               ]);
 
                     $data = $request->all();
                     if ($request->has('quantity')) {
@@ -78,108 +79,136 @@ class OrderController extends Controller
 
                     //ticket image reduce when order done
                     $all_ticket_image = json_decode($data['ticket_details']->image);
-                    $data = array_slice($all_ticket_image, 0, $request->quantity);
+                    $reduce_image = array_slice($all_ticket_image, 0, $request->quantity);
                     $existingImage = DB::table('ticket_listings')->where('id', $request->ticket_id)->value('image');
                     $existingArray = json_decode($existingImage, true);
+                    $newArray = array_diff($existingArray, $reduce_image);
 
-                    $newArray = array_diff($existingArray, $data);
-
-                    $newImage = json_encode(array_values($newArray));
-
-                    DB::table('ticket_listings')->where('id', $request->ticket_id)->update(['image' => $newImage]);
-
-                    //ticket reduce when order done
-                    DB::table('ticket_listings')->where('id', $request->ticket_id)->update(['ticket_count' => DB::raw('ticket_count -' . $request->quantity)]);
-
-                    return "True";
-
-
-                    $billingAddress = new BillingAddress();
-
-                    $billingAddress->customer_id = Auth::user()->id;
-                    $billingAddress->first_name = $request->first_name;
-                    $billingAddress->last_name = $request->last_name;
-                    $billingAddress->email = $request->email;
-                    $billingAddress->address = $request->address;
-                    $billingAddress->city = $request->city;
-                    $billingAddress->country = $request->country;
-                    $billingAddress->state = $request->state;
-                    $billingAddress->post_code = $request->post_code;
-                    $billingAddress->phone = $request->phone;
-                    $billingAddress->save();
+                    if (empty($newArray)) {
+                        $newImage = null;
+                    } else {
+                        $newImage = json_encode(array_values($newArray));
+                    }
 
                     $order = new Order();
                     $order->order_id = 'O-' . time();
-                    $order->user_id = $user_id;
-                    $order->brand_id = $data['brand_id'];
-                    $order->vendor_id = $vendor_id->user_id;
-                    $order->category_id = $data['category_id'];
                     $order->invoice_id = time();
-                    $order->user_email = $user_email;
-                    $order->full_name = $shippingDetails->shipping_name;
-                    $order->address = $shippingDetails->shipping_address;
-                    $order->city = $shippingDetails->shipping_city;
-                    $order->state = $shippingDetails->shipping_state;
-                    $order->zip = $shippingDetails->shipping_zip;
-                    $order->country = $shippingDetails->shipping_country;
-                    $order->phone = $shippingDetails->shipping_mobile;
-                    $order->notes = $shippingDetails->shipping_notes;
-                    $order->coupon_code = $coupon_code;
-                    $order->coupon_amount = $coupon_amount;
-                    $order->product_price = $data['product_price'];
-                    $order->payment_method = $data['payment_method'];
-                    $order->grand_total = $main_total;
-                    $order->delivery_charge = $data['ajax_delivery_charge'];
+                    $order->customer_id = auth()->user()->id;
+                    $order->seller_id = $request->seller_id;
+                    $order->ticket_id = $request->ticket_id;
+                    $order->category_id = $request->category_id;
+                    $order->sub_cat_id = $request->sub_cat_id;
+                    $order->child_sub_cat_id = $request->child_sub_cat_id;
+                    $order->venue_id = $request->venue_id;
+                    $order->event_id = $request->event_id;
+                    $order->section_id = $request->section_id;
+                    $order->block_id = $request->block_id;
+                    $order->ticket_quantity = $request->quantity;
+                    $order->ticket_image = json_encode($reduce_image);
+                    $order->fee = $request->fee;
+                    $order->total_price = $request->total_price;
+                    $order->ticket_price = $request->ticket_price;
+                    $order->first_name = $request->first_name;
+                    $order->last_name = $request->last_name;
+                    $order->email = $request->email;
+                    $order->address = $request->address;
+                    $order->city = $request->city;
+                    $order->country = $request->country;
+                    $order->state = $request->state;
+                    $order->post_code = $request->post_code;
+                    $order->phone = $request->phone;
                     $order->order_date = date('d/m/Y');
                     $order->order_month = date('F');
                     $order->order_year = date('Y');
-                    if ($request->payment_method != 'card') {
-                        $order->status = Order::STATUS_PROCESSING;
+                    $order->status = 'Processing';
+                    $order->Save();
+
+                // Set your Stripe API key
+                Stripe::setApiKey(config('services.stripe.secret'));
+
+                $encryptedOrderId = encrypt($order->id); // Encrypt the order ID
+
+                $session = \Stripe\Checkout\Session::create([
+                    // 'shipping_address_collection' => ['allowed_countries' => ['US', 'CA',]],
+                    // 'shipping_options' => [
+                    // [
+                    //     'shipping_rate_data' => [
+                    //     'type' => 'fixed_amount',
+                    //     'fixed_amount' => ['amount' => $request->fee * 100, 'currency' => 'gbp'],
+                    //     'display_name' => 'Commission Fee',
+                    //     ],
+                    // ],
+                    // ],
+                    'line_items'  => [
+                        [
+                            'price_data' => [
+                                'currency'     => 'gbp',
+                                'product_data' => [
+                                    'name' => $data['ticket_details']->match_name,
+                                ],
+                                'unit_amount'  => $request->ticket_price * 100,
+                            ],
+                            'quantity'   => $request->quantity,
+                        ],
+                        [
+                            'price_data' => [
+                                'currency' => 'gbp',
+                                'unit_amount' => $request->fee * 100,
+                                'product_data' => [
+                                    'name' => 'Commission',
+                                ],
+                            ],
+                            'quantity' => 1,
+                        ],
+                    ],
+
+                    'mode'        => 'payment',
+                    'success_url' => route('success', ['order' => $encryptedOrderId]),
+                    'cancel_url'  => route('checkout'),
+                ]);
+
+                return redirect()->away($session->url);
+            }
+
+            public function success(Request $request, $encryptedOrderId){
+                $d_id = decrypt($encryptedOrderId);
+
+                $order_details = Order::where('id',$d_id)->first();
+
+                $data['ticket_details'] = DB::table('ticket_listings')
+                    ->join('child_sub_categories','ticket_listings.child_sub_cat_id', 'child_sub_categories.id')
+                    ->join('sections','ticket_listings.section_id', 'sections.id')
+                    ->leftJoin('blocks','ticket_listings.block_id', 'blocks.id')
+                    ->join('events','ticket_listings.event_id', 'events.id')
+                    ->join('venues','ticket_listings.venue_id', 'venues.id')
+                    ->select('child_sub_categories.*','blocks.*','sections.*','venues.*','events.*','ticket_listings.*')
+                    ->where('ticket_listings.id',$order_details->ticket_id)
+                    ->first();
+                    // echo "<pre>";print_r($data);die;
+
+                    //ticket image reduce when order done
+                    $all_ticket_image = json_decode($data['ticket_details']->image);
+                    $reduce_image = array_slice($all_ticket_image, 0, $order_details->ticket_quantity);
+                    $existingImage = DB::table('ticket_listings')->where('id', $order_details->ticket_id)->value('image');
+                    $existingArray = json_decode($existingImage, true);
+                    $newArray = array_diff($existingArray, $reduce_image);
+
+                    if (empty($newArray)) {
+                        $newImage = null;
+                    } else {
+                        $newImage = json_encode(array_values($newArray));
                     }
-                $order->Save();
+                    Order::where('id',$d_id)->update(['status'=> 'Paid']);
 
-                $session_id = Session::get('session_id');
+                    DB::table('ticket_listings')->where('id', $order_details->ticket_id)->update(['image' => $newImage]);
 
-                $catProducts = Cart::with('product')->where(['session_id' =>$session_id])->get();
+                    //ticket reduce when order done
+                    DB::table('ticket_listings')->where('id', $order_details->ticket_id)->update(['ticket_count' => DB::raw('ticket_count -' . $order_details->ticket_quantity)]);
 
-                foreach($catProducts as $pro){
-                    $cartPro = new OrderDetails();
-                    $cartPro->order_id = $order->id;
-                    $cartPro->user_id = $user_id;
-                    $cartPro->brand_id = $pro->product->brand_id;
-                    $cartPro->category_id = $pro->product->category_id;
-                    $cartPro->product_id = $pro->pro_id;
-                    $cartPro->product_code = $pro->pro_code;
-                    $cartPro->product_name = $pro->pro_name;
-                    $cartPro->product_color = $pro->pro_colour;
-                    $cartPro->product_size = $pro->pro_size;
-                    $cartPro->product_price = $pro->pro_price;
-                    $cartPro->product_qty = $pro->pro_quantity;
-                    $cartPro->save();
+                return view('front.success');
+            }
 
-                    if (isset($pro->pro_size)){
-                        DB::table('attributes')->where('product_id',$pro->pro_id)
-                            ->where('attributes_size',$pro->pro_size)
-                            ->update(['attributes_stock' => DB::raw('attributes_stock -' . $pro->pro_quantity)]);
-                    }else{
-                        DB::table('products')->where('id',$pro->pro_id)
-                            ->update(['product_quantity' => DB::raw('product_quantity -' . $pro->pro_quantity)]);
-                    }
-
-                }
-
-
-                if($data['payment_method']=="cod"){
-                    Session::put('order_id',$order->order_id);
-                    Session::put('status',$order->status);
-                    Session::put('date',date('d/m/Y'));
-                    Session::put('grand_total',$data['grand_total']);
-                    Session::put('payment_method',$data['payment_method']);
-
-                    return redirect()->route('success');
-                }else{
-                    return redirect()->route('online_payment');
-                }
-
+            public function cancel(){
+                return view('front.cancel');
             }
 }

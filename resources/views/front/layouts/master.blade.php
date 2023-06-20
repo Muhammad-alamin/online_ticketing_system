@@ -10,7 +10,7 @@
     @include('front.layouts._footer')
 
     @include('front.layouts._jsScript')
-
+    {!! Toastr::message() !!}
 </body>
 
 </html>

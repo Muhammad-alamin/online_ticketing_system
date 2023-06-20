@@ -1,4 +1,4 @@
-<x-guest-layout>
+{{-- <x-guest-layout>
     <form method="POST" action="{{ route('register') }}">
         @csrf
 
@@ -49,4 +49,34 @@
             </x-primary-button>
         </div>
     </form>
-</x-guest-layout>
+</x-guest-layout> --}}
+
+
+@extends('auth.layouts.master')
+@section('content')
+<div class="login-container" style="margin-top: 150px;">
+    <input type="checkbox" id="check">
+    <div class="login form">
+      <header>Sign Up</header>
+      <form method="POST" action="{{ route('register') }}">
+        @csrf
+        <input type="text" name="name" placeholder="Enter your name" required>
+        @error('name')<i class="text-danger">{{$message}}</i>@enderror
+        <input type="text" name="email" placeholder="Enter your email" required>
+        @error('email')<i class="text-danger">{{$message}}</i>@enderror
+        <input type="number" name="mobile" placeholder="Enter your phone number" required>
+        @error('phone')<i class="text-danger">{{$message}}</i>@enderror
+        <input type="password" name="password" placeholder="Enter your password" required>
+        @error('password')<i class="text-danger">{{$message}}</i>@enderror
+        <input type="password" name="password_confirmation" placeholder="Confirm Your Password" required>
+        @error('password_confirmation')<i class="text-danger">{{$message}}</i>@enderror
+        <button type="submit" class="button" value="Login">Sign Up</button>
+      </form>
+      <div class="signup">
+        <span class="signup">Already have an acoount?
+         <a href="{{ route('login') }}" for="check">Sign In</a>
+        </span>
+      </div>
+    </div>
+  </div>
+@endsection

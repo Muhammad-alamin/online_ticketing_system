@@ -85,6 +85,9 @@
                                                     @for ($i= 2; $i <= $n; $i +=2)
                                                         <option value="{{ encrypt($i) }}" @if($i == $n) selected @endif>{{ $i }}</option>
                                                     @endfor
+                                                    @if ($n % 2 == 1)
+                                                    <option value="{{ encrypt($n) }}">{{ $n }}</option>
+                                                    @endif
                                                 @elseif($ticket_details->ticket_varient == "Any")
                                                     @for ($i= 1; $i <= $n; ++$i)
                                                     <option value="{{ encrypt($i) }}" @if($i == $n) selected @endif>{{ $i }}</option>

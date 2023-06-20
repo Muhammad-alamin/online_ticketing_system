@@ -1,4 +1,4 @@
-<x-guest-layout>
+{{-- <x-guest-layout>
     <div class="mb-4 text-sm text-gray-600 dark:text-gray-400">
         {{ __('Forgot your password? No problem. Just let us know your email address and we will email you a password reset link that will allow you to choose a new one.') }}
     </div>
@@ -22,4 +22,27 @@
             </x-primary-button>
         </div>
     </form>
-</x-guest-layout>
+</x-guest-layout> --}}
+
+@extends('auth.layouts.master')
+@section('content')
+<div class="login-container">
+    <input type="checkbox" id="check">
+    <div class="login form">
+      <header>Forget Your Password</header>
+      <p>Forgot your password? No problem. Just let us know your email address and we will email you a password reset link that will allow you to choose a new one.</p>
+      <form method="POST" action="{{ route('password.email') }}">
+        @csrf
+        <input type="text" name="email" placeholder="Enter your email" required>
+        @error('email')<i class="text-danger">{{$message}}</i>@enderror
+        <button type="submit" class="button" value="Login">Email Password Reset Link</button>
+      </form>
+      <div class="signup">
+        <span class="signup">Already have an acoount?
+         <a href="{{ route('login') }}" for="check">Sign In</a>
+        </span>
+      </div>
+    </div>
+  </div>
+@endsection
+

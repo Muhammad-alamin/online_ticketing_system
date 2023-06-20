@@ -10,7 +10,7 @@
     @include('seller.layouts._footer')
 
     @include('seller.layouts._jsScript')
-
+    {!! Toastr::message() !!}
 </body>
 
 </html>

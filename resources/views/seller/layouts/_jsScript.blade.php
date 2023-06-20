@@ -11,6 +11,12 @@
 <script src="{{ asset('front/assets/js/featherlight.gallery.min.js') }}"></script>
 <script src="{{ asset('front/assets/js/bootstrap.offcanvas.min.js') }}"></script>
 <script src="{{ asset('front/assets/js/main.js') }}"></script>
+<script src="http://cdn.bootcss.com/jquery/2.2.4/jquery.min.js"></script>
+<script src="http://cdn.bootcss.com/toastr.js/latest/js/toastr.min.js"></script>
+<script src="https://code.jquery.com/jquery-3.5.1.js"></script>
+<script src="https://cdn.datatables.net/1.13.4/js/jquery.dataTables.min.js"></script>
+<script src="https://cdn.datatables.net/rowreorder/1.3.3/js/dataTables.rowReorder.min.js"></script>
+<script src="https://cdn.datatables.net/responsive/2.4.1/js/dataTables.responsive.min.js"></script>
 
 
 <script>
@@ -73,6 +79,18 @@ $('#mySelect').on('change', function() {
   }
 });
 
+//ticket address for paper & membership ticket
+$('#mySelect').on('change', function() {
+  var value = $(this).val();
+  if(value == 'Paper' || value == 'Membership'){
+    $(".ticket_address").show();
+  }
+  else{
+    $(".ticket_address").hide();
+  }
+});
+
+
 $('#selectTicket').on('change', function() {
   var value = $(this).val();
   $(".append").empty();
@@ -105,7 +123,7 @@ $(document).ready(function () {
 
 
     //pairs value comes when select value appear
-    
+
     $('#selectTicket').on('change', function() {
   var value = parseInt($(this).val());
   var $selectPicker = $('#selectTicketVarient');
@@ -117,6 +135,17 @@ $(document).ready(function () {
     $selectPicker.selectpicker('refresh');
   }
 });
+
+
+//datatable
+$(document).ready(function() {
+    var table = $('#example').DataTable( {
+        rowReorder: {
+            selector: 'td:nth-child(2)'
+        },
+        responsive: true
+    } );
+} );
 
 
 </script>

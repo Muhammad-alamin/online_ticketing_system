@@ -242,7 +242,7 @@ body{
 	display:none;
 }
 
-.mobile-cart a{
+/* .mobile-cart a{
 	font-size:15px;
 	line-height:20px;
 	text-transform:uppercase;
@@ -255,11 +255,11 @@ body{
 	width:90px;
 	position:relative;
 	display:block;
-}
+} */
 
 .mobile-cart a:before{
 	display:block;
-	content: "\f23d";
+	/* content: "\f23d"; */
 	font-family: 'FontAwesome';
 	position:absolute;
 	top:7px;
@@ -312,24 +312,24 @@ body{
 }
 
 #site-navigation .cart a{
-	border:1px solid #ff6600;
+	/* border:1px solid #ff6600;
 	border-radius:20px;
 	margin:6px 0;
 	padding:7px 20px!important;
 	font-family: "Montserrat-Light";
 	width:90px;
 	background-size:25px 23px!important;
-	position:relative;
+	position:relative; */
 }
 
 #site-navigation .cart a:before{
-	display:block;
+	/* display:block;
 	content: "\f23d";
 	font-family: 'FontAwesome';
 	position:absolute;
 	top:7px;
 	right:20px;
-	font-size:18px
+	font-size:18px */
 }
 
 .closecanvas{
@@ -343,7 +343,7 @@ body{
 
 .hero-1{
 	position:relative;
-	background:url(../images/football-banner.jpg) no-repeat center center;
+	background:url(../images/football-banner.webp) no-repeat center center;
 	-webkit-background-size: cover;
 	-moz-background-size: cover;
 	-o-background-size: cover;
@@ -1989,7 +1989,7 @@ body{
 	border-top:1px solid #cecece;
 	border-bottom:1px solid #cecece;
 	margin:0;
-	padding:40px 15px;
+	padding:20px 15px;
 }
 
 .section-page-header .entry-title{
@@ -2432,7 +2432,7 @@ body{
 
 .section-select-seat-featured-header{
 	min-height:322px;
-	background: url(../images/stadium_image.png)no-repeat center center;
+	background: url(../images/stadium_image.webp)no-repeat center center;
 	-webkit-background-size: cover;
 	-moz-background-size: cover;
 	-o-background-size: cover;
@@ -2487,7 +2487,7 @@ body{
 }
 
 .section-select-seat-page-content{
-	padding:70px 0;
+	padding:30px 0;
 	background:#fff
 }
 
@@ -5114,3 +5114,279 @@ body{
     position: sticky;
     top: 30px;;
 }
+
+
+/* Dropdown styles */
+
+.cart-dropdown {
+    height: 2.5rem;
+    list-style-type: none;
+    padding: 0;
+    width: 100%;
+    margin: 1rem;
+    margin-bottom: 20px;
+}
+.cart-dropdown li {
+    visibility: hidden;
+    position: relative;
+    z-index: 10;
+    margin: 0;
+    padding: 0;
+    background-color: #242424;
+    border-right: 1px solid #1bd6bc;
+    border-left: 1px solid #1bd6bc;
+    box-shadow: 0px 0px 20px -3px #1bd6bc;
+    transition: 80ms;
+}
+
+.cart-dropdown li a:active {
+    font-size: 0.8em;
+    background-color: #242424;
+}
+.cart-dropdown li:first-of-type {
+    visibility: visible;
+    border-top: 1px solid #1bd6bc;
+    border-radius: 0.3rem;
+    transition: background-color 200ms;
+}
+.cart-dropdown li:last-of-type {
+    border-bottom: 1px solid #1bd6bc;
+    border-bottom-left-radius: 0.3rem;
+    border-bottom-right-radius: 0.3rem;
+}
+.cart-dropdown:hover li {
+    visibility: visible;
+}
+.cart-dropdown:hover li:first-of-type {
+    border-bottom-left-radius: 0;
+    border-bottom-right-radius: 0;
+    background-color: #242424;
+    z-index: 15;
+    font-weight: 600;
+}
+.cart-dropdown li:hover {
+    background-color:#242424 !important;
+    z-index: 15;
+}
+.cart-dropdown li:hover a {
+    color: #1bd6bc;
+}
+
+/* default styles here for older browsers.
+       I tend to go for a 600px - 960px width max but using percentages
+    */
+    @media only screen and (min-width: 960px) {
+        .cart-dropdown li a {
+            display: block;
+            /* width: 10rem; */
+            height: 4.0rem;
+            text-align: center;
+            /* line-height: 3.5rem; */
+            padding: 0rem 1rem;
+            color: white;
+            text-decoration: none;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            transition: font-size 200ms, background-color 200ms;
+        }
+    }
+    @media only screen and (min-width: 1440px) {
+        .cart-dropdown li a {
+            display: block;
+            /* width: 10rem; */
+            height: 4.0rem;
+            text-align: center;
+            /* line-height: 3.5rem; */
+            padding: 0rem 1rem;
+            color: white;
+            text-decoration: none;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            transition: font-size 200ms, background-color 200ms;
+        }
+    }
+    @media only screen and (min-width: 2000px) {
+        .cart-dropdown li a {
+            display: block;
+            /* width: 10rem; */
+            height: 4.0rem;
+            text-align: center;
+            /* line-height: 3.5rem; */
+            padding: 0rem 1rem;
+            color: white;
+            text-decoration: none;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            transition: font-size 200ms, background-color 200ms;
+        }
+    }
+    @media only screen and (max-device-width: 480px) {
+        .cart-dropdown li a {
+            display: block;
+            /* width: 10rem; */
+            height: 4.0rem;
+            text-align: center;
+            line-height: 3.5rem;
+            padding: 0rem 1rem;
+            color: white;
+            text-decoration: none;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            transition: font-size 200ms, background-color 200ms;
+        }
+    }
+    @media only screen and (device-width: 768px) {
+        .cart-dropdown li a {
+            display: block;
+            /* width: 10rem; */
+            height: 4.0rem;
+            text-align: center;
+            line-height: 3.5rem;
+            padding: 0rem 1rem;
+            color: white;
+            text-decoration: none;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            transition: font-size 200ms, background-color 200ms;
+        }
+    }
+    /* different techniques for iPad screening */
+    @media only screen and (min-device-width: 481px) and (max-device-width: 1024px) and (orientation:portrait) {
+        .cart-dropdown li a {
+            display: block;
+            /* width: 10rem; */
+            height: 4.0rem;
+            text-align: center;
+            line-height: 3.5rem;
+            padding: 0rem 1rem;
+            color: white;
+            text-decoration: none;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            transition: font-size 200ms, background-color 200ms;
+        }
+    }
+
+    @media only screen and (min-device-width: 481px) and (max-device-width: 1024px) and (orientation:landscape) {
+        .cart-dropdown li a {
+            display: block;
+            /* width: 10rem; */
+            height: 4.0rem;
+            text-align: center;
+            /* line-height: 3.5rem; */
+            padding: 0rem 1rem;
+            color: white;
+            text-decoration: none;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            transition: font-size 200ms, background-color 200ms;
+        }
+    }
+
+/*login form css*/
+
+
+.login-container{
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%,-50%);
+    max-width: 430px;
+    width: 100%;
+    background: #fff;
+    border-radius: 7px;
+    box-shadow: 0 5px 10px rgba(0,0,0,0.3);
+    margin-top: 50px;
+  }
+  .login-container .registration{
+    display: none;
+  }
+  #check:checked ~ .registration{
+    display: block;
+  }
+  #check:checked ~ .login{
+    display: none;
+  }
+  #check{
+    display: none;
+  }
+  .login-container .form{
+    padding: 2rem;
+  }
+  .form header{
+    font-size: 2rem;
+    font-weight: 500;
+    text-align: center;
+    margin-bottom: 1.5rem;
+  }
+   .form input{
+     height: 60px;
+     width: 100%;
+     padding: 0 15px;
+     font-size: 17px;
+     margin-bottom: 1.3rem;
+     border: 1px solid #ddd;
+     border-radius: 6px;
+     outline: none;
+   }
+   .form button{
+    height: 60px;
+    width: 100%;
+    padding: 0 15px;
+    font-size: 17px;
+    margin-bottom: 1.3rem;
+    border: 1px solid #ddd;
+    border-radius: 6px;
+    outline: none;
+  }
+   .form input:focus{
+     box-shadow: 0 1px 0 rgba(0,0,0,0.2);
+   }
+  .form a{
+    font-size: 16px;
+    color: #009579;
+    text-decoration: none;
+  }
+  .form a:hover{
+    text-decoration: underline;
+  }
+  .form button.button{
+    color: #fff;
+    background: #009579;
+    font-size: 1.8rem;
+    font-weight: 600;
+    letter-spacing: 1px;
+    margin-top: 1.7rem;
+    cursor: pointer;
+    transition: 0.4s;
+  }
+  .form button.button:hover{
+    background: #006653;
+  }
+  .signup{
+    font-size: 17px;
+    text-align: center;
+  }
+  .signup label{
+    color: #009579;
+    cursor: pointer;
+  }
+  .signup label:hover{
+    text-decoration: underline;
+  }
+
+
+
+  /*menu active Colour*/
+
+  .menu-active-color{
+    color: red;
+    text-decoration: underline;
+  }

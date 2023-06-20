@@ -19,6 +19,7 @@
         <div class="row">
                 <div id="primary" class="col-sm-12 col-md-7">
                 @foreach ($tickets as $ticket)
+                    @if ($ticket->ticket_count >= 1 && $ticket->status == 'Active')
                     <div class="artist-event-item hover_div" data-ticket_id="{{ $ticket->id }}" style="border: 1px solid grey; margin-bottom:10px; padding-bottom:15px;">
                         <div class="row">
                             <div class="artist-event-item-info col-sm-9">
@@ -48,6 +49,7 @@
                             </div>
                         </div>
                     </div>
+                    @endif
                 @endforeach
             </div>
 

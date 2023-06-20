@@ -1,8 +1,6 @@
 @extends('front.layouts.master')
 @section('content')
 
-
-
 <section class="section-page-header">
     <div class="container">
         <h1 class="entry-title">Review Order</h1>
@@ -139,24 +137,27 @@
                                     <div class="col-md-6">
                                         <span>First Name</span>
                                         <input placeholder="Enter First Name" name="first_name" class="form-control">
-
+                                        @error('first_name')<i class="text-danger">{{$message}}</i>@enderror
                                     </div>
                                     <div class="col-md-6">
                                         <span>Last Name</span>
                                         <input placeholder="Enter Last Name" name="last_name" class="form-control">
-
+                                        @error('last_name')<i class="text-danger">{{$message}}</i>@enderror
                                     </div>
                                     <div class="col-md-12" style="margin-top: 10px;">
                                         <span>Email</span>
                                         <input class="form-control" name="email" placeholder="Enter Email Address">
+                                        @error('email')<i class="text-danger">{{$message}}</i>@enderror
                                     </div>
                                     <div class="col-md-12" style="margin-top: 10px;">
                                         <span>Address</span>
                                         <input class="form-control" name="address" placeholder="Enter Address">
+                                        @error('address')<i class="text-danger">{{$message}}</i>@enderror
                                     </div>
                                     <div class="col-md-12" style="margin-top: 10px;">
                                         <span>City</span>
                                         <input class="form-control" name="city" placeholder="Enter City">
+                                        @error('city')<i class="text-danger">{{$message}}</i>@enderror
                                     </div>
                                     <div class="col-md-12" style="margin-top: 10px;">
                                         <span>Country</span>
@@ -406,18 +407,22 @@
                                             <option value="Zambia">Zambia</option>
                                             <option value="Zimbabwe">Zimbabwe</option>
                                         </select>
+                                        @error('country')<i class="text-danger">{{$message}}</i>@enderror
                                     </div>
                                     <div class="col-md-6" style="margin-top: 10px;">
                                         <span>State</span>
                                         <input class="form-control" name="state" placeholder="Enter State">
+                                        @error('state')<i class="text-danger">{{$message}}</i>@enderror
                                     </div>
                                     <div class="col-md-6" style="margin-top: 10px;">
                                         <span>Post Code</span>
                                         <input class="form-control" name="post_code" placeholder="Enter Post Code">
+                                        @error('post_code')<i class="text-danger">{{$message}}</i>@enderror
                                     </div>
                                     <div class="col-md-6" style="margin-top: 10px;">
                                         <span>Phone Nuumber</span>
                                         <input class="form-control" id="mobile_code" name="phone" placeholder="Phone Number">
+                                        @error('phone')<i class="text-danger">{{$message}}</i>@enderror
                                     </div>
                                 </div>
                         </div>
@@ -432,6 +437,7 @@
                         <input type="hidden" name="block_id" value="{{ $ticket_details->block_id }}">
                         <input type="hidden" name="quantity" value="{{ $quantity }}">
                         <input type="hidden" name="fee" value="{{ $fee }}">
+                        <input type="hidden" name="ticket_price" value="{{ $ticket_details->price }}">
                         <input type="hidden" name="total_price" value="{{ $total_price }}">
 
                         <div class="section-order-details-event-action">

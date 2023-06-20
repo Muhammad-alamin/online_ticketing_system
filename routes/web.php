@@ -30,7 +30,7 @@ Route::middleware('auth')->group(function () {
 
 require __DIR__.'/auth.php';
 
-Route::middleware('auth')->group(function () {
+Route::middleware(['auth', 'admin'])->group(function () {
     Route::get('admin/dashboard', [App\Http\Controllers\Admin\DashboardController::class,'index'])->name('admin.dashboard');
 
     //admin Profile Information
@@ -125,6 +125,21 @@ Route::middleware('auth')->group(function () {
     //ajax child category data fetch
     Route::get('/seller/get/child_sub_cat-list/{id}',[App\Http\Controllers\Seller\TicketController::class,'getChildSubCat']);
 
+    //orders route
+    Route::get('sellers/orders',[App\Http\Controllers\Seller\OrderController::class,'index'])->name('seller.orders');
+    Route::get('sellers/orders/details/{id}',[App\Http\Controllers\Seller\OrderController::class,'details'])->name('seller.order.details');
+    Route::get('/download-images/{id}',[App\Http\Controllers\Seller\OrderController::class,'downloadImages'])->name('download.images');
+
+    //ticket listing
+    Route::get('sellers/ticket-listing/list',[App\Http\Controllers\Seller\ListingController::class,'index'])->name('seller.ticket.listing');
+    Route::get('sellers/ticket-listing/details/{id}',[App\Http\Controllers\Seller\ListingController::class,'details'])->name('seller.listing.details');
+    Route::get('sellers/ticket-listing/edit/{id}',[App\Http\Controllers\Seller\ListingController::class,'edit'])->name('seller.listing.edit');
+    Route::post('sellers/ticket-listing/update/{id}',[App\Http\Controllers\Seller\ListingController::class,'update'])->name('seller.listing.update');
+    Route::get('sellers/ticket-listing/delete/{id}',[App\Http\Controllers\Seller\ListingController::class,'delete'])->name('seller.listing.delete');
+
+
+
+
 });
 
 //front route
@@ -146,5 +161,9 @@ Route::get("/order/review/{id}",[App\Http\Controllers\Front\OrderController::cla
 
 //checkout
 Route::post("checkout",[App\Http\Controllers\Front\OrderController::class,'checkout'])->name('checkout');
+
+//success route
+Route::get('success/{order}',[App\Http\Controllers\Front\OrderController::class,'success'])->name('success');
+Route::get('cancel',[App\Http\Controllers\Front\OrderController::class,'cancel'])->name('cancel');
 
 
