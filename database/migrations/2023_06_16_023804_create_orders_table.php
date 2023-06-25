@@ -25,6 +25,7 @@ return new class extends Migration
             $table->string('event_id')->nullable();
             $table->string('section_id')->nullable();
             $table->string('block_id')->nullable();
+            $table->string('order_ticket_id')->nullable();
             $table->string('ticket_quantity')->nullable();
             $table->longText('ticket_image')->nullable();
             $table->string('fee')->nullable();
@@ -39,6 +40,7 @@ return new class extends Migration
             $table->string('phone')->nullable();
             $table->string('post_code')->nullable();
             $table->float('ticket_price',9,2)->nullable();
+            $table->float('total_ticket_price',9,2)->nullable();
             $table->string('status')->nullable();
             $table->string('order_date')->nullable();
             $table->string('order_month')->nullable();

@@ -147,5 +147,21 @@ $(document).ready(function() {
     } );
 } );
 
+$(document).ready(function() {
+    $(document).on('change', 'select[name="payout_payment_method"]', function() {
+        var value = $(this).val();
+        if (value == "bank_transfer") {
+            $("#payout-payment-bank_transfer").show();
+            $("#payout-payment-paypal").hide();
+        } else if (value == "paypal") {
+            $("#payout-payment-bank_transfer").hide();
+            $("#payout-payment-paypal").show();
+        } else {
+            $("#payout-payment-bank_transfer").show();
+            $("#payout-payment-paypal").hide();
+        }
+    });
+});
+
 
 </script>

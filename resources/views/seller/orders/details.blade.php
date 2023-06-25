@@ -19,13 +19,13 @@
                     <label><a href="{{ route('seller.ticket.listing') }}">Listing</a></label>
                 </div>
                 <div class="col-sm-2 col-md-2">
-                    <label><a href="">Payment</a></label>
+                    <label><a href="{{route('seller.payout.info')}}" class="@if (request()->routeIs('seller.payout.info')) menu-active-color @endif">Payment</a></label>
                 </div>
                 <div class="col-sm-2 col-md-2">
-                    <label><a href="">Sales</a></label>
+                    <label><a href="{{ route('seller.sales') }}">Sales</a></label>
                 </div>
                 <div class="col-sm-2 col-md-2">
-                    <label><a href="">Account</a></label>
+                    <label><a href="{{ route('user.details') }}">Account</a></label>
                 </div>
             </form>
         </div>
@@ -58,6 +58,20 @@
                             <br>
                             <ul class="row">
                                 <li class="col-sm-5">
+                                    <span>Ticket ID</span>
+                                    {{ $orders->order_ticket_id }}
+                                </li>
+                                @if (isset($orders->row))
+                                <li class="col-sm-4">
+                                    <span>Row</span>
+                                    {{ $orders->row }}
+                                </li>
+                                @endif
+                            </ul>
+                            <br>
+                            <br>
+                            <ul class="row">
+                                <li class="col-sm-5">
                                     <span>Vanue Name</span>
                                     {{ $orders->venue_name }}
                                 </li>
@@ -71,6 +85,27 @@
                                 <li class="col-sm-3">
                                     <span>Block Number</span>
                                     {{ $orders->block_number }}
+                                </li>
+                                @endif
+                            </ul>
+                            <br>
+                            <br>
+                            <ul class="row">
+                                <li class="col-sm-5">
+                                    <span>Ticket Types</span>
+                                    {{ $orders->ticket_types }}
+                                </li>
+                                <li class="col-sm-4">
+                                    <span>Ticket Varient</span>
+                                    {{ $orders->ticket_varient }}
+                                </li>
+                                @if (isset($orders->ticket_restriction))
+                                <li class="col-sm-3">
+                                    <span>Ticket Restriction</span>
+                                    <?php $ticket_restriction = json_decode($orders->ticket_restriction) ?>
+                                    @foreach ($ticket_restriction as $ticket)
+                                    {{ $ticket }}
+                                    @endforeach
                                 </li>
                                 @endif
                             </ul>
@@ -105,7 +140,7 @@
                                 </li>
                                 <li class="col-sm-3">
                                     <span>Purchasing date</span>
-                                    {{ date('d-F', strtotime($orders->order_date))}}
+                                    {{$orders->order_date}}
                                 </li>
                             </ul>
                             <br>

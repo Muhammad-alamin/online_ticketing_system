@@ -19,13 +19,13 @@
                     <label><a href="{{ route('seller.ticket.listing') }}" class="@if (request()->routeIs('seller.ticket.listing')) menu-active-color @endif">Listing</a></label>
                 </div>
                 <div class="col-sm-2 col-md-2">
-                    <label><a href="">Payment</a></label>
+                    <label><a href="{{route('seller.payout.info')}}" class="@if (request()->routeIs('seller.payout.info')) menu-active-color @endif">Payment</a></label>
                 </div>
                 <div class="col-sm-2 col-md-2">
-                    <label><a href="">Sales</a></label>
+                    <label><a href="{{ route('seller.sales') }}" class="@if (request()->routeIs('seller.sales')) menu-active-color @endif">Sales</a></label>
                 </div>
                 <div class="col-sm-2 col-md-2">
-                    <label><a href="">Account</a></label>
+                    <label><a href="{{ route('user.details') }}" class="@if (request()->routeIs('user.details')) menu-active-color @endif">Account</a></label>
                 </div>
             </form>
         </div>
@@ -57,10 +57,12 @@
                             <td>{{ $order->ticket_quantity }}</td>
                             <td>{{ $order->ticket_types }}</td>
                             <td>£ {{ $order->total_price }}</td>
-                            @if ($order->ticket_type = 'E-ticket')
+                            @if ($order->ticket_types == 'E-ticket')
                             <td><a href="{{ route('download.images',encrypt($order->id)) }}" class="btn btn-primary">Download</a></td>
+                            @else
+                            <td>No Ticket Image</td>
                             @endif
-                            <td>{{ date('d-F', strtotime($order->order_date))}}</td>
+                            <td>{{ $order->order_date}}</td>
                             <td><a href="{{ route('seller.order.details',encrypt($order->id)) }}" style="color: green">Details</a></td>
                         </tr>
                         @endforeach

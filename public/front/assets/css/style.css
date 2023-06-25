@@ -3402,7 +3402,7 @@ body{
 
 .section-featured-header.all-sports-events:before{
 	content: "";
-	background: url(../images/overlay.png);
+	background: url(../images/stadium__gallery.webp);
 	position:absolute;
 	top:0;
 	bottom:0;
@@ -3531,7 +3531,7 @@ body{
 }
 
 .section-choose-how-many-tickets .ticket-nav li a span{
-	font-size:70px;
+	font-size:30px;
 	line-height:70px;
 	display:block;
 	margin:0 0 20px;

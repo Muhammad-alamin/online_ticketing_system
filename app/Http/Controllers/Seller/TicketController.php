@@ -143,6 +143,7 @@ class TicketController extends Controller
         $data['event_id'] = $request->event_id;
         $data['venue_id'] = $request->venue_id;
         $data['seller_id'] = auth()->user()->id;
+        $data['ticket_id'] = 'T-' .time();
         $data['section_id'] = $request->section;
         $data['block_id'] = $request->block;
         $data['ticket_count'] = $request->ticket_count;
@@ -152,6 +153,25 @@ class TicketController extends Controller
         $data['ticket_have'] = $request->ticket_have;
         $data['row'] = $request->row;
         $data['price'] = $request->price;
+
+        if ($request->ticket_types == 'Paper' || $request->ticket_types == 'Membership') {
+            $validator = Validator::make($request->all(), [
+                'address' => 'required',
+                'zipcode' => 'required',
+                'city' => 'required',
+                'country' => 'required',
+            ]);
+
+            if ($validator->fails()) {
+                session()->flash('error', 'Please Input Your Address to collect the ticket.');
+                return redirect()->back();
+            }
+
+            $data['address_for_collection'] = $request->address;
+            $data['zip_code_for_collection'] = $request->zipcode;
+            $data['city_for_collection'] = $request->city;
+            $data['country_for_collection'] = $request->country;
+        }
 
         $fetchVenue_id = DB::table('events')
         ->join('venues','events.venue_id', 'venues.id')
@@ -248,6 +268,6 @@ class TicketController extends Controller
 
         DB::table('ticket_listings')->insert($data);
         session()->flash('success', 'Your Ticket Listed Successfully');
-        return redirect()->back();
+        return redirect()->route('seller.ticket.listing');
     }
 }

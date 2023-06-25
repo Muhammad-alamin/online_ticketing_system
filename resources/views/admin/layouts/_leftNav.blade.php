@@ -117,50 +117,67 @@
                             </li>
                         </ul><!-- .nk-menu-sub -->
                     </li><!-- .nk-menu-item -->
-
-                    {{-- <li class="nk-menu-item has-sub">
+                    <li class="nk-menu-item has-sub">
                         <a href="javascript:void(0)" class="nk-menu-link nk-menu-toggle">
-                            <span class="nk-menu-icon"><em class="ni ni-view-x7"></em></span>
-                            <span class="nk-menu-text">Slider</span>
+                            <span class="nk-menu-icon"><em class="ni ni-money"></em></span>
+                            <span class="nk-menu-text">Commission</span>
                         </a>
                         <ul class="nk-menu-sub">
                             <li class="nk-menu-item">
-                                <a href="{{route('slider.create')}}" class="nk-menu-link @if (request()->routeIs('slider.create'))  active @endif"><span class="nk-menu-text">Slider Create</span></a>
+                                <a href="{{route('admin.commission.listing')}}" class="nk-menu-link @if(request()->routeIs('admin.commission.listing'))  active @endif"><span class="nk-menu-text">Set Commission</span></a>
+                            </li>
+                        </ul><!-- .nk-menu-sub -->
+                    </li><!-- .nk-menu-item -->
+
+                    <li class="nk-menu-item has-sub">
+                        <a href="javascript:void(0)" class="nk-menu-link nk-menu-toggle">
+                            <span class="nk-menu-icon"><em class="icon ni ni-wallet"></em></span>
+                            <span class="nk-menu-text">Withdraw</span>
+                        </a>
+                        <ul class="nk-menu-sub">
+                            <li class="nk-menu-item">
+                                <a href="{{route('withdraw.index')}}" class="nk-menu-link @if (request()->routeIs('withdraw.index'))  active @endif"><span class="nk-menu-text">Payment</span></a>
                             </li>
                             <li class="nk-menu-item">
-                                <a href="{{route('slider.index')}}" class="nk-menu-link @if (request()->routeIs('slider.index'))  active @endif"><span class="nk-menu-text">Slider List</span></a>
+                                <a href="{{route('admin.successfulPayment.list')}}" class="nk-menu-link @if (request()->routeIs('admin.successfulPayment.list'))  active @endif"><span class="nk-menu-text">Transection List</span></a>
+                            </li>
+                        </ul><!-- .nk-menu-sub -->
+                    </li><!-- .nk-menu-item -->
+
+                     <li class="nk-menu-item has-sub">
+                        <a href="javascript:void(0)" class="nk-menu-link nk-menu-toggle">
+                            <span class="nk-menu-icon"><em class="ni ni-view-x7"></em></span>
+                            <span class="nk-menu-text">Ticket</span>
+                        </a>
+                        <ul class="nk-menu-sub">
+                            <li class="nk-menu-item">
+                                <a href="{{route('admin.ticket.listing')}}" class="nk-menu-link @if (request()->routeIs('admin.ticket.listing'))  active @endif"><span class="nk-menu-text">Ticket List</span></a>
                             </li>
                         </ul><!-- .nk-menu-sub -->
                     </li><!-- .nk-menu-item -->
                     <li class="nk-menu-item has-sub">
                         <a href="javascript:void(0)" class="nk-menu-link nk-menu-toggle">
                             <span class="nk-menu-icon"><em class="icon ni ni-layers-fill"></em></span>
-                            <span class="nk-menu-text">Brand</span>
+                            <span class="nk-menu-text">Orders</span>
                         </a>
                         <ul class="nk-menu-sub">
                             <li class="nk-menu-item">
-                                <a href="{{route('Brand.create')}}" class="nk-menu-link @if (request()->routeIs('Brand.create'))  active @endif"><span class="nk-menu-text">Brand Create</span></a>
-                            </li>
-                            <li class="nk-menu-item">
-                                <a href="{{route('Brand.index')}}" class="nk-menu-link @if (request()->routeIs('Brand.index'))  active @endif"><span class="nk-menu-text">Brand List</span></a>
+                                <a href="{{route('admin.order.listing')}}" class="nk-menu-link @if (request()->routeIs('admin.order.listing'))  active @endif"><span class="nk-menu-text">Order List</span></a>
                             </li>
                         </ul><!-- .nk-menu-sub -->
                     </li><!-- .nk-menu-item -->
                     <li class="nk-menu-item has-sub">
                         <a href="javascript:void(0)" class="nk-menu-link nk-menu-toggle">
                             <span class="nk-menu-icon"><em class="icon ni ni-package-fill"></em></span>
-                            <span class="nk-menu-text">Product</span>
+                            <span class="nk-menu-text">User</span>
                         </a>
                         <ul class="nk-menu-sub">
                             <li class="nk-menu-item">
-                                <a href="{{route('admin.products.create')}}" class="nk-menu-link @if (request()->routeIs('admin.products.create'))  active @endif"><span class="nk-menu-text">Product Create</span></a>
-                            </li>
-                            <li class="nk-menu-item">
-                                <a href="{{route('admin.products.index')}}" class="nk-menu-link @if (request()->routeIs('admin.products.index'))  active @endif"><span class="nk-menu-text">Product List</span></a>
+                                <a href="{{route('admin.user.listing')}}" class="nk-menu-link @if (request()->routeIs('admin.user.listing'))  active @endif"><span class="nk-menu-text">User List</span></a>
                             </li>
                         </ul><!-- .nk-menu-sub -->
                     </li><!-- .nk-menu-item -->
-                    <li class="nk-menu-item has-sub">
+                    {{--<li class="nk-menu-item has-sub">
                         <a href="javascript:void(0)" class="nk-menu-link nk-menu-toggle">
                             <span class="nk-menu-icon"><em class="ni ni-money"></em></span>
                             <span class="nk-menu-text">Vendor Commission</span>

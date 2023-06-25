@@ -118,7 +118,7 @@
                                         </tr>
                                         <tr>
                                             <td>Total Fee</td>
-                                            <td>${{ number_format( $fee = $ticket_details->price * $quantity * 20/100 ,2 ) }}</td>
+                                            <td>${{ number_format( $fee = $ticket_details->price * $quantity * $commission->percentage/100 ,2 ) }}</td>
                                         </tr>
                                     </tbody>
                                     <tfoot>
@@ -427,6 +427,7 @@
                                 </div>
                         </div>
                         <input type="hidden" name="ticket_id" value="{{ $ticket_details->id }}">
+                        <input type="hidden" name="order_ticket_id" value="{{ $ticket_details->ticket_id }}">
                         <input type="hidden" name="category_id" value="{{ $ticket_details->category_id }}">
                         <input type="hidden" name="sub_cat_id" value="{{ $ticket_details->sub_cat_id }}">
                         <input type="hidden" name="child_sub_cat_id" value="{{ $ticket_details->child_sub_cat_id }}">
@@ -438,6 +439,7 @@
                         <input type="hidden" name="quantity" value="{{ $quantity }}">
                         <input type="hidden" name="fee" value="{{ $fee }}">
                         <input type="hidden" name="ticket_price" value="{{ $ticket_details->price }}">
+                        <input type="hidden" name="total_ticket_price" value="{{ $ticket_price }}">
                         <input type="hidden" name="total_price" value="{{ $total_price }}">
 
                         <div class="section-order-details-event-action">

@@ -19,13 +19,13 @@
                     <label><a href="{{ route('seller.ticket.listing') }}" class="@if (request()->routeIs('seller.ticket.listing')) menu-active-color @endif">Listing</a></label>
                 </div>
                 <div class="col-sm-2 col-md-2">
-                    <label><a href="">Payment</a></label>
+                    <label><a href="{{route('seller.payout.info')}}" class="@if (request()->routeIs('user.details')) menu-active-color @endif">Payment</a></label>
                 </div>
                 <div class="col-sm-2 col-md-2">
-                    <label><a href="">Sales</a></label>
+                    <label><a href="{{ route('seller.sales') }}">Sales</a></label>
                 </div>
                 <div class="col-sm-2 col-md-2">
-                    <label><a href="">Account</a></label>
+                    <label><a href="{{ route('user.details') }}">Account</a></label>
                 </div>
             </form>
         </div>

@@ -102,39 +102,6 @@
                                     </div>
                                 </div><!-- .card -->
                             </div><!-- .col -->
-                            {{-- <div class="col-xxl-8" style="padding-top: 30px">
-                                <div class="card card-full">
-                                    <div class="card-inner">
-                                        <div class="card-title-group">
-                                            <div class="card-title">
-                                                <h6 class="title">Stock out product list</h6>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="card card-preview">
-                                        <div class="card-inner">
-                                            <table class="datatable-init nk-tb-list nk-tb-ulist" data-auto-responsive="false">
-                                                <thead>
-                                                <tr class="nk-tb-item nk-tb-head">
-                                                    <th class="nk-tb-col"><span class="sub-text">Product name</span></th>
-                                                    <th class="nk-tb-col tb-col-mb"><span class="sub-text">Stock</span></th>
-                                                    <th class="nk-tb-col tb-col-md"><span class="sub-text">Brand name</span></th>
-                                                    <th class="nk-tb-col tb-col-lg"><span class="sub-text">Price</span></th>
-                                                    <th class="nk-tb-col tb-col-lg"><span class="sub-text">Category name</span></th>
-                                                    <th class="nk-tb-col tb-col-lg"><span class="sub-text">Quantity</span></th>
-                                                    <th class="nk-tb-col tb-col-lg"><span class="sub-text">Image</span></th>
-                                                    <th class="nk-tb-col tb-col-md"><span class="sub-text">Approval</span></th>
-                                                    <th class="nk-tb-col nk-tb-col-tools text-right">
-                                                    </th>
-                                                </tr>
-                                                </thead>
-                                                <tbody>
-                                                </tbody>
-                                            </table>
-                                        </div>
-                                    </div><!-- .card-preview -->
-                                </div><!-- .card -->
-                            </div> --}}
                         </div><!-- .row -->
                     </div><!-- .nk-block -->
                 </div>
@@ -142,7 +109,8 @@
         </div>
     </div>
     <!-- content @e -->
-    {{-- <script type="text/javascript">
+
+    <script type="text/javascript">
         google.charts.load("current", {packages:["corechart"]});
         google.charts.setOnLoadCallback(drawChart);
         function drawChart() {
@@ -206,5 +174,6 @@
             var chart = new google.visualization.AreaChart(document.getElementById('area_chart'));
             chart.draw(data, options);
         }
-    </script> --}}
+    </script>
+    
 @endsection
