@@ -50,6 +50,7 @@ class UserController extends Controller
                             'password' => Hash::make($request->new_password)
                         ]);
                         auth()->logout();
+                        Toastr::success('Password changed successfully', 'Success', ["positionClass" => "toast-top-right"]);
                         return redirect()->route('login');
                     }
                     else{

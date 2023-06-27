@@ -84,6 +84,7 @@ class TicketController extends Controller
         ->where('events.id',$d_id)
         ->first();
 
+
         // $event_date = $event->match_date_time;
 
         // //current time
@@ -115,8 +116,12 @@ class TicketController extends Controller
             ->where('events.id',$d_id)
             ->first();
 
+            $left_ticket =  DB::table('ticket_listings')
+            ->where('ticket_listings.event_id',$d_id)
+            ->sum('ticket_count');
+
             $data['section'] = Section::where('venue_id',$fetchVenue_id->venue_id)->get();
-            return view('Seller.addTicket',$data);
+            return view('Seller.addTicket',$data,compact('left_ticket'));
         // }
 
     }

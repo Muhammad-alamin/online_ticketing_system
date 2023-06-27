@@ -30,7 +30,7 @@ use Illuminate\Support\Facades\Route;
 
 require __DIR__.'/auth.php';
 
-Route::middleware(['auth', 'admin'])->group(function () {
+Route::middleware(['auth', 'admin','prevent-back-history'])->group(function () {
     Route::get('admin/dashboard', [App\Http\Controllers\Admin\DashboardController::class,'index'])->name('admin.dashboard');
 
     //admin Profile Information
@@ -139,12 +139,16 @@ Route::middleware(['auth', 'admin'])->group(function () {
         Route::get('admin/user/list',[App\Http\Controllers\Admin\UserController::class,'index'])->name('admin.user.listing');
         Route::get('admin/user/details/{id}',[App\Http\Controllers\Admin\UserController::class,'details'])->name('admin.user.details');
 
+    //contact page
+    Route::get('admin/customer/message',[App\Http\Controllers\Admin\ContactController::class,'index'])->name('customer.message');
+    Route::get('admin/customer/message/details/{id}',[App\Http\Controllers\Admin\ContactController::class,'details'])->name('customer.message.details');
+
 });
 
 
 //seller route
 
-Route::middleware('auth')->group(function () {
+Route::middleware(['auth','prevent-back-history'])->group(function () {
     Route::get('sell/ticket',[App\Http\Controllers\Seller\TicketController::class,'index'])->name('sellTicket');
     Route::get("/sell/search",[App\Http\Controllers\Seller\TicketController::class,'search']);
     Route::get("/add/ticket/{id}",[App\Http\Controllers\Seller\TicketController::class,'addTicket'])->name('addTicket');
@@ -174,6 +178,9 @@ Route::middleware('auth')->group(function () {
     Route::post('sellers/ticket-listing/update/{id}',[App\Http\Controllers\Seller\ListingController::class,'update'])->name('seller.listing.update');
     Route::get('sellers/ticket-listing/delete/{id}',[App\Http\Controllers\Seller\ListingController::class,'delete'])->name('seller.listing.delete');
 
+    // change live mode
+    Route::post('/update-live-mode',[App\Http\Controllers\Seller\ListingController::class,'updateLiveMode']);
+
 
     //withdraw
     Route::get('pay-out/info',[App\Http\Controllers\Seller\WithdrawController::class,'info'])->name('seller.payout.info');
@@ -189,28 +196,41 @@ Route::middleware('auth')->group(function () {
 
 });
 
-//front route
-Route::get('/',[App\Http\Controllers\Front\HomeController::class,'index'])->name('Home');
 
-//search ticket & ticketlist
-Route::get("/ticket/search",[App\Http\Controllers\Front\TicketController::class,'search']);
-Route::get("/list/ticket/{id}",[App\Http\Controllers\Front\TicketController::class,'ticketList'])->name('listTicket');
+Route::middleware('prevent-back-history')->group(function () {
+    //front route
+    Route::get('/',[App\Http\Controllers\Front\HomeController::class,'index'])->name('Home');
 
-// //mouse hover event
-Route::get('/api/images/{imageId}',[App\Http\Controllers\Front\TicketController::class,'hover']);
-Route::get('/event/images/{imageId}',[App\Http\Controllers\Front\TicketController::class,'section_hover']);
+    //search ticket & ticketlist
+    Route::get("/ticket/search",[App\Http\Controllers\Front\TicketController::class,'search']);
+    Route::get("/list/ticket/{id}",[App\Http\Controllers\Front\TicketController::class,'ticketList'])->name('listTicket');
 
-//order-details
-Route::get("/order/details/{id}",[App\Http\Controllers\Front\OrderController::class,'orderDetails'])->name('order_details');
+    // //mouse hover event
+    Route::get('/api/images/{imageId}',[App\Http\Controllers\Front\TicketController::class,'hover']);
+    Route::get('/event/images/{imageId}',[App\Http\Controllers\Front\TicketController::class,'section_hover']);
 
-//order-review
-Route::get("/order/review/{id}",[App\Http\Controllers\Front\OrderController::class,'orderReview'])->name('order_review');
+    //order-details
+    Route::get("/order/details/{id}",[App\Http\Controllers\Front\OrderController::class,'orderDetails'])->name('order_details');
 
-//checkout
-Route::post("checkout",[App\Http\Controllers\Front\OrderController::class,'checkout'])->name('checkout');
+    //order-review
+    Route::get("/order/review/{id}",[App\Http\Controllers\Front\OrderController::class,'orderReview'])->name('order_review');
 
-//success route
-Route::get('success/{order}',[App\Http\Controllers\Front\OrderController::class,'success'])->name('success');
-Route::get('cancel',[App\Http\Controllers\Front\OrderController::class,'cancel'])->name('cancel');
+    //checkout
+    Route::post("checkout",[App\Http\Controllers\Front\OrderController::class,'checkout'])->name('checkout');
+
+    //success route
+    Route::get('success/{order}',[App\Http\Controllers\Front\OrderController::class,'success'])->name('success');
+    Route::get('cancel',[App\Http\Controllers\Front\OrderController::class,'cancel'])->name('cancel');
+
+    //contact page
+    Route::get('contact-us',[App\Http\Controllers\Front\ContactController::class,'index'])->name('front.contact');
+    Route::post('contact/store',[App\Http\Controllers\Front\ContactController::class,'store'])->name('front.contact.store');
+
+
+    //upcoming event
+    Route::get('upcoming/event',[App\Http\Controllers\Front\HomeController::class,'upcoming_event'])->name('upcoming_event');
+});
+
+
 
 

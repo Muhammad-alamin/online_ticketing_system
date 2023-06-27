@@ -3,7 +3,7 @@
 <section class="section-featured-header all-sports-events">
     <div class="container">
         <div class="section-content">
-            <h1>All Sports Events</h1>
+            <h1>Edit Ticket</h1>
         </div>
     </div>
 </section>
@@ -257,8 +257,8 @@
 
                         <div class="tickets" style="border-bottom: 1px solid #cecece;">
                             <label  style="font-size: 15px; font-weight:bold; color:red">Price Per Ticket:</label>
-                            <label  style="font-size: 15px; font-weight:bold;">What's the price at face value ? $ (US doller)</label>
-                            <input type="number" name="price" value="{{old('price', isset($tickets)?$tickets->price:null)}}" placeholder="$ Per Ticket" class="form-control" required>
+                            <label  style="font-size: 15px; font-weight:bold;">What's the price at face value ? £ (Pound)</label>
+                            <input type="number" name="price" value="{{old('price', isset($tickets)?$tickets->price:null)}}" placeholder="£ Per Ticket" class="form-control" required>
                             @error('price')<i class="text-danger">{{$message}}</i>@enderror
                         </div>
 

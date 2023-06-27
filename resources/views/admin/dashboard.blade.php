@@ -16,34 +16,35 @@
                         <div class="row">
                             <div class="col-xl-3 col-md-6 mb-4">
                                 <div class="card text-white bg-success">
-                                    <div class="card-header font-weight-bold text-uppercase">Today Sale</div>
+                                    <div class="card-header font-weight-bold text-uppercase">Today Sale </div>
                                         <div class="card-inner">
-                                            <div class="card-title font-weight-bold text-uppercase h5 mb-0">$ 2580</div>
+                                            <div class="card-title font-weight-bold text-uppercase h5 mb-0">£ {{ number_format($today_sale,2) }}</div>
                                         </div>
+
                                 </div>
                             </div>
 
                             <div class="col-xl-3 col-md-6 mb-4">
                                 <div class="card text-white bg-purple">
-                                    <div class="card-header font-weight-bold text-uppercase">Today Orders</div>
+                                    <div class="card-header font-weight-bold text-uppercase">Today Earnings</div>
                                         <div class="card-inner">
-                                                <div class="h5 mb-0 font-weight-bold text-gray-800">12</div>
+                                                <div class="h5 mb-0 font-weight-bold text-gray-800">£ {{ number_format($today_earnings,2) }}</div>
                                         </div>
                                 </div>
                             </div>
                             <div class="col-xl-3 col-md-6 mb-4">
                                 <div class="card text-white bg-blue">
-                                    <div class="card-header font-weight-bold text-uppercase">Today Ticket Listing</div>
+                                    <div class="card-header font-weight-bold text-uppercase">Today Orders</div>
                                         <div class="card-inner">
-                                                <div class="h5 mb-0 font-weight-bold text-gray-800">10</div>
+                                                <div class="h5 mb-0 font-weight-bold text-gray-800">{{ $today_orders }}</div>
                                         </div>
                                 </div>
                             </div>
                             <div class="col-xl-3 col-md-6 mb-4">
                                 <div class="card text-white bg-danger">
-                                    <div class="card-header font-weight-bold text-uppercase">Today Subscription</div>
+                                    <div class="card-header font-weight-bold text-uppercase">Customer Message</div>
                                         <div class="card-inner">
-                                                <div class="h5 mb-0 font-weight-bold text-gray-800">10</div>
+                                                <div class="h5 mb-0 font-weight-bold text-gray-800">{{ $today_message }}</div>
                                         </div>
                                 </div>
                             </div>
@@ -175,5 +176,5 @@
             chart.draw(data, options);
         }
     </script>
-    
+
 @endsection

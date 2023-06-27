@@ -4,8 +4,9 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="description" content="">
     <meta name="author" content="">
-
-    <title>Online Ticketing System</title>
+    <!-- Favicon -->
+    <link rel="icon" type="image/png" href="{{asset('front/assets/images/lmft_favicon.png')}}">
+    <title>Last Minute Football Ticket</title>
 
     <!-- Latest compiled and minified CSS -->
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Open+Sans:300,400,600,700">

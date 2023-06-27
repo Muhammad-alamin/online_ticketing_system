@@ -3,7 +3,7 @@
 <section class="section-featured-header all-sports-events">
     <div class="container">
         <div class="section-content">
-            <h1>All Sports Events</h1>
+            <h1>Order List</h1>
         </div>
     </div>
 </section>
@@ -36,6 +36,22 @@
     <div class="container">
         <div class="row">
             <div id="primary" class="col-md-12 col-lg-12">
+                @if(Session::has('success'))
+                <div class="alert alert-success alert-block">
+                    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                    <strong>{{ session('success') }}</strong>
+                </div>
+                @endif
+                @if(Session::has('error'))
+                <div class="alert alert-danger alert-block">
+                    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                    <strong>{{ session('error') }}</strong>
+                </div>
+                @endif
                 <table id="example" class="display" style="width:100%">
                     <thead>
                         <tr>

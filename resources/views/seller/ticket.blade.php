@@ -29,11 +29,11 @@
                             </li>
                             <li>
                                 <i class="fa fa-hourglass-o fa-2x" aria-hidden="true"></i>
-                                Duration: 1 hour <br> and 30 minutes
+                                Duration: <br> Short Duration
                             </li>
                             <li>
                                 <i class="fa fa-subway fa-2x" aria-hidden="true"></i>
-                                Metro Line 3: stop Palau <br> Reial or Les Corts
+                                Metro Line : <br> Metro Services
                             </li>
                             <li>
                                 <i class="fa fa-car fa-2x" aria-hidden="true"></i>
@@ -49,32 +49,7 @@
                                     <div id="slider" class="flexslider">
                                         <ul class="slides">
                                             <li>
-                                                <img src="images/event-single-slider.jpg" alt="image"/>
-                                            </li>
-                                            <li>
-                                                <img src="images/event-single-slider.jpg" alt="image"/>
-                                            </li>
-                                            <li>
-                                                <img src="images/event-single-slider.jpg" alt="image"/>
-                                            </li>
-                                            <li>
-                                                <img src="images/event-single-slider.jpg" alt="image"/>
-                                            </li>
-                                        </ul>
-                                    </div>
-                                    <div id="carousel" class="flexslider">
-                                        <ul class="slides">
-                                            <li>
-                                                <img src="images/event-single-slider.jpg" alt="image"/>
-                                            </li>
-                                            <li>
-                                                <img src="images/event-single-slider.jpg" alt="image"/>
-                                            </li>
-                                            <li>
-                                                <img src="images/event-single-slider.jpg" alt="image"/>
-                                            </li>
-                                            <li>
-                                                <img src="images/event-single-slider.jpg" alt="image"/>
+                                                <img src="{{ asset('front/assets/images/event-single-slider.jpg') }}" alt="image"/>
                                             </li>
                                         </ul>
                                     </div>
@@ -82,32 +57,17 @@
                             </div>
                             <div class="col-md-6">
                                 <div class="event-info-about">
-                                    <h2>ABOUT THIS EVENT</h2>
-                                    <p>Lorem ipsum dolor sit amet, at omnes deseruisse pri. Quo aeterno legimus insolens ad. Sit cu detraxit constituam, an mel iudico constituto efficiendi. Eu ponderum mediocrem has, vitae adolescens in pro. Mea liber ridens inermis ei, mei legendos vulputate an, labitur tibique te qui.</p>
-                                    <p>Mel iudico constituto efficiendi. Eu ponderum mediocrem has, vitae adolescens in pro. Mea liber ridens inermis ei, mei legendos vulputate an, labitur tibique te qui.</p>
-                                    <p>Omnes deseruisse pri. Quo aeterno legimus insolens ad. Sit cu detraxit constituam, an mel iudico constituto efficiendi. Eu ponderum mediocrem has, vitae adolescens in pro. Mea liber ridens inermis ei, mei legendos vulputate an, labitur tibique te qui. Mel iudico constituto efficiendi. Eu ponderum mediocrem has, vitae adolescens in pro. Mea liber ridens inermis ei, mei legendos vulputate an, labitur tibique te qui.</p>
+                                    <h2>ABOUT US</h2>
+                                    <p>LastMinuteFootballTicket is a dynamic and innovative platform that caters to the passionate football fans who live for the excitement and thrill of the game. We understand the exhilaration of attending a live football match, being part of the roaring crowd, and witnessing the drama unfold right before your eyes. That's why we are dedicated to providing fans with an unmatched experience of securing last-minute football tickets to their favorite matches.</p>
+                                    <p>At LastMinuteFootballTicket, we pride ourselves on being the go-to destination for football enthusiasts seeking tickets to sold-out games or those looking for spontaneous football adventures. We believe that every fan deserves a chance to witness their beloved team in action, regardless of the time constraints or limited ticket availability. With our user-friendly platform and extensive network of trusted sellers, we strive to bridge the gap between fans and their dream football experiences.</p>
+                                    <p>Our mission is simple: to connect fans with the best possible last-minute football ticket options, ensuring that no one misses out on the electrifying atmosphere of a live football match. We work tirelessly to source tickets from reliable vendors, ensuring their authenticity and providing a seamless and secure purchasing process for our customers. With our quick and convenient service, fans can find and purchase tickets with ease, even at the eleventh hour.</p>
                                 </div>
                             </div>
                         </div>
                     </div>
-                    <div class="event-highlights">
-                        <h2>Highlights</h2>
-                        <p>Lorem ipsum dolor sit amet, at omnes deseruisse pri. Quo aeterno legimus insolens ad. Sit cu detraxit constituam, an mel iudico constituto efficiendi. Eu ponderum mediocrem has, vitae adolescens in pro. Mea liber ridens inermis ei, mei legendos vulputate an, labitur tibique te qui.</p>
-                        <p>Omnes deseruisse pri. Quo aeterno legimus insolens ad. Sit cu detraxit constituam, an mel iudico constituto efficiendi. Eu ponderum mediocrem has, vitae adolescens in pro. Mea liber ridens inermis ei, mei legendos vulputate an, labitur tibique te qui. Mel iudico constituto efficiendi. Eu ponderum mediocrem has, vitae adolescens in pro. Mea liber ridens inermis ei, mei legendos vulputate an, labitur tibique te qui.</p>
-                        <div class="row">
-                            <div class="col-md-7">
-                                <ul>
-                                    <li>Enjoy a self-guided tour through the home stadium of Messi, Neymar, Iniesta and Suarez, including the opportunity to walk onto the famous pitch surrounded by nearly 100,000 screaming fans (you'll need to imagine the last part)</li>
-                                    <li>See 23 Liga and five Champions League trophies in a trophy cabinet that looks more like a treasure chest</li>
-                                    <li> Experience the very cool and interactive museum, with touch screens, sound installations that put you at the heart of the action
-                                    </li>
-                                </ul>
-                            </div>
-                         </div>
-                    </div>
                     <div class="event-location">
                         <h2>Location</h2>
-                        <p><span>Camp Nou</span> C. Aristides Maillol, 12 (Av. Joan XIII) Barcelona</p>
+                        <p><span>Manchester</span> United Kingdom.</p>
                     </div>
                 </div>
             </div>

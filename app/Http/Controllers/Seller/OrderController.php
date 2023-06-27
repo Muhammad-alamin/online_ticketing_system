@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Seller;
 
 use App\Http\Controllers\Controller;
 use App\Models\Order;
+use Brian2694\Toastr\Facades\Toastr;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use ZipArchive;
@@ -35,7 +36,8 @@ class OrderController extends Controller
 
         // Retrieve the image filenames from the database
         $order_details = Order::where('id',$d_id)->first();
-        $imageFilenames = json_decode($order_details->ticket_image);
+        if(!empty($order_details->ticket_image)){
+            $imageFilenames = json_decode($order_details->ticket_image);
 
         // Zip the images into a temporary file
         $zipFile = tempnam(sys_get_temp_dir(), 'images');
@@ -54,6 +56,12 @@ class OrderController extends Controller
 
         // Set the appropriate headers for the download
         return response()->download($zipFile, 'Ticket-image.zip')->deleteFileAfterSend();
+        }
+        else{
+            session()->flash('error', 'Seller are not added the ticket Image. Please contact the Customer Support. Thanks');
+            return redirect()->route('seller.orders');
+        }
+
     }
 
     public function details($id){

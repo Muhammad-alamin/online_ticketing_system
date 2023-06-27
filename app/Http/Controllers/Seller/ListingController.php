@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Seller;
 
 use App\Http\Controllers\Controller;
+use App\Models\Order;
 use App\Models\TicketListing;
 use Illuminate\Http\Request;
 use Illuminate\Support\Carbon;
@@ -205,6 +206,14 @@ class ListingController extends Controller
 
     public function delete($id){
         $d_id = decrypt($id);
+
+        $order_ticket = Order::where('ticket_id',$d_id)->get();
+
+        if($order_ticket->count() > 0){
+            session()->flash('error', 'You Can Not Delete The Ticket Because Some Ticket already Sold. If you want to Hide rest of the ticket please change the Ticket "Live Mode". Thanks');
+            return redirect()->route('seller.ticket.listing');
+        }
+        else{
             $ticket = TicketListing::find($d_id);
 
             if(!empty($ticket->image)){
@@ -219,6 +228,33 @@ class ListingController extends Controller
             TicketListing::destroy($d_id);
             session()->flash('success', 'Ticket Deleted Successfully');
             return redirect()->route('seller.ticket.listing');
+        }
+
     }
+
+    public function updateLiveMode(Request $request)
+    {
+        $id = $request->input('id');
+        $liveMode = $request->input('live_mode');
+
+        // Debugging statements
+        \Log::info('ID: '.$id);
+        \Log::info('Live Mode: '.$liveMode);
+
+        $ticket = TicketListing::find($id);
+        if ($ticket) {
+            $ticket->live_mode = $liveMode;
+            $ticket->save();
+
+            \Log::info('Live mode updated successfully');
+
+            return response()->json(['status' => 'success']);
+        }
+
+        \Log::info('Error updating live mode: Ticket not found');
+
+        return response()->json(['status' => 'error'], 404);
+    }
+
 
 }

@@ -222,14 +222,14 @@ class OrderController extends Controller
                             Session::put('ticket_image',$order_details->id);
                         }
 
-                        Order::where('id',$d_id)->update(['status'=> 'Paid']);Order::where('id',$d_id)->update(['status'=> 'Paid']);
+                        $order_status = Order::where('id',$d_id)->update(['status'=> 'Paid']);
 
                         //ticket reduce when order done
                         DB::table('ticket_listings')->where('id', $order_details->ticket_id)->update(['ticket_count' => DB::raw('ticket_count -' . $order_details->ticket_quantity)]);
 
                         Session::put('order_id',$order_details->order_id);
                         Session::put('ticket_id',$order_details->order_ticket_id);
-                        Session::put('status',$order_details->status);
+                        Session::put('status',$order_status);
                         Session::put('purchasing_date',$order_details->order_date);
                         Session::put('grand_total',$order_details->total_price);
 

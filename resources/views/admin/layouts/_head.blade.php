@@ -7,11 +7,11 @@
     <meta name="author" content="Softnio">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <meta name="csrf-token" content="{{csrf_token()}}">
-    <meta name="description" content="A powerful and conceptual apps base dashboard template that especially build for developers and programmers.">
+    <meta name="description" content="Last Minute Football Ticket.">
     <!-- Fav Icon  -->
-    {{-- <link rel="shortcut icon" href="{{asset('assets/favicon.png')}}"> --}}
+    <link rel="shortcut icon" href="{{asset('front/assets/images/lmft_favicon.png')}}">
     <!-- Page Title  -->
-    <title>Online Ticketing system | Admin Panel</title>
+    <title>Last Minute Football Ticket | Admin Panel</title>
     <!-- StyleSheets  -->
     <link rel="stylesheet" href="{{asset('assets/css/dashlite.css')}}">
     <link id="skin-default" rel="stylesheet" href="{{asset('assets/css/theme.css')}}">

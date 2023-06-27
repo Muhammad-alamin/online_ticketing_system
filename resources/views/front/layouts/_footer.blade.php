@@ -4,11 +4,10 @@
             <div class="row">
 
                 <div class="col-md-8">
-                    <a href="#"><img src="images/logo.png" alt="logo"></a>
+                    <a href="#"><img src="{{ asset('front/assets/images/last-minute-football-tickets-logo.png') }}" alt="logo"></a>
                 </div>
                 <div class="col-md-4">
-
-                    <p>&copy; 2016 MYTICKET.COM. ALL RIGHTS RESEVED</p>
+                    <p>&copy; <script>document.write(new Date().getFullYear());</script> Last Minute Football Ticket. ALL RIGHTS RESEVED</p>
                 </div>
             </div>
 
@@ -33,7 +32,7 @@
                     <div class="support clearfix">
                         <h3>Support and Contact</h3>
                         <ul>
-                            <li><a href="#">Customer Support Contacts</a></li>
+                            <li><a href="{{ route('front.contact') }}">Customer Support Contacts</a></li>
                             <li><a href="#">Feedback</a></li>
                             <li><a href="#">Help</a></li>
                             <li><a href="#">Sitemap</a></li>

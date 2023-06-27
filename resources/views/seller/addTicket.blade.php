@@ -3,7 +3,7 @@
 <section class="section-select-seat-featured-header">
     <div class="container">
         <div class="section-content">
-            <p>{{ $event->child_sub_cat_name }}<strong>{{ $event->match_name }}</strong><span>{{ $event->venue_name }}</span> <span>{{ date('d-F-Y H:i', strtotime($event->match_date_time)) }}</span></p>
+            <p>{{ $event->child_sub_cat_name }}<strong>{{ $event->match_name }}</strong><span>{{ $event->venue_name }}</span> <span>{{ date('d-F-Y H:i', strtotime($event->match_date_time)) }}</span> @if($left_ticket > 0) <span> <i class="fa fa-info-circle" aria-hidden="true"></i> {{ $left_ticket }} tickets left </span> @endif</p>
         </div>
     </div>
 </section>
@@ -175,8 +175,8 @@
 
                         <div class="tickets" style="border-bottom: 1px solid #cecece;">
                             <label  style="font-size: 15px; font-weight:bold; color:red">Price Per Ticket:</label>
-                            <label  style="font-size: 15px; font-weight:bold;">What's the price at face value ? $ (US doller)</label>
-                            <input type="number" name="price" placeholder="$ Per Ticket" class="form-control" required>
+                            <label  style="font-size: 15px; font-weight:bold;">What's the price at face value ? £ (Pound)</label>
+                            <input type="number" name="price" placeholder="£ Per Ticket" class="form-control" required>
                             @error('price')<i class="text-danger">{{$message}}</i>@enderror
                         </div>
                         <div class="tickets ticket_address" style="border-bottom: 1px solid #cecece; display:none">

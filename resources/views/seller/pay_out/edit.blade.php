@@ -4,7 +4,7 @@
 <section class="section-featured-header all-sports-events">
     <div class="container">
         <div class="section-content">
-            <h1>All Sports Events</h1>
+            <h1>Edit Payment Info</h1>
         </div>
     </div>
 </section>

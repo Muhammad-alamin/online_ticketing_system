@@ -65,13 +65,13 @@
         <input type="text" name="email" placeholder="Enter your email" required>
         @error('email')<i class="text-danger">{{$message}}</i>@enderror
         <input type="number" name="mobile" placeholder="Enter your phone number" required>
-        @error('phone')<i class="text-danger">{{$message}}</i>@enderror
+        @error('mobile')<i class="text-danger">{{$message}}</i>@enderror
         <input type="password" name="password" placeholder="Enter your password" required>
         @error('password')<i class="text-danger">{{$message}}</i>@enderror
         <input type="password" name="password_confirmation" placeholder="Confirm Your Password" required>
         @error('password_confirmation')<i class="text-danger">{{$message}}</i>@enderror
         <button type="submit" class="button" value="Login">Sign Up</button>
-      </form>
+    </form>
       <div class="signup">
         <span class="signup">Already have an acoount?
          <a href="{{ route('login') }}" for="check">Sign In</a>

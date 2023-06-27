@@ -3,7 +3,7 @@
 <section class="section-featured-header all-sports-events">
     <div class="container">
         <div class="section-content">
-            <h1>All Sports Events</h1>
+            <h1>Ticket List</h1>
         </div>
     </div>
 </section>
@@ -63,6 +63,7 @@
                             <th>Ticket Varient</th>
                             <th>Ticket Types</th>
                             <th>Status</th>
+                            <th>Live</th>
                             <th>Price</th>
                             <th>Details</th>
                         </tr>
@@ -86,6 +87,11 @@
                             <td>{{ $ticket->ticket_varient }}</td>
                             <td>{{ $ticket->ticket_types }}</td>
                             <td><span style="color: green">{{ $ticket->status }}</span></td>
+                            <td>
+                                <input class="input-switch" type="checkbox" id="demo" data-id="{{ $ticket->id }}" data-live_mode="{{ $ticket->live_mode }}" {{ $ticket->live_mode ? 'checked' : '' }}/>
+                                <label class="label-switch" for="demo"></label>
+                                <span class="info-text">{{ $ticket->live_mode ? 'On' : 'Off' }}</span>
+                            </td>
                             <td>£ {{ number_format($ticket->price,2) }}</td>
                             <td>
                                 <a href="{{ route('seller.listing.details',encrypt($ticket->id)) }}" style="color: green">Details</a>
@@ -94,7 +100,11 @@
                                 <a href="{{ route('seller.listing.edit',encrypt($ticket->id)) }}" style="color: orange">Edit</a>
                                 <br>
                                 <br>
+                                @if(isset($orders_tickets))
+                                etc
+                                @else
                                 <a href="{{ route('seller.listing.delete',encrypt($ticket->id)) }}" onclick="return confirm('Are You Confirm to Delete?')" style="color: red">Delete</a>
+                                @endif
                             </td>
                         </tr>
                         @endforeach

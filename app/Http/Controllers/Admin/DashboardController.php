@@ -43,44 +43,31 @@ class DashboardController extends Controller
         }
         $arr['yearly_orders'] = rtrim($chartData,",");
 
-        // //today sales
-        // $date = date('d/m/Y');
-        // $today_sale =  DB::table('orders')
-        //     ->where('order_date',$date)
-        //     ->where('status','Delivered')
-        //     ->sum('grand_total','-','delivery_charge');
+        //today sales
+        $date = date('d/m/Y');
+        $today_sale =  DB::table('orders')
+            ->where('order_date',$date)
+            ->where('status','Paid')
+            ->sum('total_price','-','fee');
 
-        // //today orders
-        // $today_orders =  DB::table('orders')
-        //     ->where('order_date',$date)
-        //     ->where('status','Delivered')
-        //     ->count('id');
+        //today Earnings
+        $today_earnings =  DB::table('orders')
+        ->where('order_date',$date)
+        ->where('status','Paid')
+            ->sum('fee');
 
-        // //today customers
-        // $today_customers =  DB::table('orders')
-        //     ->where('order_date',$date)
-        //     ->count('user_id');
+        //today orders
+        $today_orders =  DB::table('orders')
+            ->where('order_date',$date)
+            ->where('status','Paid')
+            ->count('id');
 
-        // //today subscription
-        // $today_subscription =  DB::table('subscribes')
-        //     ->where('date',$date)
-        //     ->count('id');
+        //today customer message
+        $today_message =  DB::table('contacts')
+            ->where('submitting_date',$date)
+            ->count('id');
 
-        // //stock out product list
-        // $products = DB::table('products')
-        //     ->join('categories','products.category_id', 'categories.id')
-        //     ->join('users','products.user_id', 'users.id')
-        //     ->join('brands','products.brand_id', 'brands.id')
-        //     ->where('products.product_quantity','<', '1')
-        //     ->select('categories.category_name','users.name','brands.brand_name','products.*')
-        //     ->orderBy('products.id','DESC')
-        //     ->get();
-
-        //     $notifications = DB::table('notifications')->orderBy('notifications.id','DESC')
-        //     ->get();
-
-
-        return view('admin.dashboard',$arr);
+        return view('admin.dashboard',$arr,compact('today_sale','today_orders','today_earnings','today_message'));
     }
 
     public function viewProfile(){

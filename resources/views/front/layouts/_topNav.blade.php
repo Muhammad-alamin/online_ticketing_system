@@ -18,7 +18,7 @@
                         </li>
                     </ul>
                 </div>
-                <div class="top-right">
+                {{-- <div class="top-right">
                     <ul>
                         @if (Route::has('login'))
                         @auth()
@@ -39,7 +39,7 @@
                         @endauth
                         @endif
                     </ul>
-                </div>
+                </div> --}}
             </div>
         </div>
     </div>
@@ -47,7 +47,7 @@
         <div class="container">
             <div class="row">
                 <div class="site-branding col-md-3">
-                    <h1 class="site-title"><a href="#" title="myticket" rel="home"><img src="images/logo.png" alt="logo"></a></h1>
+                    <h1 class="site-title"><a href="{{ route('Home') }}" title="myticket" rel="home"><img src="{{ asset('front/assets/images/last-minute-football-tickets-logo.png') }}" alt="logo"></a></h1>
                 </div>
 
                 <div class="col-md-9">
@@ -60,11 +60,11 @@
                                         @if (auth()->user()->role_as == 'admin')
                                         <li><a href="{{ route('admin.dashboard') }}">Dashboard</a></li>
                                         @endif
-                                        <li><a href="#">Payments</a></li>
-                                        <li><a href="#">Orders</a></li>
-                                        <li><a href="#">Listing</a></li>
-                                        <li><a href="#">Sales</a></li>
-                                        <li><a href="#">Account</a></li>
+                                        <li><a href="{{ route('seller.payout.info') }}">Payments</a></li>
+                                        <li><a href="{{ route('seller.orders') }}">Orders</a></li>
+                                        <li><a href="{{ route('seller.ticket.listing') }}">Listing</a></li>
+                                        <li><a href="{{ route('seller.sales') }}">Sales</a></li>
+                                        <li><a href="{{ route('user.details') }}">Account</a></li>
                                         <li>
                                             <a class="" href="{{ route('logout') }}" onclick="event.preventDefault(); document.getElementById('logout-form').submit();">Sign out</a>
 
@@ -96,8 +96,8 @@
                                 <i class="fa fa-times fa-2x" aria-hidden="true"></i>
                             </button>
                             <ul class="nav navbar-nav navbar-right">
-                                <li><a href="gallery.html">Concert</a></li>
-                                <li><a href="gallery.html">Sport</a></li>
+                                <li><a href="javascript:void(0)">Concert</a></li>
+                                <li><a href="{{ route('upcoming_event') }}">Sport</a></li>
                                 @if (Route::has('login'))
                                 @auth()
                                 <li><a href="{{ route('sellTicket') }}">Sell Ticekts</a></li>
@@ -110,11 +110,11 @@
                                         @if (auth()->user()->role_as == 'admin')
                                         <li><a href="{{ route('admin.dashboard') }}">Dashboard</a></li>
                                         @endif
-                                        <li><a href="#">Payments</a></li>
+                                        <li><a href="{{ route('seller.payout.info') }}">Payments</a></li>
                                         <li><a href="{{ route('seller.orders') }}">Orders</a></li>
-                                        <li><a href="#">Listing</a></li>
-                                        <li><a href="#">Sales</a></li>
-                                        <li><a href="#">Account</a></li>
+                                        <li><a href="{{ route('seller.ticket.listing') }}">Listing</a></li>
+                                        <li><a href="{{ route('seller.sales') }}">Sales</a></li>
+                                        <li><a href="{{ route('user.details') }}">Account</a></li>
                                         <li>
                                             <a class="" href="{{ route('logout') }}" onclick="event.preventDefault(); document.getElementById('logout-form').submit();">Sign out</a>
 

@@ -164,4 +164,84 @@ $(document).ready(function() {
 });
 
 
+//Ticket Live mode button functionality
+$(document).ready(function() {
+    var csrfToken = $('meta[name="csrf-token"]').attr('content');
+
+    $('.input-switch').each(function() {
+        var id = $(this).data('id');
+        var liveMode = $(this).data('live_mode');
+        $(this).prop('checked', liveMode === 'On');
+        updateSwitchColor($(this), liveMode);
+        updateLabelText($(this), liveMode);
+
+        $(this).on('change', function() {
+            var checked = $(this).is(':checked');
+            var liveMode = checked ? 'On' : 'Off';
+
+            $.ajax({
+                url: '/update-live-mode',
+                method: 'POST',
+                headers: {
+                    'X-CSRF-TOKEN': csrfToken
+                },
+                data: {
+                    id: id,
+                    live_mode: liveMode
+                },
+                success: function(response) {
+                    if (response.status === 'success') {
+                        updateSwitchColor($('.input-switch[data-id="' + id + '"]'), liveMode);
+                        updateLabelText($('.input-switch[data-id="' + id + '"]'), liveMode);
+
+                        console.log('Live mode successfully updated');
+                    } else {
+                        console.log('Error updating live mode');
+                    }
+                },
+                error: function(xhr, status, error) {
+                    console.log('Error:', error);
+                    // Handle the error if needed
+                }
+            });
+        });
+    });
+
+    function updateSwitchColor(switchElement, liveMode) {
+        var labelSwitch = switchElement.next('.label-switch');
+        var beforeElement = labelSwitch.find('::before');
+        var afterElement = labelSwitch.find('::after');
+
+        if (liveMode === 'On') {
+            beforeElement.css({
+                background: '#00a900',
+                borderColor: '#008e00'
+            });
+            afterElement.css({
+                left: 'calc(100% - 1.5em)',
+                background: '#00ce00',
+                borderColor: '#009a00'
+            });
+        } else {
+            beforeElement.css({
+                background: '#888888',
+                borderColor: '#757575'
+            });
+            afterElement.css({
+                left: 0,
+                background: '#ffffff',
+                borderColor: '#757575'
+            });
+        }
+    }
+
+    function updateLabelText(switchElement, liveMode) {
+        var infoText = switchElement.siblings('.info-text');
+        infoText.text(liveMode === 'On' ? 'On' : 'Off');
+    }
+});
+
+
+
+
 </script>

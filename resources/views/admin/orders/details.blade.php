@@ -226,6 +226,54 @@
                         </div><!-- .card -->
                     </div><!-- .nk-block -->
 
+                    <div class="nk-block">
+                        <div class="card card-bordered">
+                            <div class="card-aside-wrap">
+                                <div class="card-content">
+                                    <ul class="nav nav-tabs nav-tabs-mb-icon nav-tabs-card">
+                                        <li class="nav-item">
+                                            <a class="nav-link active"><em class="icon ni ni-product-circle"></em><span>Seller Details</span></a>
+                                        </li>
+                                    </ul><!-- .nav-tabs -->
+                                    <div class="card-inner">
+                                        <div class="nk-block">
+                                            <div class="nk-block-head">
+                                                <h5 class="title">Seller Details</h5>
+                                                <p></p>
+                                            </div><!-- .nk-block-head -->
+                                            <div class="profile-ud-list">
+                                                <div class="profile-ud-item">
+                                                    <div class="profile-ud wider">
+                                                        <span class="profile-ud-label">Seller Name</span>
+                                                        <span class="profile-ud-value">{{ $orders->name }}</span>
+                                                    </div>
+                                                </div>
+                                                <div class="profile-ud-item">
+                                                    <div class="profile-ud wider">
+                                                        <span class="profile-ud-label">Seller Email</span>
+                                                        <span class="profile-ud-value">{{ $orders->email }}</span>
+                                                    </div>
+                                                </div>
+                                                <div class="profile-ud-item">
+                                                    <div class="profile-ud wider">
+                                                        <span class="profile-ud-label">Seller Mobile No</span>
+                                                        <span class="profile-ud-value">{{ $orders->mobile }}</span>
+                                                    </div>
+                                                </div>
+                                                <div class="profile-ud-item">
+                                                    <div class="profile-ud wider">
+                                                        <span class="profile-ud-label">Seller Address</span>
+                                                        <span class="profile-ud-value">{{ $orders->address }}</span>
+                                                    </div>
+                                                </div>
+                                            </div><!-- .profile-ud-list -->
+                                        </div><!-- .nk-block -->
+                                    </div><!-- .card-inner -->
+                                </div><!-- .card-content -->
+                            </div><!-- .card-aside-wrap -->
+                        </div><!-- .card -->
+                    </div><!-- .nk-block -->
+
                     @if ($orders->ticket_types == 'Membership' || $orders->ticket_types == 'Paper')
                     <div class="nk-block">
                         <div class="card card-bordered">

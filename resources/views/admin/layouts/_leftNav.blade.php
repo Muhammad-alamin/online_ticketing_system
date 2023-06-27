@@ -2,7 +2,7 @@
     <div class="nk-sidebar-main is-light">
         <div class="nk-sidebar-inner" data-simplebar>
             <div class="nk-menu-content menu-active" data-content="navDashboards">
-                <img class="text-center" src="{{ asset('front/assets/images/logo_here.png') }}" style="width: 180px; padding-left:60px">
+                <img class="text-center" src="{{ asset('front/assets/images/last-minute-football-tickets-logo.png') }}" style="width: 180px; padding-left:60px; margin-top: 20px;">
                 <br>
                 <br>
                 <ul class="nk-menu">
@@ -177,21 +177,18 @@
                             </li>
                         </ul><!-- .nk-menu-sub -->
                     </li><!-- .nk-menu-item -->
-                    {{--<li class="nk-menu-item has-sub">
+                    <li class="nk-menu-item has-sub">
                         <a href="javascript:void(0)" class="nk-menu-link nk-menu-toggle">
                             <span class="nk-menu-icon"><em class="ni ni-money"></em></span>
-                            <span class="nk-menu-text">Vendor Commission</span>
+                            <span class="nk-menu-text">Contact</span>
                         </a>
                         <ul class="nk-menu-sub">
                             <li class="nk-menu-item">
-                                <a href="{{route('brand-commission.create')}}" class="nk-menu-link @if (request()->routeIs('brand-commission.create'))  active @endif"><span class="nk-menu-text">Set Commission</span></a>
-                            </li>
-                            <li class="nk-menu-item">
-                                <a href="{{route('brand-commission.index')}}" class="nk-menu-link @if (request()->routeIs('brand-commission.index'))  active @endif"><span class="nk-menu-text">Commission List</span></a>
+                                <a href="{{route('customer.message')}}" class="nk-menu-link @if (request()->routeIs('customer.message'))  active @endif"><span class="nk-menu-text">Customer Message</span></a>
                             </li>
                         </ul><!-- .nk-menu-sub -->
                     </li><!-- .nk-menu-item -->
-                    <li class="nk-menu-item has-sub">
+                    {{--<li class="nk-menu-item has-sub">
                         <a href="javascript:void(0)" class="nk-menu-link nk-menu-toggle">
                             <span class="nk-menu-icon"><em class="ni ni-offer"></em></span>
                             <span class="nk-menu-text">Coupon</span>

@@ -58,12 +58,14 @@
                                         @if (!empty($ticket_details->block_number))
                                         <th>Row</th>
                                         @endif
+                                        <th>Ticket Types</th>
                                     </tr>
                                 </thead>
                                 <tbody>
                                     <tr>
                                         <td>{{ $ticket_details->section_name }}</td>
                                         <td>{{ $ticket_details->block_number }}</td>
+                                        <td>{{ $ticket_details->ticket_types }}</td>
                                     </tr>
                                 </tbody>
                             </table>
@@ -80,22 +82,24 @@
                                         <td>
                                             <?php $n = $ticket_details->ticket_count;
                                             ?>
-                                            <select class="selectpicker dropdown" name="quantity">
-                                                @if ($ticket_details->ticket_varient == 'Pairs')
-                                                    @for ($i= 2; $i <= $n; $i +=2)
+                                            <div class="custom-select">
+                                                <select class="dropdown" name="quantity">
+                                                    @if ($ticket_details->ticket_varient == 'Pairs')
+                                                        @for ($i= 2; $i <= $n; $i +=2)
+                                                            <option value="{{ encrypt($i) }}" @if($i == $n) selected @endif>{{ $i }}</option>
+                                                        @endfor
+                                                        @if ($n % 2 == 1)
+                                                        <option value="{{ encrypt($n) }}">{{ $n }}</option>
+                                                        @endif
+                                                    @elseif($ticket_details->ticket_varient == "Any")
+                                                        @for ($i= 1; $i <= $n; ++$i)
                                                         <option value="{{ encrypt($i) }}" @if($i == $n) selected @endif>{{ $i }}</option>
-                                                    @endfor
-                                                    @if ($n % 2 == 1)
-                                                    <option value="{{ encrypt($n) }}">{{ $n }}</option>
+                                                        @endfor
+                                                    @else
+                                                    <option value="{{ encrypt($ticket_details->ticket_count) }}" @if($ticket_details->ticket_count) selected @endif>{{ $ticket_details->ticket_count }}</option>
                                                     @endif
-                                                @elseif($ticket_details->ticket_varient == "Any")
-                                                    @for ($i= 1; $i <= $n; ++$i)
-                                                    <option value="{{ encrypt($i) }}" @if($i == $n) selected @endif>{{ $i }}</option>
-                                                    @endfor
-                                                @else
-                                                <option value="{{ encrypt($ticket_details->ticket_count) }}" @if($ticket_details->ticket_count) selected @endif>{{ $ticket_details->ticket_count }}</option>
-                                                @endif
-                                            </select>
+                                                </select>
+                                            </div>
                                             @error('ticket_have')<i class="text-danger">{{$message}}</i>@enderror
                                         </td>
                                     </tr>
@@ -107,7 +111,7 @@
                                 <tbody>
                                     <tr>
                                         <td>Ticket Per Price</td>
-                                        <td class="price">USD ${{ $ticket_details->price }}</td>
+                                        <td class="price">Pound £{{ $ticket_details->price }}</td>
                                     </tr>
                                 </tbody>
                             </table>
@@ -117,7 +121,7 @@
                 <div class="section-order-details-event-action">
                     <ul class="row">
                         <li class="col-xs-6 col-sm-6">
-                            <a class="secondary-link" href="#">Back</a>
+                            {{-- <a class="secondary-link" href="{{ route('listTicket',encrypt($ticket_details->id)) }}">Back</a> --}}
                         </li>
                         <li class="col-xs-6 col-sm-6">
                             <a style="cursor: pointer" onclick="document.getElementById('form1').submit();" class="primary-link" >Place Order</a>

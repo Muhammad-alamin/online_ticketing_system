@@ -3,7 +3,7 @@
 <section class="section-featured-header all-sports-events">
     <div class="container">
         <div class="section-content">
-            <h1>All Sports Events</h1>
+            <h1>Account Info</h1>
         </div>
     </div>
 </section>
@@ -121,7 +121,7 @@
                                 </div>
                                 <div class="">
                                     <div class="row">
-                                        <div class="col-xs-6 col-sm-12">
+                                        <div class="col-xs-12 col-sm-12">
                                             <button type="submit" class="primary-link">Update Info</button>
                                         </div>
                                     </div>

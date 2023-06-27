@@ -60,14 +60,14 @@
                                             @if (!empty($ticket_details->block_number))
                                             <th>Block</th>
                                             @endif
-                                            {{-- <th>Seats</th> --}}
+                                            <th>Ticket Types</th>
                                         </tr>
                                     </thead>
                                     <tbody>
                                         <tr>
                                             <td>{{ $ticket_details->section_name }}</td>
                                             <td>{{ $ticket_details->block_number }}</td>
-                                            {{-- <td>10-12</td> --}}
+                                            <td>{{ $ticket_details->ticket_types }}</td>
                                         </tr>
                                     </tbody>
                                 </table>
@@ -113,18 +113,18 @@
                                 <table class="table pricing-review">
                                     <tbody>
                                         <tr>
-                                            <td>Ticket price ({{ $quantity }} x $ {{ number_format($ticket_details->price,2) }})</td>
-                                            <td>${{ number_format($ticket_price = $quantity * $ticket_details->price,2) }}</td>
+                                            <td>Ticket price ({{ $quantity }} x £ {{ number_format($ticket_details->price,2) }})</td>
+                                            <td>£{{ number_format($ticket_price = $quantity * $ticket_details->price,2) }}</td>
                                         </tr>
                                         <tr>
                                             <td>Total Fee</td>
-                                            <td>${{ number_format( $fee = $ticket_details->price * $quantity * $commission->percentage/100 ,2 ) }}</td>
+                                            <td>£{{ number_format( $fee = $ticket_details->price * $quantity * $commission->percentage/100 ,2 ) }}</td>
                                         </tr>
                                     </tbody>
                                     <tfoot>
                                         <tr>
                                             <td>Total Price</td>
-                                            <td class="total-price">USD ${{ number_format( $total_price = $ticket_price +  $fee ,2 ) }}</td>
+                                            <td class="total-price">Pound £{{ number_format( $total_price = $ticket_price +  $fee ,2 ) }}</td>
                                         </tr>
                                     </tfoot>
                                 </table>

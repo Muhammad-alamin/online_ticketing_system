@@ -35,7 +35,7 @@ class TicketController extends Controller
             ->select('venues.*','events.*')
             ->where('match_name','like','%'.$request->search.'%')
             // ->where('location','like','%'.$request->search.'%')
-            ->whereDate('match_date_time','>=',$right_time)
+            ->where('events.match_date_time','>=',$right_time)
             ->get();
             $output='';
             if(count($data)>0){
@@ -94,6 +94,7 @@ class TicketController extends Controller
             ->join('venues','ticket_listings.venue_id', 'venues.id')
             ->select('blocks.*','sections.*','venues.*','events.*','ticket_listings.*')
             ->where('ticket_listings.event_id',$d_id)
+            ->where('ticket_listings.live_mode','On')
             ->get();
             return view('front.ticketList',$data);
     }

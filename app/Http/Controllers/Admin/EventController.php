@@ -27,6 +27,7 @@ class EventController extends Controller
      */
     public function index()
     {
+
         $data ['events'] = DB::table('events')
             ->join('parent_sub_categories','events.sub_cat_id', 'parent_sub_categories.id')
             ->join('child_sub_categories','events.child_sub_cat_id', 'child_sub_categories.id')
@@ -218,56 +219,22 @@ class EventController extends Controller
         $newPost->save();
         return redirect()->route('admin.event.index');
     }
-    public function destroy($id)
-    {
 
-
-    }
 
     public function delete($id){
-        if (auth()->user()->demo_id == 1) {
-            session()->flash('error', 'Demo account are not change anything! thanks');
-            return redirect()->route('admin.products.index');
-        }
-        else
-        {
+
             $d_id = decrypt($id);
-            $attribute = DB::table('attributes')
-                ->join('products','attributes.product_id', 'products.id')
-                ->select('attributes.product_id','products.*')
-                ->where('attributes.product_id',$d_id)
-                ->first();
-            $product = Product::find($d_id);
+
+            $event=Event::find($d_id);
+
+            // if ($event->image != null && file_exists($event->image)){
+            //     unlink($event->image);
+            // }
+            Event::destroy($d_id);
+            session()->flash('success', 'Event Deleted Successfully');
+            return redirect()->route('admin.event.index');
 
 
-            if (!empty($attribute->product_id)){
-                session()->flash('warning','Product not deleted  because at first deleted Attribute');
-                return redirect()->route('admin.products.index');
-            }
-            else{
-                $images = json_decode($product->product_image);
-                $path = 'images/products/';
-
-                foreach ($images as $eachImage) {
-                    unlink($path . $eachImage);
-                }
-                Product::destroy($d_id);
-                session()->flash('success', 'Product Deleted Successfully');
-                return redirect()->route('admin.products.index');
-            }
-        }
-
-    }
-
-    public function productList(){
-        $data ['products'] = DB::table('products')
-            ->join('categories','products.category_id', 'categories.id')
-            ->join('users','products.user_id', 'users.id')
-            ->join('brands','products.brand_id', 'brands.id')
-            ->select('categories.category_name','users.name','brands.brand_name','products.*')
-            ->orderBy('products.id','DESC')
-            ->get();
-        return view('admin.stock.product',$data);
     }
 
 }

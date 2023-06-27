@@ -44,7 +44,7 @@
                                 </ul>
                             </div>
                             <div class="artist-event-item-price col-sm-3">
-                                <strong>${{ $ticket->price }}</strong>
+                                <strong>£{{ $ticket->price }}</strong>
                                 <a href="{{ route('order_details', encrypt($ticket->id)) }}">Buy Now</a>
                             </div>
                         </div>
