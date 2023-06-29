@@ -60,14 +60,14 @@
                                             @if (!empty($ticket_details->block_number))
                                             <th>Block</th>
                                             @endif
-                                            <th>Ticket Types</th>
+                                            <th>Ticket Varient</th>
                                         </tr>
                                     </thead>
                                     <tbody>
                                         <tr>
                                             <td>{{ $ticket_details->section_name }}</td>
                                             <td>{{ $ticket_details->block_number }}</td>
-                                            <td>{{ $ticket_details->ticket_types }}</td>
+                                            <td>{{ $ticket_details->ticket_varient }}</td>
                                         </tr>
                                     </tbody>
                                 </table>

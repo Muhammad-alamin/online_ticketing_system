@@ -51,10 +51,12 @@ class StatusUpdate extends Command
 
             $daysDifference = $currentDate->diffInDays($formattedEventDate);
             // dd($daysDifference,$formattedEventDate,$currentDate);
-
-            if ($daysDifference <= 2 && empty($singleTicket->image)) {
-                DB::table('ticket_listings')->where('id', $singleTicket->id)->update(['status' => 'Inactive']);
+            if($singleTicket->ticket_types == 'E-ticket'){
+                if ($daysDifference <= 1 && empty($singleTicket->image)) {
+                    DB::table('ticket_listings')->where('id', $singleTicket->id)->update(['status' => 'Inactive']);
+                }
             }
+
             // \Log::info($daysDifference);
         }
 

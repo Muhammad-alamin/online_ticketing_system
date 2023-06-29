@@ -3,6 +3,8 @@
 namespace App\Http\Controllers\Front;
 
 use App\Http\Controllers\Controller;
+use App\Models\Event;
+use App\Models\TicketListing;
 use Illuminate\Http\Request;
 use Illuminate\Support\Carbon;
 use Illuminate\Support\Facades\DB;
@@ -30,4 +32,5 @@ class HomeController extends Controller
         return view('front.upcoming_event',$data);
     }
 
+   
 }

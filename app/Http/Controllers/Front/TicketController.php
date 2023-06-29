@@ -7,6 +7,7 @@ use App\Models\Block;
 use App\Models\Event;
 use App\Models\Section;
 use App\Models\TicketListing;
+use App\Models\Venue;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
@@ -78,26 +79,69 @@ class TicketController extends Controller
         }
     }
 
-    public function ticketList($id){
-            $d_id = decrypt($id);
-            $data['event'] = DB::table('events')
-            ->join('child_sub_categories','events.child_sub_cat_id', 'child_sub_categories.id')
-            ->join('venues','events.venue_id', 'venues.id')
-            ->select('child_sub_categories.child_sub_cat_name','venues.*','events.*')
-            ->where('events.id',$d_id)
-            ->first();
+    public function ticketList(Request $request, $id)
+{
+    $d_id = decrypt($id);
+    $selectedTicketCount = $request->input('ticket');
+    $selectedSection = $request->input('section');
 
-            $data['tickets'] = DB::table('ticket_listings')
-            ->join('sections','ticket_listings.section_id', 'sections.id')
-            ->leftJoin('blocks','ticket_listings.block_id', 'blocks.id')
-            ->join('events','ticket_listings.event_id', 'events.id')
-            ->join('venues','ticket_listings.venue_id', 'venues.id')
-            ->select('blocks.*','sections.*','venues.*','events.*','ticket_listings.*')
-            ->where('ticket_listings.event_id',$d_id)
-            ->where('ticket_listings.live_mode','On')
-            ->get();
-            return view('front.ticketList',$data);
+    $data['event'] = DB::table('events')
+        ->join('child_sub_categories', 'events.child_sub_cat_id', 'child_sub_categories.id')
+        ->join('venues', 'events.venue_id', 'venues.id')
+        ->select('child_sub_categories.child_sub_cat_name', 'venues.*', 'events.*')
+        ->where('events.id', $d_id)
+        ->first();
+
+    $query = DB::table('ticket_listings')
+        ->join('sections', 'ticket_listings.section_id', 'sections.id')
+        ->leftJoin('blocks', 'ticket_listings.block_id', 'blocks.id')
+        ->join('events', 'ticket_listings.event_id', 'events.id')
+        ->join('venues', 'ticket_listings.venue_id', 'venues.id')
+        ->select('blocks.*', 'sections.*', 'venues.*', 'events.*', 'ticket_listings.*')
+        ->where('ticket_listings.event_id', $d_id)
+        ->where('ticket_listings.live_mode', 'On');
+
+    $sumTicket = DB::table('ticket_listings')
+        ->join('sections', 'ticket_listings.section_id', 'sections.id')
+        ->leftJoin('blocks', 'ticket_listings.block_id', 'blocks.id')
+        ->join('events', 'ticket_listings.event_id', 'events.id')
+        ->join('venues', 'ticket_listings.venue_id', 'venues.id')
+        ->select('blocks.*', 'sections.*', 'venues.*', 'events.*', 'ticket_listings.*')
+        ->where('ticket_listings.event_id', $d_id)
+        ->where('ticket_listings.live_mode', 'On');
+
+    if ($selectedTicketCount == '1') {
+        $query->where('ticket_listings.ticket_count', 1);
+    } elseif ($selectedTicketCount == '2') {
+        $query->where('ticket_listings.ticket_count', 2);
+    } elseif ($selectedTicketCount == '3') {
+        $query->where('ticket_listings.ticket_count', 3);
+    } elseif ($selectedTicketCount == '4') {
+        $query->where('ticket_listings.ticket_count', 4);
+    } elseif ($selectedTicketCount == '5+') {
+        $query->where('ticket_listings.ticket_count', '>=', 5);
+    } elseif ($selectedSection != null && $selectedSection != 'all') {
+        $query->where('ticket_listings.section_id', $selectedSection);
     }
+
+    $data['tickets'] = $query->get();
+    $left_ticket = $sumTicket->sum('ticket_count');
+
+    if (!empty($data['event']->venue_id)) {
+        $sections = DB::table('sections')
+            ->join('venues', 'sections.venue_id', 'venues.id')
+            ->select('venues.*', 'sections.*')
+            ->where('sections.venue_id', $data['event']->venue_id)
+            ->orderBy('sections.section_name')
+            ->get();
+
+        $data['sections'] = $sections;
+    }
+
+    return view('front.ticketList', $data, compact('left_ticket'));
+}
+
+
 
     public function hover($imageId)
     {

@@ -18,7 +18,7 @@
                             <button type="submit" class="btn btn-outline-info">Clear Cache</button>
                         </div><!-- .nk-header-news -->
                     </form>
-                    <li class="dropdown chats-dropdown hide-mb-xs">
+                    {{-- <li class="dropdown chats-dropdown hide-mb-xs">
                         <a href="#" class="dropdown-toggle nk-quick-nav-icon" data-toggle="dropdown">
                             <div class="icon-status icon-status-na"><em class="icon ni ni-comments"></em></div>
                         </a>
@@ -151,7 +151,7 @@
                                 <a href="html/apps-chats.html">View All</a>
                             </div>
                         </div>
-                    </li>
+                    </li> --}}
                     <li class="">
                         <a href="{{route('Home')}}" class=" nk-quick-nav-icon" >
                             <div class="icon-status icon-status-na"><em class="icon ni ni-globe"></em></div>

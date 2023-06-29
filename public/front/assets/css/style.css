@@ -5432,19 +5432,23 @@ body{
 }
 
 .input-switch:checked + .label-switch::before {
-    background: #00a900;
-    border-color: #008e00;
+    background: #00ce00; /* Change to green color */
+    border-color: #009a00; /* Change to green color */
 }
 
 .input-switch:checked + .label-switch::after {
     left: calc(100% - 1.5em);
-    background: #00ce00;
-    border-color: #009a00;
+    background: #00a900; /* Change to green color */
+    border-color: #008e00; /* Change to green color */
 }
 
 .info-text {
     display: inline-block;
 }
+
+
+
+
 
 
 /* .info-text::before{

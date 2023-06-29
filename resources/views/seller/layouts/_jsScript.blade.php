@@ -164,15 +164,15 @@ $(document).ready(function() {
 });
 
 
-//Ticket Live mode button functionality
+// Ticket Live mode button functionality
+
 $(document).ready(function() {
     var csrfToken = $('meta[name="csrf-token"]').attr('content');
 
     $('.input-switch').each(function() {
         var id = $(this).data('id');
         var liveMode = $(this).data('live_mode');
-        $(this).prop('checked', liveMode === 'On');
-        updateSwitchColor($(this), liveMode);
+        updateSwitchState($(this), liveMode);
         updateLabelText($(this), liveMode);
 
         $(this).on('change', function() {
@@ -191,7 +191,7 @@ $(document).ready(function() {
                 },
                 success: function(response) {
                     if (response.status === 'success') {
-                        updateSwitchColor($('.input-switch[data-id="' + id + '"]'), liveMode);
+                        updateSwitchState($('.input-switch[data-id="' + id + '"]'), liveMode);
                         updateLabelText($('.input-switch[data-id="' + id + '"]'), liveMode);
 
                         console.log('Live mode successfully updated');
@@ -207,31 +207,15 @@ $(document).ready(function() {
         });
     });
 
-    function updateSwitchColor(switchElement, liveMode) {
+    function updateSwitchState(switchElement, liveMode) {
         var labelSwitch = switchElement.next('.label-switch');
-        var beforeElement = labelSwitch.find('::before');
-        var afterElement = labelSwitch.find('::after');
 
         if (liveMode === 'On') {
-            beforeElement.css({
-                background: '#00a900',
-                borderColor: '#008e00'
-            });
-            afterElement.css({
-                left: 'calc(100% - 1.5em)',
-                background: '#00ce00',
-                borderColor: '#009a00'
-            });
+            switchElement.prop('checked', true);
+            labelSwitch.addClass('switch-on');
         } else {
-            beforeElement.css({
-                background: '#888888',
-                borderColor: '#757575'
-            });
-            afterElement.css({
-                left: 0,
-                background: '#ffffff',
-                borderColor: '#757575'
-            });
+            switchElement.prop('checked', false);
+            labelSwitch.removeClass('switch-on');
         }
     }
 
@@ -240,8 +224,5 @@ $(document).ready(function() {
         infoText.text(liveMode === 'On' ? 'On' : 'Off');
     }
 });
-
-
-
 
 </script>

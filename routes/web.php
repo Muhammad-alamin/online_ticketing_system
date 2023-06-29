@@ -182,6 +182,7 @@ Route::middleware(['auth','prevent-back-history'])->group(function () {
     Route::post('/update-live-mode',[App\Http\Controllers\Seller\ListingController::class,'updateLiveMode']);
 
 
+
     //withdraw
     Route::get('pay-out/info',[App\Http\Controllers\Seller\WithdrawController::class,'info'])->name('seller.payout.info');
     Route::post('bank_info/store',[App\Http\Controllers\Seller\WithdrawController::class,'store'])->name('bank_info.store');
@@ -229,6 +230,8 @@ Route::middleware('prevent-back-history')->group(function () {
 
     //upcoming event
     Route::get('upcoming/event',[App\Http\Controllers\Front\HomeController::class,'upcoming_event'])->name('upcoming_event');
+
+
 });
 
 

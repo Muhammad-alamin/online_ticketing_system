@@ -84,4 +84,23 @@
     utilsScript: "https://cdn.jsdelivr.net/npm/intl-tel-input@18.1.1/build/js/utils.js",
   });
 
+
+
+</script>
+
+<script>
+    //  sort by ticket form submit
+    $(document).ready(function() {
+        $("#sort").on('change', function() {
+            $('#shortProducts').submit();
+        });
+    });
+
+    //  sort by sections form submit
+    $(document).ready(function() {
+        $("#section").on('change', function() {
+            $('#shortSection').submit();
+        });
+    });
+
 </script>

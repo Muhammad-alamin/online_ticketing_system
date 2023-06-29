@@ -256,5 +256,29 @@ class ListingController extends Controller
         return response()->json(['status' => 'error'], 404);
     }
 
+    public function getLiveMode(Request $request)
+    {
+        $id = $request->input('id');
+        $liveMode = $request->input('live_mode');
+
+        // Debugging statements
+        \Log::info('ID: '.$id);
+        \Log::info('Live Mode: '.$liveMode);
+
+        $ticket = TicketListing::find($id);
+        if ($ticket) {
+            $ticket->live_mode = $liveMode;
+            $ticket->save();
+
+            \Log::info('Live mode updated successfully');
+
+            return response()->json(['status' => 'success']);
+        }
+
+        \Log::info('Error updating live mode: Ticket not found');
+
+        return response()->json(['status' => 'error'], 404);
+    }
+
 
 }

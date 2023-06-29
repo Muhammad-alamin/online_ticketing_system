@@ -88,8 +88,8 @@
                             <td>{{ $ticket->ticket_types }}</td>
                             <td><span style="color: green">{{ $ticket->status }}</span></td>
                             <td>
-                                <input class="input-switch" type="checkbox" id="demo" data-id="{{ $ticket->id }}" data-live_mode="{{ $ticket->live_mode }}" {{ $ticket->live_mode ? 'checked' : '' }}/>
-                                <label class="label-switch" for="demo"></label>
+                                <input class="input-switch" type="checkbox" id="demo{{ $ticket->id }}" data-id="{{ $ticket->id }}" data-live_mode="{{ $ticket->live_mode }}" {{ $ticket->live_mode ? 'checked' : '' }}/>
+                                <label class="label-switch" for="demo{{ $ticket->id }}"></label>
                                 <span class="info-text">{{ $ticket->live_mode ? 'On' : 'Off' }}</span>
                             </td>
                             <td>£ {{ number_format($ticket->price,2) }}</td>

@@ -3,7 +3,7 @@
 <section class="section-select-seat-featured-header">
     <div class="container">
         <div class="section-content">
-            <p>{{ $event->child_sub_cat_name }}<strong>{{ $event->match_name }}</strong><span>{{ $event->venue_name }}</span> <span>{{ date('d-F-Y H:i', strtotime($event->match_date_time)) }}</span> @if($left_ticket > 0) <span> <i class="fa fa-info-circle" aria-hidden="true"></i> {{ $left_ticket }} tickets left </span> @endif</p>
+            <p>{{ $event->child_sub_cat_name }}<strong>{{ $event->match_name }}</strong><span>{{ $event->venue_name }}</span> <span>{{ date('d-F-Y H:i', strtotime($event->match_date_time)) }}</span> </p>
         </div>
     </div>
 </section>
@@ -138,7 +138,7 @@
                             @error('ticket_have')<i class="text-danger">{{$message}}</i>@enderror
                         </div>
                         <div class="tickets input_body" style="display: none" id="file">
-                            <label  style="font-size: 15px; font-weight:bold;">Upload your E-ticket</label>
+                            <label  style="font-size: 15px; font-weight:bold;">Upload your E-ticket  (It can be done later)</label>
                             <div class='file-input'>
                                 <input type='file' multiple name="image[]" accept="image/*">
                                 <span class='button'>Choose</span>

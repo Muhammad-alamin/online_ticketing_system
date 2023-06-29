@@ -86,9 +86,11 @@
                     @endif
                 </div>
                 @else
-                <p>Purchase Your Ticket & Enjoy Your Live Match!!!</p>
-                <div class="section-download-ticket">
-                    <a href="{{ route('Home') }}" class="primary-link">Go to Home Page</a>
+                <div class="section-download-ticket" style="padding-top:0px;">
+                    <p>Purchase More Ticket & Enjoy Your Live Match!!!</p>
+                    <div class="section-download-ticket">
+                        <a href="{{ route('Home') }}" class="primary-link">Go to Home Page</a>
+                    </div>
                 </div>
                 @endif
             </div>

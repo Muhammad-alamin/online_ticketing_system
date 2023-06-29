@@ -208,7 +208,7 @@
                         </div>
                         @else
                         <div class="tickets input_body" style="display: none" id="file">
-                            <label  style="font-size: 15px; font-weight:bold;">Upload your E-ticket</label>
+                            <label  style="font-size: 15px; font-weight:bold;">Upload your E-ticket  (It can be done later)</label>
                             <div class='file-input'>
                                 <input type='file' multiple name="image[]" accept="image/*">
                                 <span class='button'>Choose</span>
