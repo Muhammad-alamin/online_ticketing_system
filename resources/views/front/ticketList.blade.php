@@ -28,6 +28,7 @@
                                 <div class="custom-select">
                                     <select class="dropdown" name="section" id="section">
                                         <option value="all" selected>Any Tickets</option>
+                                        <option value="all" @if(isset($_GET['sort']) && $_GET['sort']== "all") selected="selected" @endif>All</option>
                                         @foreach ($sections as $section)
                                         <option value="{{ $section->id }}">{{ $section->section_name }}</option>
                                         @endforeach
@@ -46,6 +47,7 @@
                                 <div class="custom-select">
                                     <select class="dropdown" name="ticket" id="sort">
                                         <option selected disabled>Any Tickets</option>
+                                        <option value="all" @if(isset($_GET['sort']) && $_GET['sort']== "all") selected="selected" @endif>All</option>
                                         <option value="1" @if(isset($_GET['sort']) && $_GET['sort']== "1") selected="selected" @endif>1</option>
                                         <option value="2" @if(isset($_GET['sort']) && $_GET['sort']== "2") selected="selected" @endif>2</option>
                                         <option value="3" @if(isset($_GET['sort']) && $_GET['sort']== "3") selected="selected" @endif>3</option>

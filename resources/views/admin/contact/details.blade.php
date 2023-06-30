@@ -67,7 +67,7 @@
                                                 </div>
                                                 <div class="profile-ud-item">
                                                     <div class="profile-ud wider">
-                                                        <span class="profile-ud-label">Description</span>
+                                                        <span class="profile-ud-label">Submitting Date</span>
                                                         <span class="profile-ud-value">{{$contact_details->submitting_date}}</span>
                                                     </div>
                                                 </div>
@@ -77,7 +77,7 @@
                                             <div class="profile-ud-list">
                                                 <div class="profile-ud-item col-lg-12">
                                                     <div class="profile-ud wider">
-                                                        <span class="profile-ud-label">Submitting Date</span>
+                                                        <span class="profile-ud-label">Description</span>
                                                         <span class="profile-ud-value">{{$contact_details->description}}</span>
                                                     </div>
                                                 </div>

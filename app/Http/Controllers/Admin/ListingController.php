@@ -16,7 +16,7 @@ class ListingController extends Controller
             ->join('events','ticket_listings.event_id', 'events.id')
             ->join('venues','ticket_listings.venue_id', 'venues.id')
             ->select('blocks.*','sections.*','venues.*','events.*','ticket_listings.*')
-            ->where('ticket_listings.ticket_count','>=', 1)
+            // ->where('ticket_listings.ticket_count','>=', 1)
             ->orderBy('ticket_listings.id', 'DESC')
             ->get();
         return view('admin.ticketListing.index',$data);

@@ -4,16 +4,16 @@
             <div class="row">
                 <div class="top-left">
                     <ul>
-                        <li>
+                        {{-- <li>
                             <a href="#">
                                 <i class="fa fa-phone"></i>
                                 +62274 889767
                             </a>
-                        </li>
+                        </li> --}}
                         <li>
-                            <a href="mailto:hello@myticket.com">
+                            <a href="mailto:sales@lastminutefootballticket.com">
                                 <i class="fa fa-envelope-o"></i>
-                                hello@myticket.com
+                                sales@lastminutefootballticket.com
                             </a>
                         </li>
                     </ul>

@@ -67,7 +67,7 @@ class OrderController extends Controller
     public function details($id){
         $d_id = decrypt($id);
         $data['orders'] = DB::table('orders')
-        ->join('users','orders.customer_id','orders.seller_id','users.id')
+        ->join('users','orders.customer_id','users.id')
         ->join('ticket_listings','orders.ticket_id', 'ticket_listings.id')
         ->join('child_sub_categories','orders.child_sub_cat_id', 'child_sub_categories.id')
         ->join('sections','orders.section_id', 'sections.id')
@@ -76,7 +76,6 @@ class OrderController extends Controller
         ->join('venues','orders.venue_id', 'venues.id')
         ->select('users.*','ticket_listings.*','child_sub_categories.*','blocks.*','sections.*','venues.*','events.*','ticket_listings.*','orders.*')
         ->where('orders.id',$d_id)
-        ->orderBy('orders.id', 'DESC')
         ->first();
         return view('seller.orders.details',$data);
     }

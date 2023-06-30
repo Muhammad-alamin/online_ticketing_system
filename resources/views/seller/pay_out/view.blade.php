@@ -60,7 +60,7 @@
     </div>
 </section>
 
-<section class="section-artist-content">
+<section class="section-artist-content" style="padding: 0px;">
     <div class="container">
         <div class="row">
             @if (isset($account_info))

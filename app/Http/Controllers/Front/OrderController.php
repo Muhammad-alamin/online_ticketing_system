@@ -3,6 +3,8 @@
 namespace App\Http\Controllers\Front;
 
 use App\Http\Controllers\Controller;
+use App\Mail\OrderSuccessfullCustomer;
+use App\Mail\OrderSuccessfullSeller;
 use App\Models\Commission;
 use App\Models\Order;
 use App\Models\TicketListing;
@@ -10,6 +12,7 @@ use App\Models\VendorProfit;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Session;
 use Stripe\Stripe;
 
@@ -189,56 +192,78 @@ class OrderController extends Controller
             public function success(Request $request, $encryptedOrderId){
                 $d_id = decrypt($encryptedOrderId);
 
-                $order_details = Order::where('id',$d_id)->first();
+                $order_details = DB::table('orders')
+                ->join('users','orders.customer_id', 'users.id')
+                ->select('users.*','orders.*')
+                ->where('orders.id',$d_id)->first();
+                // dd( $order_details);
 
                 $data['ticket_details'] = DB::table('ticket_listings')
+                    ->join('users','ticket_listings.seller_id', 'users.id')
                     ->join('child_sub_categories','ticket_listings.child_sub_cat_id', 'child_sub_categories.id')
                     ->join('sections','ticket_listings.section_id', 'sections.id')
                     ->leftJoin('blocks','ticket_listings.block_id', 'blocks.id')
                     ->join('events','ticket_listings.event_id', 'events.id')
                     ->join('venues','ticket_listings.venue_id', 'venues.id')
-                    ->select('child_sub_categories.*','blocks.*','sections.*','venues.*','events.*','ticket_listings.*')
+                    ->select('users.*','child_sub_categories.*','blocks.*','sections.*','venues.*','events.*','ticket_listings.*')
                     ->where('ticket_listings.id',$order_details->ticket_id)
                     ->first();
                     // echo "<pre>";print_r($data);die;
 
-                    if ($order_details->status !== 'Paid') {
-                        //ticket image reduce when order done
-                        if(!empty($data['ticket_details']->image)){
-                            $all_ticket_image = json_decode($data['ticket_details']->image);
-                            $reduce_image = array_slice($all_ticket_image, 0, $order_details->ticket_quantity);
-                            $existingImage = DB::table('ticket_listings')->where('id', $order_details->ticket_id)->value('image');
-                            $existingArray = json_decode($existingImage, true);
-                            $newArray = array_diff($existingArray, $reduce_image);
 
-                            if (empty($newArray)) {
-                                $newImage = null;
-                            } else {
-                                $newImage = json_encode(array_values($newArray));
+                        if ($order_details->status !== 'Paid') {
+                            //ticket image reduce when order done
+                            if($data['ticket_details']->ticket_types == 'E-ticket'){
+                                if(!empty($data['ticket_details']->image)){
+                                    $all_ticket_image = json_decode($data['ticket_details']->image);
+                                    $reduce_image = array_slice($all_ticket_image, 0, $order_details->ticket_quantity);
+                                    $existingImage = DB::table('ticket_listings')->where('id', $order_details->ticket_id)->value('image');
+                                    $existingArray = json_decode($existingImage, true);
+                                    $newArray = array_diff($existingArray, $reduce_image);
+
+                                    if (empty($newArray)) {
+                                        $newImage = null;
+                                    } else {
+                                        $newImage = json_encode(array_values($newArray));
+                                    }
+
+                                    DB::table('ticket_listings')->where('id', $order_details->ticket_id)->update(['image' => $newImage]);
+
+                                    Session::put('ticket_image',$order_details->id);
+                                }
                             }
 
-                            DB::table('ticket_listings')->where('id', $order_details->ticket_id)->update(['image' => $newImage]);
+                            $order_status = Order::where('id',$d_id)->update(['status'=> 'Paid']);
 
-                            Session::put('ticket_image',$order_details->id);
+                            //ticket reduce when order done
+                            DB::table('ticket_listings')->where('id', $order_details->ticket_id)->update(['ticket_count' => DB::raw('ticket_count -' . $order_details->ticket_quantity)]);
+
+                            Session::put('order_id',$order_details->order_id);
+                            Session::put('ticket_id',$order_details->order_ticket_id);
+                            Session::put('status','Paid');
+                            Session::put('purchasing_date',$order_details->order_date);
+                            Session::put('grand_total',$order_details->total_price);
+
+                            $vendor_profit = new VendorProfit();
+                            $vendor_profit->seller_id = $order_details->seller_id;
+                            $vendor_profit->order_id = $order_details->id;
+                            $vendor_profit->profit_amount = $order_details->total_ticket_price;
+                            $vendor_profit->save();
+
+                            //send mail to customer
+                            // $orderDetails =[
+                            //     'order_id' => $order_details->order_id,
+                            //     'ticket_quantity' => $order_details->ticket_quantity,
+                            //     'name' => $order_details->first_name . ' ' . $order_details->last_name,
+                            // ];
+                            // dd($orderDetails);
+                            Mail::to($order_details->email)->send(new OrderSuccessfullCustomer($order_details));
+
+                            //send mail to seller
+                            Mail::to($data['ticket_details']->email)->send(new OrderSuccessfullSeller($order_details));
                         }
 
-                        $order_status = Order::where('id',$d_id)->update(['status'=> 'Paid']);
 
-                        //ticket reduce when order done
-                        DB::table('ticket_listings')->where('id', $order_details->ticket_id)->update(['ticket_count' => DB::raw('ticket_count -' . $order_details->ticket_quantity)]);
-
-                        Session::put('order_id',$order_details->order_id);
-                        Session::put('ticket_id',$order_details->order_ticket_id);
-                        Session::put('status',$order_status);
-                        Session::put('purchasing_date',$order_details->order_date);
-                        Session::put('grand_total',$order_details->total_price);
-
-                        $vendor_profit = new VendorProfit();
-                        $vendor_profit->seller_id = $order_details->seller_id;
-                        $vendor_profit->order_id = $order_details->id;
-                        $vendor_profit->profit_amount = $order_details->total_ticket_price;
-                        $vendor_profit->save();
-                    }
 
                 return view('front.success');
             }

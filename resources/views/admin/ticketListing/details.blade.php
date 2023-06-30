@@ -100,7 +100,7 @@
                                                     </div>
                                                 </div>
                                                 @endif
-                                                @if (isset($tickets->image))
+                                                @if (isset($tickets->image) && $tickets->ticket_types == 'E-ticket')
                                                 <?php $ticket_image = json_decode($tickets->image) ?>
                                                 <div class="profile-ud-item">
                                                     <div class="profile-ud wider">

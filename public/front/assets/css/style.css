@@ -202,7 +202,7 @@ body{
 }
 
 .main-header-bg{
-	background:#242424;
+	/* background:#242424; */
 	padding:20px 0;
 	-webkit-box-shadow: 0px 5px 5px 0px rgba(0,0,0,0.46);
 	-moz-box-shadow: 0px 5px 5px 0px rgba(0,0,0,0.46);
@@ -297,7 +297,7 @@ body{
 #site-navigation .nav li a{
 	font-size:15px;
 	text-transform:uppercase;
-	color:#fff;
+	/* color:#fff; */
 	padding:14px 15px;
 }
 
@@ -4791,7 +4791,7 @@ body{
 	Site Footer
 --------------------------------------------------------------*/
 .top-footer{
-	background:#1f1f1f;
+	/* background:#1f1f1f; */
 	padding:30px 0;
 	border-top:8px solid #4e4e4e;
 	border-bottom:1px solid #111;
@@ -4804,7 +4804,7 @@ body{
 
 .top-footer p{
 	margin:10px 30px 10px 0;
-	color:#ccc;
+	/* color:#ccc; */
 	font-size:10px;
 }
 

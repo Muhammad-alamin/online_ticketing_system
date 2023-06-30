@@ -20,53 +20,52 @@
                     <div class="about clearfix">
                         <h3>About</h3>
                         <ul>
-                            <li><a href="#">Our Company</a></li>
-                            <li><a href="#">Careers</a></li>
-                            <li><a href="#">Advertising</a></li>
-                            <li><a href="#">Press Room</a></li>
-                            <li><a href="#">Trademarks</a></li>
-                            <li><a href="#">Terms of Service</a></li>
-                            <li><a href="#">Privacy Policy</a></li>
+                            <li><a href="javasscript:void(0)">Our Company</a></li>
+                            <li><a href="javasscript:void(0)">Careers</a></li>
+                            <li><a href="javasscript:void(0)">Advertising</a></li>
+                            <li><a href="javasscript:void(0)">Press Room</a></li>
+                            <li><a href="javasscript:void(0)">Trademarks</a></li>
+                            <li><a href="javasscript:void(0)">Terms of Service</a></li>
+                            <li><a href="javasscript:void(0)">Privacy Policy</a></li>
                         </ul>
                     </div>
                     <div class="support clearfix">
                         <h3>Support and Contact</h3>
                         <ul>
                             <li><a href="{{ route('front.contact') }}">Customer Support Contacts</a></li>
-                            <li><a href="#">Feedback</a></li>
-                            <li><a href="#">Help</a></li>
-                            <li><a href="#">Sitemap</a></li>
+                            <li><a href="javasscript:void(0)">Feedback</a></li>
+                            <li><a href="javasscript:void(0)">Sitemap</a></li>
                         </ul>
                     </div>
                     <div class="social clearfix">
                         <h3>Stay Connected</h3>
                         <ul>
                             <li class="facebook">
-                                <a href="#">
+                                <a href="javasscript:void(0)">
                                     <i class="fa fa-facebook" aria-hidden="true"></i>
                                     Facebook
                                 </a>
                             </li>
                             <li class="twitter">
-                                <a href="#">
+                                <a href="javasscript:void(0)">
                                     <i class="fa fa-twitter" aria-hidden="true"></i>
                                     Twitter
                                 </a>
                             </li>
                             <li class="linkedin">
-                                <a href="#">
+                                <a href="javasscript:void(0)">
                                     <i class="fa fa-linkedin-square" aria-hidden="true"></i>
                                     LinkedIn
                                 </a>
                             </li>
                             <li class="google">
-                                <a href="#">
+                                <a href="javasscript:void(0)">
                                     <i class="fa fa-google-plus-square" aria-hidden="true"></i>
                                     Google+
                                 </a>
                             </li>
                             <li class="rss">
-                                <a href="#">
+                                <a href="javasscript:void(0)">
                                     <i class="fa fa-rss-square" aria-hidden="true"></i>
                                     RSS
                                 </a>
@@ -78,8 +77,8 @@
                     <div class="footer-dashboard">
                         <h3>MyTicket Dashboard</h3>
                         <ul>
-                            <li><a href="#">Professional</a></li>
-                            <li><a href="#">Subscriber Login</a></li>
+                            <li><a href="javasscript:void(0)">Professional</a></li>
+                            <li><a href="javasscript:void(0)">Subscriber Login</a></li>
                         </ul>
                     </div>
                 </div>

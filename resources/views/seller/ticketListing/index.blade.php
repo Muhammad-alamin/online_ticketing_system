@@ -62,7 +62,7 @@
                             <th>Ticket Quantity</th>
                             <th>Ticket Varient</th>
                             <th>Ticket Types</th>
-                            <th>Status</th>
+                            <th>Created Date</th>
                             <th>Live</th>
                             <th>Price</th>
                             <th>Details</th>
@@ -86,7 +86,7 @@
                             <td>{{ $ticket->ticket_count }}</td>
                             <td>{{ $ticket->ticket_varient }}</td>
                             <td>{{ $ticket->ticket_types }}</td>
-                            <td><span style="color: green">{{ $ticket->status }}</span></td>
+                            <td>{{date('d-F-Y H:i', strtotime($ticket->created_at))}}</td>
                             <td>
                                 <input class="input-switch" type="checkbox" id="demo{{ $ticket->id }}" data-id="{{ $ticket->id }}" data-live_mode="{{ $ticket->live_mode }}" {{ $ticket->live_mode ? 'checked' : '' }}/>
                                 <label class="label-switch" for="demo{{ $ticket->id }}"></label>
@@ -98,6 +98,9 @@
                                 <br>
                                 <br>
                                 <a href="{{ route('seller.listing.edit',encrypt($ticket->id)) }}" style="color: orange">Edit</a>
+                                <br>
+                                <br>
+                                <a href="{{ route('seller.replicate.ticket',encrypt($ticket->id)) }}" style="color: blue">Duplicate</a>
                                 <br>
                                 <br>
                                 @if(isset($orders_tickets))

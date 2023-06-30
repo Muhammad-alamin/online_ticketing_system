@@ -25,6 +25,16 @@ class ListingController extends Controller
             ->get();
         return view('seller.ticketListing.index',$data);
     }
+
+    public function replicate($id){
+        $d_id = decrypt($id);
+        $data= TicketListing::find($d_id);
+        $newPost = $data->replicate();
+        $newPost->created_at = Carbon::now();
+        $newPost->save();
+        return redirect()->route('seller.ticket.listing');
+    }
+
     public function details($id){
         $d_id = decrypt($id);
         $data['tickets'] = DB::table('ticket_listings')
@@ -75,7 +85,7 @@ class ListingController extends Controller
         $data->event_id = $request->event_id;
         $data->venue_id = $request->venue_id;
         $data->seller_id = auth()->user()->id;
-        $data->ticket_id = time();
+        $data->ticket_id = 'T-'.time();
         $data->section_id = $request->section;
         $data->block_id = $request->block;
         $data->ticket_count = $request->ticket_count;
@@ -128,75 +138,78 @@ class ListingController extends Controller
         $daysDifference = $currentDate->diffInDays($formattedEventDate);
         // dd($daysDifference,$formattedEventDate,$currentDate);
 
-        if ($daysDifference <= 2) {
-            $getProduct = [];
-            if ($request->hasFile('image')) {
-                $uploadedImages = $request->file('image');
-                $imageCount = count($uploadedImages);
+        if($request->ticket_types == 'E-ticket'){
+            if ($daysDifference <= 1) {
+                $getProduct = [];
+                if ($request->hasFile('image')) {
+                    $uploadedImages = $request->file('image');
+                    $imageCount = count($uploadedImages);
 
-                if ($request->ticket_count == $imageCount) {
-                    $validatedImages = $request->validate([
-                        'image.*' => 'required|mimes:jpg,jpeg,png,webp|max:4096'
-                    ]);
+                    if ($request->ticket_count == $imageCount) {
+                        $validatedImages = $request->validate([
+                            'image.*' => 'required|mimes:jpg,jpeg,png,webp|max:4096'
+                        ]);
 
-                    foreach ($validatedImages['image'] as $eachProduct) {
-                        $path = 'images/selling/tickets/';
-                        $file_name = rand(0000, 9999) . '-' . $eachProduct->getClientOriginalName();
-                        $eachProduct->move($path, $file_name);
-                        $getProduct[] = $file_name;
+                        foreach ($validatedImages['image'] as $eachProduct) {
+                            $path = 'images/selling/tickets/';
+                            $file_name = rand(0000, 9999) . '-' . $eachProduct->getClientOriginalName();
+                            $eachProduct->move($path, $file_name);
+                            $getProduct[] = $file_name;
+                        }
+
+                        $singleProduct = json_encode($getProduct);
+
+                        $data->image = $singleProduct;
+
+                        // Further logic or actions can be added here for successful image upload
+                    } else {
+                        session()->flash('error', 'Number of uploaded images does not match the ticket count.');
+                        // Toastr::error('Number of uploaded images does not match the ticket count.', 'Error', ["positionClass" => "toast-top-right"]);
+                        return redirect()->back();
                     }
-
-                    $singleProduct = json_encode($getProduct);
-
-                    $data->image = $singleProduct;
-
-                    // Further logic or actions can be added here for successful image upload
                 } else {
-                    session()->flash('error', 'Number of uploaded images does not match the ticket count.');
-                    // Toastr::error('Number of uploaded images does not match the ticket count.', 'Error', ["positionClass" => "toast-top-right"]);
+                    session()->flash('error', 'No image files uploaded.');
+                    // Toastr::error('No image files uploaded.', 'Error', ["positionClass" => "toast-top-right"]);
                     return redirect()->back();
                 }
+            }
+            elseif($daysDifference >= 1){
+
+                if ($request->hasFile('image')) {
+                    $uploadedImages = $request->file('image');
+                    $imageCount = count($uploadedImages);
+
+                    if ($request->ticket_count == $imageCount) {
+                        $validatedImages = $request->validate([
+                            'image.*' => 'required|mimes:jpg,jpeg,png,webp|max:4096'
+                        ]);
+
+                        foreach ($validatedImages['image'] as $eachProduct) {
+                            $path = 'images/selling/tickets/';
+                            $file_name = rand(0000, 9999) . '-' . $eachProduct->getClientOriginalName();
+                            $eachProduct->move($path, $file_name);
+                            $getProduct[] = $file_name;
+                        }
+
+                        $singleProduct = json_encode($getProduct);
+
+                        $data->image = $singleProduct;
+
+                        // Further logic or actions can be added here for successful image upload
+                    } else {
+                        session()->flash('error', 'Number of uploaded images does not match the ticket count.');
+                        // Toastr::error('Number of uploaded images does not match the ticket count.', 'Error', ["positionClass" => "toast-top-right"]);
+                        return redirect()->back();
+                    }
+                }
+
             } else {
-                session()->flash('error', 'No image files uploaded.');
-                // Toastr::error('No image files uploaded.', 'Error', ["positionClass" => "toast-top-right"]);
+                session()->flash('error', 'Please upload image. The event is within 2 days.');
+                // Toastr::error('Please upload image. The event is within 2 days.', 'Error', ["positionClass" => "toast-top-right"]);
                 return redirect()->back();
             }
         }
-        elseif($daysDifference >= 2){
 
-            if ($request->hasFile('image')) {
-                $uploadedImages = $request->file('image');
-                $imageCount = count($uploadedImages);
-
-                if ($request->ticket_count == $imageCount) {
-                    $validatedImages = $request->validate([
-                        'image.*' => 'required|mimes:jpg,jpeg,png,webp|max:4096'
-                    ]);
-
-                    foreach ($validatedImages['image'] as $eachProduct) {
-                        $path = 'images/selling/tickets/';
-                        $file_name = rand(0000, 9999) . '-' . $eachProduct->getClientOriginalName();
-                        $eachProduct->move($path, $file_name);
-                        $getProduct[] = $file_name;
-                    }
-
-                    $singleProduct = json_encode($getProduct);
-
-                    $data->image = $singleProduct;
-
-                    // Further logic or actions can be added here for successful image upload
-                } else {
-                    session()->flash('error', 'Number of uploaded images does not match the ticket count.');
-                    // Toastr::error('Number of uploaded images does not match the ticket count.', 'Error', ["positionClass" => "toast-top-right"]);
-                    return redirect()->back();
-                }
-            }
-
-        } else {
-            session()->flash('error', 'Please upload image. The event is within 2 days.');
-            // Toastr::error('Please upload image. The event is within 2 days.', 'Error', ["positionClass" => "toast-top-right"]);
-            return redirect()->back();
-        }
 
         $data->save();
         session()->flash('success', 'Your Ticket Update Successfully');

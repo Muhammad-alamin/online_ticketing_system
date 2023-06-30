@@ -148,7 +148,7 @@ Route::middleware(['auth', 'admin','prevent-back-history'])->group(function () {
 
 //seller route
 
-Route::middleware(['auth','prevent-back-history'])->group(function () {
+Route::middleware('auth')->group(function () {
     Route::get('sell/ticket',[App\Http\Controllers\Seller\TicketController::class,'index'])->name('sellTicket');
     Route::get("/sell/search",[App\Http\Controllers\Seller\TicketController::class,'search']);
     Route::get("/add/ticket/{id}",[App\Http\Controllers\Seller\TicketController::class,'addTicket'])->name('addTicket');
@@ -188,17 +188,15 @@ Route::middleware(['auth','prevent-back-history'])->group(function () {
     Route::post('bank_info/store',[App\Http\Controllers\Seller\WithdrawController::class,'store'])->name('bank_info.store');
     Route::get('bank_info/edit/{id}',[App\Http\Controllers\Seller\WithdrawController::class,'edit'])->name('bank_info.edit');
     Route::post('bank_info/update/{id}',[App\Http\Controllers\Seller\WithdrawController::class,'update'])->name('bank_info.update');
-    Route::get('withdraw/create',[App\Http\Controllers\Seller\WithdrawController::class,'withdrawCreate'])->name('seller.withdrawl.create');
-    Route::post('withdraw/store',[App\Http\Controllers\Seller\WithdrawController::class,'withdrawRequestStore'])->name('withdraw.request.store');
-    Route::get('withdraw',[App\Http\Controllers\Seller\WithdrawController::class,'withdrawIndex'])->name('seller.withdrawl.index');
-    Route::get('withdraw/edit/{id}',[App\Http\Controllers\Seller\WithdrawController::class,'withdrawEdit'])->name('seller.withdrawl.edit');
-    Route::post('withdraw/update/{id}',[App\Http\Controllers\Seller\WithdrawController::class,'withdrawUpdate'])->name('seller.withdrawl.update');
-    Route::get('withdraw/details/{id}',[App\Http\Controllers\Seller\WithdrawController::class,'withdrawDetails'])->name('seller.withdrawl.details');
+
+    //duplicate ticket
+    Route::get('/seller/duplicate/ticket/{id}',[App\Http\Controllers\Seller\ListingController::class,'replicate'])->name('seller.replicate.ticket');
+
 
 });
 
 
-Route::middleware('prevent-back-history')->group(function () {
+
     //front route
     Route::get('/',[App\Http\Controllers\Front\HomeController::class,'index'])->name('Home');
 
@@ -232,7 +230,6 @@ Route::middleware('prevent-back-history')->group(function () {
     Route::get('upcoming/event',[App\Http\Controllers\Front\HomeController::class,'upcoming_event'])->name('upcoming_event');
 
 
-});
 
 
 

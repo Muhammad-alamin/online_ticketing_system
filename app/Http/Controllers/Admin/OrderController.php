@@ -28,22 +28,36 @@ class OrderController extends Controller
         ->get();
         return view('admin.orders.index',$data);
     }
-    public function details($id){
+    public function details($id) {
         $d_id = decrypt($id);
+
         $data['orders'] = DB::table('orders')
-        ->join('users','orders.customer_id','orders.seller_id','users.id')
-        ->join('ticket_listings','orders.ticket_id', 'ticket_listings.id')
-        ->join('child_sub_categories','orders.child_sub_cat_id', 'child_sub_categories.id')
-        ->join('sections','orders.section_id', 'sections.id')
-        ->leftJoin('blocks','orders.block_id', 'blocks.id')
-        ->join('events','orders.event_id', 'events.id')
-        ->join('venues','orders.venue_id', 'venues.id')
-        ->select('users.*','ticket_listings.*','child_sub_categories.*','blocks.*','sections.*','venues.*','events.*','ticket_listings.*','orders.*')
-        ->where('orders.id',$d_id)
-        ->orderBy('orders.id', 'DESC')
-        ->first();
-        return view('admin.orders.details',$data);
+            ->join('users AS customer', 'orders.customer_id', 'customer.id')
+            ->join('users AS seller', 'orders.seller_id', 'seller.id')
+            ->join('ticket_listings', 'orders.ticket_id', 'ticket_listings.id')
+            ->join('child_sub_categories', 'orders.child_sub_cat_id', 'child_sub_categories.id')
+            ->join('sections', 'orders.section_id', 'sections.id')
+            ->leftJoin('blocks', 'orders.block_id', 'blocks.id')
+            ->join('events', 'orders.event_id', 'events.id')
+            ->join('venues', 'orders.venue_id', 'venues.id')
+            ->select(
+                'customer.*',
+                'seller.*',
+                'ticket_listings.*',
+                'child_sub_categories.*',
+                'blocks.*',
+                'sections.*',
+                'venues.*',
+                'events.*',
+                'orders.*'
+            )
+            ->where('orders.id', $d_id)
+            ->orderBy('orders.id', 'DESC')
+            ->first();
+
+        return view('admin.orders.details', $data);
     }
+
 
     public function edit($id){
         $d_id = decrypt($id);

@@ -108,6 +108,7 @@ class TicketController extends Controller
         ->join('venues', 'ticket_listings.venue_id', 'venues.id')
         ->select('blocks.*', 'sections.*', 'venues.*', 'events.*', 'ticket_listings.*')
         ->where('ticket_listings.event_id', $d_id)
+        ->where('ticket_listings.status', 'Active')
         ->where('ticket_listings.live_mode', 'On');
 
     if ($selectedTicketCount == '1') {
@@ -122,6 +123,10 @@ class TicketController extends Controller
         $query->where('ticket_listings.ticket_count', '>=', 5);
     } elseif ($selectedSection != null && $selectedSection != 'all') {
         $query->where('ticket_listings.section_id', $selectedSection);
+    }elseif ($selectedTicketCount == 'all') {
+        $query->get();
+    }elseif ($selectedSection == 'all') {
+        $query->get();
     }
 
     $data['tickets'] = $query->get();

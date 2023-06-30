@@ -5,20 +5,14 @@
                 <div class="top-left">
                     <ul>
                         <li>
-                            <a href="#">
-                                <i class="fa fa-phone"></i>
-                                +62274 889767
-                            </a>
-                        </li>
-                        <li>
-                            <a href="mailto:hello@myticket.com">
+                            <a href="mailto:sales@lastminutefootballticket.com">
                                 <i class="fa fa-envelope-o"></i>
-                                hello@myticket.com
+                                sales@lastminutefootballticket.com
                             </a>
                         </li>
                     </ul>
                 </div>
-                <div class="top-right">
+                {{-- <div class="top-right">
                     <ul>
                         @if (Route::has('login'))
                         @auth()
@@ -39,7 +33,7 @@
                         @endauth
                         @endif
                     </ul>
-                </div>
+                </div> --}}
             </div>
         </div>
     </div>
@@ -47,7 +41,7 @@
         <div class="container">
             <div class="row">
                 <div class="site-branding col-md-3">
-                    <h1 class="site-title"><a href="#" title="myticket" rel="home"><img src="images/logo.png" alt="logo"></a></h1>
+                    <h1 class="site-title"><a href="{{ route('Home') }}" title="myticket" rel="home"><img src="{{ asset('front/assets/images/last-minute-football-tickets-logo.png') }}" alt="logo"></a></h1>
                 </div>
 
                 <div class="col-md-9">

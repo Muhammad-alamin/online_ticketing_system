@@ -67,7 +67,7 @@
                     </div>
                     <div class="event-location">
                         <h2>Location</h2>
-                        <p><span>Manchester</span> United Kingdom.</p>
+                        <p><span>United Kingdom</span> </p>
                     </div>
                 </div>
             </div>

@@ -96,7 +96,7 @@
                             <br>
                             <br>
                             <ul class="row">
-                                @if (isset($tickets->image))
+                                @if (isset($tickets->image) && $tickets->ticket_types == 'E-ticket')
                                 <?php $ticket_image = json_decode($tickets->image) ?>
                                 <li class="col-sm-5">
                                     <span>Ticket Image</span>

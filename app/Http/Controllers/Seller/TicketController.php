@@ -128,7 +128,7 @@ class TicketController extends Controller
     }
 
     public function store(Request $request){
-dd($request);
+
         $request->validate([
             'ticket_count' => 'required',
             'ticket_types' => 'required',
@@ -206,7 +206,7 @@ dd($request);
 
                     if ($request->ticket_count == $imageCount) {
                         $validatedImages = $request->validate([
-                            'image.*' => 'required|mimes:jpg,jpeg,png,webp|max:4096'
+                            'image.*' => 'required|mimes:jpg,jpeg,png,webp'
                         ]);
 
                         foreach ($validatedImages['image'] as $eachProduct) {
@@ -240,7 +240,7 @@ dd($request);
 
                     if ($request->ticket_count == $imageCount) {
                         $validatedImages = $request->validate([
-                            'image.*' => 'required|mimes:jpg,jpeg,png,webp|max:4096'
+                            'image.*' => 'required|mimes:jpg,jpeg,png,webp'
                         ]);
 
                         foreach ($validatedImages['image'] as $eachProduct) {

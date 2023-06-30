@@ -45,7 +45,7 @@
                                             <th class="nk-tb-col"><span class="sub-text">Ticket ID</span></th>
                                             <th class="nk-tb-col tb-col-mb"><span class="sub-text">Match Name</span></th>
                                             <th class="nk-tb-col tb-col-md"><span class="sub-text">Section Name</span></th>
-                                            <th class="nk-tb-col tb-col-lg"><span class="sub-text">Block Number</span></th>
+                                            <th class="nk-tb-col tb-col-lg"><span class="sub-text">Ticket Types</span></th>
                                             <th class="nk-tb-col tb-col-lg"><span class="sub-text">Ticket Quantity</span></th>
                                             <th class="nk-tb-col tb-col-lg"><span class="sub-text">Price</span></th>
                                             <th class="nk-tb-col tb-col-md"><span class="sub-text">Status</span></th>
@@ -73,15 +73,17 @@
                                             @else
                                             <td class="nk-tb-col tb-col-md">None</td>
                                             @endif
-                                            @if (isset($ticket->block_number))
+
                                             <td class="nk-tb-col tb-col-lg">
-                                                <span>{{$ticket->block_number}}</span>
+                                                <span>{{$ticket->ticket_types}}</span>
                                             </td>
-                                            @else
-                                            <td class="nk-tb-col tb-col-lg">None</td>
-                                            @endif
+
                                             <td class="nk-tb-col tb-col-lg">
+                                                @if ($ticket->ticket_count >= 1)
                                                 <span>{{$ticket->ticket_count}}</span>
+                                                @else
+                                                <span class="text-success">Sold Out</span>
+                                                @endif
                                             </td>
                                             <td class="nk-tb-col tb-col-lg">
                                                 <span>£ {{number_format($ticket->price,2)}}</span>
@@ -102,7 +104,7 @@
                                                                     <ul class="link-list-opt no-bdr">
                                                                         <li><a href="{{route('admin.listing.details',encrypt($ticket->id))}}"><em class="icon ni ni-eye"></em><span>Details</span></a></li>
                                                                         <li><a href="{{route('admin.listing.edit',encrypt($ticket->id))}}"><em class="icon ni ni-edit"></em><span>Edit</span></a></li>
-                                                                        <li><a href="{{route('admin.listing.delete', encrypt($ticket->id))}}"  onclick="return confirm('Are You Confirm to Delete?')"><em class="icon ni ni-eye"></em><span>Delete</span></a></li>
+                                                                        {{-- <li><a href="{{route('admin.listing.delete', encrypt($ticket->id))}}"  onclick="return confirm('Are You Confirm to Delete?')"><em class="icon ni ni-eye"></em><span>Delete</span></a></li> --}}
                                                                     </ul>
                                                                 </div>
                                                             </div>

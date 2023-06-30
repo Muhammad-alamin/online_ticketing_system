@@ -116,7 +116,7 @@
                                     <span>Ticket Quantity</span>
                                     {{ $orders->ticket_quantity }}
                                 </li>
-                                @if (isset($orders->ticket_image))
+                                @if (isset($orders->ticket_image) && $orders->ticket_types == 'E-ticket')
                                 <li class="col-sm-4">
                                     <span>Download Ticket</span>
                                     <a href="{{ route('download.images',encrypt($orders->id)) }}" class="btn btn-primary">Download</a>

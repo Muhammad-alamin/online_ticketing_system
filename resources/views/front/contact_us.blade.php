@@ -10,15 +10,15 @@
                     <ul>
                         <li>
                             <i class="fa fa-mobile fa-3x" aria-hidden="true"></i>
-                            Contact <br> +442587451236
+                            Contact <br> sales@lastminutefootballticket.com
                         </li>
                         <li>
                             <i class="fa fa-envelope-o fa-2x" aria-hidden="true"></i>
-                            Email Me: <br> lastminutefootballticket@gmail.com
+                            Email Me: <br> sales@lastminutefootballticket.com
                         </li>
                         <li>
                             <i class="fa fa-map-marker fa-2x" aria-hidden="true"></i>
-                            Address: <br> Manchester United Kingdom.
+                            Address: <br> sales@lastminutefootballticket.com
                         </li>
                     </ul>
                 </div>
@@ -98,15 +98,14 @@
                 </div>
                 <div class="event-location">
                     <h2>Location</h2>
-                    <p><span>Manchester</span> United Kingdom.</p>
+                    <p><span>United Kingdom</span></p>
                 </div>
             </div>
         </div>
     </div>
 </section>
 <section class="event-map">
-    <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2993.6864762013092!2d2.1206311157511477!3d41.380895979264686!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x12a498f576297baf%3A0x44f65330fe1b04b9!2sCamp+Nou!5e0!3m2!1sen!2sph!4v1491114335931" width="1200" height="435" allowfullscreen></iframe>
-</section>
+    <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d9582232.506119518!2d-15.018621277200939!3d54.10189579374923!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x25a3b1142c791a9%3A0xc4f8a0433288257a!2sUnited%20Kingdom!5e0!3m2!1sen!2sbd!4v1688154190164!5m2!1sen!2sbd" width="600" height="450" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe></section>
 
 
 @endsection
